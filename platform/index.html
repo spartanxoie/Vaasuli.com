@@ -3,393 +3,541 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vaasuli Platform — Dashboard</title>
-<meta name="robots" content="noindex, nofollow">
+<title>Vaasuli — Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06090f;--s1:#0b1220;--s2:#0f1829;--s3:#142035;
+  --bd:rgba(232,237,245,0.07);--bd2:rgba(232,237,245,0.12);--bd3:rgba(232,237,245,0.20);
+  --t:#e8edf5;--t2:rgba(232,237,245,0.55);--t3:rgba(232,237,245,0.28);--t4:rgba(232,237,245,0.12);
+  --mint:#00ffa3;--mint-d:rgba(0,255,163,0.07);--mint-b:rgba(0,255,163,0.25);
+  --red:#ff5555;--amber:#ffb547;--amber-d:rgba(255,181,71,0.1);
+  --blue:#5b8fff;--blue-d:rgba(91,143,255,0.1);
+  --gold:#f5c842;--gold-d:rgba(245,200,66,0.08);
+  --sidebar:224px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--t);-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+.screen{display:none;min-height:100vh}.screen.active{display:flex}
+.bb{font-family:"Bricolage Grotesque",sans-serif}
+.mono{font-family:"JetBrains Mono",monospace}
+
+/* ── SHARED FORM ── */
+.f-label{display:block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:6px}
+.f-inp{width:100%;background:var(--s2);border:1px solid var(--bd2);border-radius:8px;padding:11px 14px;font-family:"DM Sans",sans-serif;font-size:14px;color:var(--t);outline:none;transition:border-color .15s;margin-bottom:14px}
+.f-inp::placeholder{color:var(--t4)}.f-inp:focus{border-color:rgba(0,255,163,.35)}
+.f-sel{width:100%;background:var(--s2);border:1px solid var(--bd2);border-radius:8px;padding:11px 14px;font-size:14px;color:var(--t);outline:none;margin-bottom:14px;cursor:pointer;-webkit-appearance:none}
+.f-sel:focus{border-color:rgba(0,255,163,.35)}
+.btn-full{width:100%;background:var(--mint);border:none;border-radius:8px;padding:13px;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:14px;color:#06090f;cursor:pointer;transition:all .15s;margin-top:4px}
+.btn-full:hover{background:#33ffb5}
+.btn-full.gold{background:var(--gold);color:#1a1200}
+.btn-full.gold:hover{background:#ffe066}
+.btn-ghost-sm{padding:10px 18px;background:transparent;border:1px solid var(--bd2);border-radius:8px;font-size:13px;font-weight:500;color:var(--t3);cursor:pointer;transition:all .15s}
+.btn-ghost-sm:hover{border-color:var(--bd3);color:var(--t)}
+.btn-mint-sm{padding:10px 18px;background:var(--mint);border:none;border-radius:8px;font-size:13px;font-weight:700;color:#06090f;cursor:pointer;transition:all .15s;font-family:"Bricolage Grotesque",sans-serif}
+.btn-mint-sm:hover{background:#33ffb5}
+.btn-gold-sm{padding:10px 18px;background:var(--gold);border:none;border-radius:8px;font-size:13px;font-weight:700;color:#1a1200;cursor:pointer;transition:all .15s;font-family:"Bricolage Grotesque",sans-serif}
+.btn-gold-sm:hover{background:#ffe066}
+.btn-sm-mint{padding:7px 14px;background:var(--mint);border:none;border-radius:6px;font-size:12px;font-weight:700;color:#06090f;cursor:pointer;font-family:"Bricolage Grotesque",sans-serif}
+.btn-sm-mint:hover{background:#33ffb5}
+.btn-sm-ghost{padding:7px 12px;background:transparent;border:1px solid var(--bd2);border-radius:6px;font-size:12px;font-weight:500;color:var(--t3);cursor:pointer;transition:all .15s}
+.btn-sm-ghost:hover{border-color:var(--bd3);color:var(--t)}
+.btn-sm-gold{padding:7px 12px;background:var(--gold-d);border:1px solid rgba(245,200,66,.3);border-radius:6px;font-size:12px;font-weight:600;color:var(--gold);cursor:pointer;transition:all .15s}
+.btn-sm-red{padding:7px 12px;background:rgba(255,85,85,0.1);border:1px solid rgba(255,85,85,.25);border-radius:6px;font-size:12px;font-weight:500;color:var(--red);cursor:pointer}
+.page{display:none;padding:28px}.page.active{display:block}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:4px;font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:500;letter-spacing:.3px}
+.badge-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.badge.dispatched{background:var(--mint-d);color:var(--mint);border:1px solid rgba(0,255,163,.2)}.badge.dispatched .badge-dot{background:var(--mint)}
+.badge.review{background:var(--blue-d);color:var(--blue);border:1px solid rgba(91,143,255,.2)}.badge.review .badge-dot{background:var(--blue)}
+.badge.pending{background:var(--amber-d);color:var(--amber);border:1px solid rgba(255,181,71,.2)}.badge.pending .badge-dot{background:var(--amber)}
+.badge.signed{background:var(--gold-d);color:var(--gold);border:1px solid rgba(245,200,66,.2)}.badge.signed .badge-dot{background:var(--gold)}
+.badge.rejected{background:rgba(255,85,85,.1);color:var(--red);border:1px solid rgba(255,85,85,.2)}.badge.rejected .badge-dot{background:var(--red)}
+
+/* ── CARDS ── */
+.info-card{background:var(--s1);border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:14px}
+.ic-head{padding:12px 18px;background:var(--s2);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
+.ic-hl{font-family:"Bricolage Grotesque",sans-serif;font-size:13px;font-weight:700}.ic-body{padding:16px 18px}
+.ic-row{display:flex;justify-content:space-between;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--bd)}.ic-row:last-child{border-bottom:none}
+.ic-k{font-size:11px;color:var(--t3);min-width:120px}.ic-v{font-size:12px;color:var(--t);font-family:"JetBrains Mono",monospace;text-align:right}
+.alert-banner{background:var(--mint-d);border:1px solid rgba(0,255,163,.18);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.ab-icon{font-size:18px}.ab-hl{font-size:14px;font-weight:700;color:var(--mint);font-family:"Bricolage Grotesque",sans-serif;margin-bottom:2px}
+.ab-sub{font-size:12px;color:var(--t2);line-height:1.4}.ab-action{margin-left:auto;flex-shrink:0}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.sh-title{font-family:"Bricolage Grotesque",sans-serif;font-size:15px;font-weight:700}
+.sh-link{font-size:11px;color:var(--mint);cursor:pointer;font-family:"JetBrains Mono",monospace}.sh-link:hover{text-decoration:underline}
+.sh-link.gold{color:var(--gold)}
+
+/* ── APP SHELL ── */
+.app-shell{flex-direction:row}
+.sidebar{width:var(--sidebar);background:var(--s1);border-right:1px solid var(--bd);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:50}
+.sb-logo{padding:20px 20px 0;display:flex;align-items:center;gap:9px;font-family:"Bricolage Grotesque",sans-serif;font-size:15px;font-weight:700;color:var(--t)}
+.sb-logo .lv{width:26px;height:26px;background:var(--mint);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#06090f}
+.sb-logo .lv.gold-lv{background:var(--gold)}
+.sb-mode-tag{margin:10px 20px 0;background:rgba(0,255,163,.08);border:1px solid rgba(0,255,163,.15);border-radius:5px;padding:5px 10px;font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mint);text-align:center}
+.sb-mode-tag.adv{background:var(--gold-d);border-color:rgba(245,200,66,.2);color:var(--gold)}
+.sb-pilot{margin:12px 14px 0;background:var(--mint-d);border:1px solid rgba(0,255,163,.15);border-radius:8px;padding:12px}
+.sbp-label{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mint);margin-bottom:6px}
+.sbp-bar-bg{height:4px;background:var(--s3);border-radius:2px;margin-bottom:5px;overflow:hidden}
+.sbp-bar{height:100%;background:var(--mint);border-radius:2px;transition:width .4s ease}
+.sbp-txt{font-size:11px;color:var(--t2);display:flex;justify-content:space-between}
+.sbp-txt span{font-family:"JetBrains Mono",monospace;color:var(--mint)}
+.sb-nav{flex:1;padding:14px 0;overflow-y:auto}
+.sb-section{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--t4);padding:14px 20px 6px}
+.sb-item{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:13px;font-weight:500;color:var(--t3);cursor:pointer;transition:all .15s;position:relative}
+.sb-item:hover{color:var(--t);background:rgba(232,237,245,.03)}
+.sb-item.on{color:var(--t);background:rgba(0,255,163,.06)}
+.sb-item.on::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--mint)}
+.sb-item.gold-on{color:var(--t);background:rgba(245,200,66,.06)}
+.sb-item.gold-on::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold)}
+.sb-icon{font-size:14px;width:18px;text-align:center;flex-shrink:0}
+.sb-badge{margin-left:auto;background:var(--mint);color:#06090f;font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;font-family:"JetBrains Mono",monospace}
+.sb-badge.amber{background:var(--amber)}
+.sb-badge.red{background:var(--red);color:#fff}
+.sb-foot{padding:16px 20px;border-top:1px solid var(--bd)}
+.sb-user{display:flex;align-items:center;gap:9px}
+.sb-avatar{width:28px;height:28px;background:var(--s3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--mint);border:1px solid var(--bd2)}
+.sb-avatar.gold-av{color:var(--gold)}
+.sb-uname{font-size:12px;font-weight:600;color:var(--t);line-height:1.2}.sb-urole{font-size:10px;color:var(--t3)}
+.sb-signout{margin-left:auto;font-size:10px;color:var(--t3);cursor:pointer;transition:color .15s}
+.sb-signout:hover{color:var(--red)}
+.app-main{margin-left:var(--sidebar);flex:1;min-height:100vh}
+.app-topbar{height:52px;border-bottom:1px solid var(--bd);display:flex;align-items:center;padding:0 28px;gap:16px;background:rgba(6,9,15,0.85);backdrop-filter:blur(12px);position:sticky;top:0;z-index:40}
+.tb-title{font-family:"Bricolage Grotesque",sans-serif;font-size:15px;font-weight:700;color:var(--t)}
+.tb-crumb{font-size:11px;color:var(--t3);font-family:"JetBrains Mono",monospace}
+.tb-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+
+/* ── TABLES ── */
+.tbl{background:var(--s1);border:1px solid var(--bd);border-radius:10px;overflow:hidden}
+.tbl-head{display:grid;gap:0;padding:10px 18px;border-bottom:1px solid var(--bd);background:var(--s2)}
+.tbl-h{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3)}
+.tbl-row{display:grid;gap:0;padding:12px 18px;border-bottom:1px solid var(--bd);align-items:center;transition:background .12s;cursor:pointer}
+.tbl-row:last-child{border-bottom:none}.tbl-row:hover{background:var(--s2)}
+.tbl-name{font-size:13px;font-weight:600;color:var(--t);line-height:1.3}
+.tbl-sub{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--t3);margin-top:2px}
+.tbl-mono{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--t2)}
+.tbl-action{font-size:11px;color:var(--mint);cursor:pointer;font-family:"JetBrains Mono",monospace}
+.tbl-action.gold{color:var(--gold)}
+
+/* ── STAT GRID ── */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.stat{background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:18px 20px;transition:background .15s}
+.stat:hover{background:var(--s2)}
+.stat-n{font-family:"Bricolage Grotesque",sans-serif;font-size:32px;font-weight:800;letter-spacing:-1px;color:var(--t);line-height:1;margin-bottom:4px}
+.stat-n .u{font-size:16px;font-weight:500;color:var(--mint)}
+.stat-n .u.gold{color:var(--gold)}
+.stat-l{font-size:11px;color:var(--t3);margin-bottom:6px}
+.stat-delta{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--mint)}
+
+/* ── CHANNELS ── */
+.channels{display:flex;gap:4px}
+.ch{width:18px;height:18px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:9px;background:var(--s3);color:var(--t3);font-weight:600;border:1px solid var(--bd)}
+.ch.ok{background:var(--mint-d);color:var(--mint);border-color:rgba(0,255,163,.2)}.ch.pending{background:var(--amber-d);color:var(--amber);border-color:rgba(255,181,71,.2)}
+
+/* ── NOTICE EDITOR ── */
+.notice-edit-wrap{background:var(--s2);border:1px solid var(--bd2);border-radius:8px;padding:20px;position:relative;overflow:hidden}
+.ne-watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:48px;font-weight:900;color:rgba(232,237,245,.03);font-family:"Bricolage Grotesque",sans-serif;white-space:nowrap;pointer-events:none}
+.notice-textarea{width:100%;background:transparent;border:none;outline:none;font-family:"DM Sans",sans-serif;font-size:13px;line-height:1.9;color:var(--t2);resize:vertical;min-height:320px;position:relative;z-index:1}
+
+/* ── FORM BUILDER ── */
+.fb-wrap{display:grid;grid-template-columns:1fr 300px;gap:20px;height:calc(100vh - 120px)}
+.fb-canvas-area{background:var(--s1);border:1px solid var(--bd);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.fb-canvas-toolbar{padding:10px 16px;background:var(--s2);border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px}
+.fb-mode-btn{padding:6px 12px;border:1px solid var(--bd2);border-radius:5px;font-size:11px;font-weight:600;color:var(--t3);cursor:pointer;transition:all .15s;font-family:"JetBrains Mono",monospace;letter-spacing:.3px}
+.fb-mode-btn.on{background:var(--mint-d);border-color:var(--mint);color:var(--mint)}
+.fb-mode-btn.gold-on{background:var(--gold-d);border-color:rgba(245,200,66,.4);color:var(--gold)}
+.fb-canvas{flex:1;position:relative;overflow:auto;padding:20px;display:flex;align-items:flex-start;justify-content:center;background:var(--bg)}
+.fb-form-paper{width:620px;min-height:840px;background:#f9f8f4;position:relative;box-shadow:0 8px 40px rgba(0,0,0,.5);border-radius:2px;font-family:"DM Sans",sans-serif;color:#1a1a1a;cursor:crosshair;flex-shrink:0}
+.fb-form-paper.preview-mode{cursor:default}
+/* field pin */
+.fb-pin{position:absolute;width:22px;height:22px;border-radius:50%;background:var(--red);border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;cursor:pointer;transform:translate(-50%,-50%);transition:transform .15s;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.4);font-family:"JetBrains Mono",monospace}
+.fb-pin:hover{transform:translate(-50%,-50%) scale(1.2)}
+.fb-pin.active{background:var(--mint);color:#06090f}
+.fb-filled-val{position:absolute;font-size:12px;font-weight:600;color:#1a56a0;transform:translateY(-50%);pointer-events:none;white-space:nowrap;font-family:"DM Sans",sans-serif}
+/* right sidebar */
+.fb-sidebar{background:var(--s1);border:1px solid var(--bd);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.fb-sb-head{padding:14px 16px;background:var(--s2);border-bottom:1px solid var(--bd)}
+.fb-sb-hl{font-family:"Bricolage Grotesque",sans-serif;font-size:14px;font-weight:700;margin-bottom:2px}
+.fb-sb-sub{font-size:11px;color:var(--t3);line-height:1.4}
+.fb-fields-list{flex:1;overflow-y:auto;padding:12px}
+.fb-field-item{background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:12px;margin-bottom:8px;transition:all .15s;cursor:pointer}
+.fb-field-item:hover{border-color:var(--bd2)}.fb-field-item.active{border-color:var(--mint);background:var(--mint-d)}
+.fb-field-num{display:inline-flex;width:20px;height:20px;background:var(--red);border-radius:50%;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;font-family:"JetBrains Mono",monospace;margin-bottom:6px}
+.fb-field-num.mapped{background:var(--mint);color:#06090f}
+.fb-field-label{font-size:11px;color:var(--t3);margin-bottom:4px}
+.fb-field-select{width:100%;background:var(--s3);border:1px solid var(--bd2);border-radius:5px;padding:7px 10px;font-size:12px;color:var(--t);outline:none;cursor:pointer}
+.fb-sb-footer{padding:12px;border-top:1px solid var(--bd);display:flex;flex-direction:column;gap:8px}
+/* template list */
+.tmpl-card{background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:18px;margin-bottom:10px;display:flex;align-items:center;gap:16px;transition:all .15s;cursor:pointer}
+.tmpl-card:hover{background:var(--s2);border-color:var(--bd2)}
+.tmpl-icon{width:40px;height:40px;background:var(--gold-d);border:1px solid rgba(245,200,66,.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.tmpl-name{font-family:"Bricolage Grotesque",sans-serif;font-size:14px;font-weight:700;margin-bottom:3px}
+.tmpl-meta{font-size:11px;color:var(--t3);font-family:"JetBrains Mono",monospace}
+.tmpl-actions{margin-left:auto;display:flex;gap:8px}
+
+/* ── FILTER BAR ── */
+.filter-bar{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;align-items:center}
+.f-pill{padding:6px 14px;border:1px solid var(--bd2);border-radius:20px;font-size:12px;font-weight:500;color:var(--t3);cursor:pointer;transition:all .15s}
+.f-pill.on{background:var(--mint-d);border-color:var(--mint);color:var(--mint)}
+.f-pill.gold-pill.on{background:var(--gold-d);border-color:rgba(245,200,66,.3);color:var(--gold)}
+.f-search{flex:1;max-width:260px;background:var(--s1);border:1px solid var(--bd2);border-radius:8px;padding:7px 12px;font-size:13px;color:var(--t);outline:none}
+.f-search::placeholder{color:var(--t3)}.f-search:focus{border-color:rgba(0,255,163,.3)}
+
+/* ── CLIENT SETTINGS ── */
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.settings-section{background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:20px}
+.ss-hl{font-family:"Bricolage Grotesque",sans-serif;font-size:14px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+
+/* ── UPLOAD FLOW ── */
+.upload-wrap{max-width:720px}
+.dropzone{border:2px dashed var(--bd2);border-radius:12px;padding:48px 32px;text-align:center;transition:all .2s;cursor:pointer;background:var(--s1);margin-bottom:20px}
+.dropzone:hover,.dropzone.drag{border-color:var(--mint);background:var(--mint-d)}
+.dz-icon{font-size:36px;margin-bottom:12px}
+.dz-hl{font-family:"Bricolage Grotesque",sans-serif;font-size:16px;font-weight:700;color:var(--t);margin-bottom:6px}
+.dz-sub{font-size:13px;color:var(--t3);line-height:1.5}
+.dz-types{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--t4);margin-top:10px}
+.dispatch-summary{background:var(--mint-d);border:1px solid rgba(0,255,163,.18);border-radius:10px;padding:18px;margin-bottom:18px}
+.ds-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(0,255,163,.1)}.ds-row:last-child{border-bottom:none}
+.ds-k{font-size:13px;color:var(--t2)}.ds-v{font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:600;color:var(--mint)}
+
+/* ── EARNINGS ── */
+.earnings-chart{background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:20px;margin-bottom:20px}
+.ec-bar-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.ec-month{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--t3);min-width:36px;text-align:right}
+.ec-bar-bg{flex:1;height:20px;background:var(--s2);border-radius:3px;overflow:hidden}
+.ec-bar{height:100%;background:linear-gradient(90deg,var(--gold),rgba(245,200,66,.5));border-radius:3px;transition:width .6s ease}
+.ec-val{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--gold);min-width:60px}
+
+/* ── TIMELINE ── */
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:14px;position:relative;padding-bottom:20px}.tl-item:last-child{padding-bottom:0}
+.tl-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.tl-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--bd2);display:flex;align-items:center;justify-content:center;font-size:12px;background:var(--s2);flex-shrink:0;z-index:1}
+.tl-dot.done{background:var(--mint-d);border-color:var(--mint)}.tl-dot.active{background:var(--amber-d);border-color:var(--amber);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,181,71,.2)}50%{box-shadow:0 0 0 6px rgba(255,181,71,0)}}
+.tl-line{width:1px;flex:1;background:var(--bd);margin:4px 0}.tl-content{flex:1;padding-top:3px}
+.tl-title{font-size:13px;font-weight:600;color:var(--t);margin-bottom:3px}.tl-sub{font-size:11px;color:var(--t3);line-height:1.5}
+.tl-time{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--t4);margin-top:4px}
+
+/* ── STATIONERY ── */
+.stn-toolbar{display:flex;align-items:center;gap:12px;margin-bottom:24px;padding:14px 18px;background:var(--s1);border:1px solid var(--bd);border-radius:10px}
+.stn-case-sel{flex:1;max-width:320px;background:var(--s2);border:1px solid var(--bd2);border-radius:8px;padding:9px 12px;font-size:13px;color:var(--t);outline:none;cursor:pointer}
+.stn-nav{display:flex;align-items:center;gap:8px;margin-left:auto}
+.stn-nav-btn{width:30px;height:30px;background:var(--s2);border:1px solid var(--bd2);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t3);font-size:14px;transition:all .15s}
+.stn-nav-btn:hover{border-color:var(--mint);color:var(--mint)}
+.stn-counter{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--t3);padding:0 8px}
+.stn-preview-area{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
+.stn-panel{background:var(--s1);border:1px solid var(--bd);border-radius:12px;overflow:hidden}
+.stn-panel-head{padding:12px 18px;background:var(--s2);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
+.stn-panel-hl{font-family:"Bricolage Grotesque",sans-serif;font-size:13px;font-weight:700}
+.stn-panel-tag{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:1px;color:var(--t3);text-transform:uppercase}
+.stn-panel-body{padding:24px;display:flex;align-items:center;justify-content:center;min-height:260px;background:var(--bg)}
+/* envelope */
+.envelope{width:440px;height:220px;background:#f8f6f0;border:1px solid #c8c4b8;border-radius:4px;position:relative;font-family:"DM Sans",sans-serif;color:#1a1a1a;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.envelope::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;background:repeating-linear-gradient(90deg,#c0392b 0,#c0392b 8px,#1a56a0 8px,#1a56a0 16px)}
+.envelope::after{content:"";position:absolute;bottom:0;left:0;right:0;height:6px;background:repeating-linear-gradient(90deg,#c0392b 0,#c0392b 8px,#1a56a0 8px,#1a56a0 16px)}
+.env-left-stripe{position:absolute;top:6px;bottom:6px;left:0;width:5px;background:repeating-linear-gradient(180deg,#c0392b 0,#c0392b 8px,#1a56a0 8px,#1a56a0 16px)}
+.env-right-stripe{position:absolute;top:6px;bottom:6px;right:0;width:5px;background:repeating-linear-gradient(180deg,#c0392b 0,#c0392b 8px,#1a56a0 8px,#1a56a0 16px)}
+.env-sender{position:absolute;top:16px;left:14px;font-size:9px;line-height:1.6;color:#333}
+.env-sender-name{font-weight:700;font-size:10px;color:#111;margin-bottom:2px}
+.env-regd-badge{position:absolute;top:16px;right:14px;border:2px solid #c0392b;border-radius:4px;padding:4px 8px;text-align:center}
+.env-regd-text{font-size:9px;font-weight:800;color:#c0392b;letter-spacing:1px;line-height:1.3;text-transform:uppercase}
+.env-postage{position:absolute;top:48px;right:14px;width:70px;height:70px;border:1px dashed #aaa;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#aaa;text-align:center;line-height:1.4}
+.env-divider{position:absolute;top:50%;left:14px;right:14px;height:1px;background:#ddd}
+.env-recipient{position:absolute;bottom:28px;left:50%;transform:translateX(-40%);font-size:10px;line-height:1.8;color:#111}
+.env-recipient-name{font-weight:700;font-size:11px;margin-bottom:3px}
+.env-article{position:absolute;bottom:12px;left:14px;font-family:"JetBrains Mono",monospace;font-size:8px;color:#666;letter-spacing:.5px}
+/* AD card */
+.ad-card{width:414px;height:296px;background:#f0f8e8;border:2px solid #2d7a2d;border-radius:4px;position:relative;font-family:"DM Sans",sans-serif;color:#1a1a1a;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.adc-header{background:#2d7a2d;padding:8px 14px;display:flex;align-items:center;justify-content:space-between}
+.adc-title{color:#fff;font-weight:800;font-size:13px;letter-spacing:.5px;text-transform:uppercase}
+.adc-subtitle{color:rgba(255,255,255,0.7);font-size:9px;letter-spacing:.5px}
+.adc-article{background:#e8f4e0;border-bottom:1px solid #b8d8a8;padding:8px 14px;display:flex;align-items:center;gap:12px}
+.adc-art-label{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#4a7a4a;min-width:90px}
+.adc-art-val{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;color:#1a1a1a;letter-spacing:.5px}
+.adc-body{padding:10px 14px;display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:10px}
+.adc-field{margin-bottom:4px}
+.adc-field-label{font-size:8px;text-transform:uppercase;letter-spacing:1px;color:#4a7a4a;margin-bottom:2px;font-weight:600}
+.adc-field-value{font-size:10px;color:#111;line-height:1.4;border-bottom:1px solid #b8d8a8;padding-bottom:3px}
+.adc-full{grid-column:1/-1}
+.adc-sign-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 14px 8px}
+.adc-sign-box{border-top:1px solid #2d7a2d;padding-top:5px}
+.adc-sign-label{font-size:8px;text-transform:uppercase;letter-spacing:.8px;color:#4a7a4a;font-weight:600}
+.adc-sign-space{height:22px}
+.adc-footer{background:#d4edca;padding:5px 14px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #b8d8a8}
+.adc-footer-note{font-size:8px;color:#4a7a4a;line-height:1.4}
+.adc-postal-mark{font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:700;color:#2d7a2d;border:1px solid #2d7a2d;padding:2px 6px;border-radius:2px}
+.sbl-head,.sbl-row{display:grid;grid-template-columns:28px 2fr 1.5fr 1.2fr 100px 80px;gap:0}
+.sbl-head{padding:10px 18px;border-bottom:1px solid var(--bd);background:var(--s2)}
+.sbl-h{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3)}
+.sbl-row{padding:11px 18px;border-bottom:1px solid var(--bd);align-items:center}
+.sbl-row:last-child{border-bottom:none}.sbl-row:hover{background:var(--s2)}
+.sbl-check{width:16px;height:16px;border:1px solid var(--bd2);border-radius:3px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all .15s}
+.sbl-check.on{background:var(--mint);border-color:var(--mint);color:#06090f}
+.badge-printed{background:rgba(0,255,163,.1);border:1px solid rgba(0,255,163,.2);color:var(--mint);padding:3px 8px;border-radius:4px;font-family:"JetBrains Mono",monospace;font-size:9px;font-weight:600}
+.badge-pending-print{background:rgba(255,181,71,.1);border:1px solid rgba(255,181,71,.2);color:var(--amber);padding:3px 8px;border-radius:4px;font-family:"JetBrains Mono",monospace;font-size:9px;font-weight:600}
+.badge-not-printed{background:var(--t4);border:1px solid var(--bd);color:var(--t3);padding:3px 8px;border-radius:4px;font-family:"JetBrains Mono",monospace;font-size:9px;font-weight:600}
+
+/* ── NOTICE TYPES GRID ── */
+.notice-types{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px}
+.nt{border:1px solid var(--bd2);border-radius:8px;padding:12px;cursor:pointer;transition:all .15s;background:var(--s1)}
+.nt:hover{border-color:var(--mint-b);background:var(--mint-d)}.nt.on{border-color:var(--mint);background:var(--mint-d)}
+.nt-name{font-size:12px;font-weight:700;color:var(--t);margin-bottom:3px}.nt-desc{font-size:11px;color:var(--t3);line-height:1.3}
+.nt-check{display:none;color:var(--mint);font-size:12px;margin-top:4px}.nt.on .nt-check{display:block}
+
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:2px}
+</style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════
-     SCREEN 1: AUTH
-════════════════════════════════════════════════ -->
-<div id="screen-auth" class="screen active">
-  <div class="auth-card">
-    <div class="auth-top">
-      <div class="auth-logo"><div class="lv">V</div><span>vaasuli.com</span></div>
-      <div class="auth-tabs">
-        <div class="auth-tab on" onclick="authTab('signin')">Sign In</div>
-        <div class="auth-tab" onclick="authTab('signup')">Create Account</div>
+<!-- ══════════════════════════════════════════════════════
+     AUTH — role toggle
+══════════════════════════════════════════════════════ -->
+<div id="screen-auth" class="screen active" style="align-items:center;justify-content:center;padding:20px;position:relative;overflow:hidden">
+  <div style="position:absolute;top:-100px;left:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(0,255,163,.04) 0%,transparent 65%);pointer-events:none"></div>
+  <div style="background:var(--s1);border:1px solid var(--bd2);border-radius:18px;width:100%;max-width:460px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.6);position:relative">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--mint),transparent);transition:background .3s" id="auth-topline"></div>
+    <div style="padding:28px 32px 0">
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:24px">
+        <div id="auth-logo-icon" style="width:28px;height:28px;background:var(--mint);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#06090f;font-family:'Bricolage Grotesque',sans-serif;transition:background .3s">V</div>
+        <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700">vaasuli.com</span>
+      </div>
+      <!-- Role toggle -->
+      <div style="display:flex;background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:4px;margin-bottom:20px;gap:4px">
+        <div id="role-nbfc" onclick="setRole('nbfc')" style="flex:1;padding:9px 12px;border-radius:7px;text-align:center;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;background:var(--mint);color:#06090f;font-family:'Bricolage Grotesque',sans-serif">
+          🏦 NBFC / Lender
+        </div>
+        <div id="role-adv" onclick="setRole('adv')" style="flex:1;padding:9px 12px;border-radius:7px;text-align:center;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;color:var(--t3);font-family:'Bricolage Grotesque',sans-serif">
+          ⚖️ Advocate
+        </div>
+      </div>
+      <div style="display:flex;border-bottom:1px solid var(--bd);margin-bottom:22px">
+        <div class="auth-tab on" onclick="authTab('signin')" id="at1" style="flex:1;padding:10px;text-align:center;font-size:13px;font-weight:600;color:var(--mint);cursor:pointer;border-bottom:2px solid var(--mint);margin-bottom:-1px">Sign In</div>
+        <div class="auth-tab" onclick="authTab('signup')" id="at2" style="flex:1;padding:10px;text-align:center;font-size:13px;font-weight:600;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px">Register</div>
       </div>
     </div>
-    <div class="auth-body">
-
-      <!-- SIGN IN -->
+    <div style="padding:0 32px 28px">
       <div id="auth-signin">
-        <div class="auth-hl">Welcome back</div>
-        <div class="auth-sub">Sign in to your Vaasuli account</div>
-        <label class="f-label">Email address</label>
-        <input class="f-inp" type="email" placeholder="you@nbfc.com">
-        <label class="f-label">Password</label>
-        <input class="f-inp" type="password" placeholder="••••••••">
-        <button class="btn-full" onclick="goOnboard()">Sign In &rarr;</button>
-        <div class="auth-or"><div class="auth-or-line"></div><div class="auth-or-txt">new here?</div><div class="auth-or-line"></div></div>
-        <button class="btn-full" style="background:var(--s2);border:1px solid var(--bd2);color:var(--t3)" onclick="authTab('signup')">Create a free account</button>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px" id="auth-welcome">Welcome back</div>
+        <div style="font-size:13px;color:var(--t3);margin-bottom:20px" id="auth-welcome-sub">Sign in to your Vaasuli account</div>
+        <label class="f-label">Email address</label><input class="f-inp" type="email" placeholder="you@nbfc.com">
+        <label class="f-label">Password</label><input class="f-inp" type="password" placeholder="••••••••">
+        <button class="btn-full" id="auth-signin-btn" onclick="doSignIn()">Sign In →</button>
       </div>
-
-      <!-- SIGN UP -->
       <div id="auth-signup" style="display:none">
-        <div class="auth-pilot-note">
-          <div class="apn-badge">FREE</div>
-          <div class="apn-txt">Start with <strong style="color:var(--mint)">10 cases at no cost</strong>. Advocate-signed, India Post dispatched. No credit card needed.</div>
+        <div style="background:var(--mint-d);border:1px solid rgba(0,255,163,.15);border-radius:8px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;margin-bottom:16px" id="auth-pilot-note">
+          <div style="background:var(--mint);color:#06090f;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;padding:2px 7px;border-radius:3px;letter-spacing:.5px;flex-shrink:0;margin-top:2px">FREE</div>
+          <div style="font-size:12px;color:var(--t2);line-height:1.5">Start with <strong style="color:var(--mint)">10 cases at no cost</strong>. Advocate-signed, India Post dispatched.</div>
         </div>
-        <div class="auth-hl">Start your free pilot</div>
-        <div class="auth-sub">Takes 2 minutes. First 10 notices on us.</div>
-        <label class="f-label">Full name</label>
-        <input class="f-inp" type="text" placeholder="Amit Sharma">
-        <label class="f-label">Work email</label>
-        <input class="f-inp" type="email" placeholder="amit@finservcapital.com">
-        <label class="f-label">Password</label>
-        <input class="f-inp" type="password" placeholder="Min. 8 characters">
-        <button class="btn-full" onclick="goOnboard()">Create Account &amp; Start Pilot &rarr;</button>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px" id="auth-reg-hl">Start free pilot</div>
+        <label class="f-label">Full name</label><input class="f-inp" type="text" placeholder="Amit Sharma" id="reg-name">
+        <label class="f-label">Work email</label><input class="f-inp" type="email" placeholder="amit@finservcapital.com">
+        <div id="reg-bar-no-wrap"><label class="f-label" id="reg-extra-label">Entity / NBFC name</label><input class="f-inp" type="text" placeholder="Finserv Capital Ltd" id="reg-extra"></div>
+        <label class="f-label">Password</label><input class="f-inp" type="password" placeholder="Min. 8 characters">
+        <button class="btn-full" id="auth-reg-btn" onclick="doSignIn()">Create Account →</button>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════
-     SCREEN 2: ONBOARDING
-════════════════════════════════════════════════ -->
-<div id="screen-onboard" class="screen">
-  <div class="ob-wrap">
-    <!-- progress bar -->
-    <div style="margin-bottom:8px">
-      <div class="ob-progress">
-        <div class="ob-step"><div class="ob-dot active" id="ob-d1">1</div><div class="ob-line" id="ob-l1"></div></div>
-        <div class="ob-step"><div class="ob-dot" id="ob-d2">2</div><div class="ob-line" id="ob-l2"></div></div>
-        <div class="ob-step"><div class="ob-dot" id="ob-d3">3</div></div>
-      </div>
-      <div class="ob-labels">
-        <div class="ob-lbl">Company</div>
-        <div class="ob-lbl">Portfolio</div>
-        <div class="ob-lbl">Confirm</div>
-      </div>
+<!-- ══════════════════════════════════════════════════════
+     ONBOARDING (NBFC)
+══════════════════════════════════════════════════════ -->
+<div id="screen-onboard" class="screen" style="align-items:center;justify-content:center;padding:20px;flex-direction:column">
+  <div style="width:100%;max-width:520px">
+    <div style="display:flex;align-items:center;gap:0;margin-bottom:6px">
+      <div style="display:flex;align-items:center;flex:1"><div class="ob-dot active" id="ob-d1" style="width:28px;height:28px;border-radius:50%;border:2px solid var(--mint);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mint);flex-shrink:0">1</div><div id="ob-l1" style="flex:1;height:1px;background:var(--bd)"></div></div>
+      <div style="display:flex;align-items:center;flex:1"><div class="ob-dot" id="ob-d2" style="width:28px;height:28px;border-radius:50%;border:2px solid var(--bd2);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);flex-shrink:0">2</div><div id="ob-l2" style="flex:1;height:1px;background:var(--bd)"></div></div>
+      <div><div class="ob-dot" id="ob-d3" style="width:28px;height:28px;border-radius:50%;border:2px solid var(--bd2);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3)">3</div></div>
     </div>
-
-    <div class="ob-card">
-
-      <!-- STEP 1: Company -->
-      <div class="ob-panel active" id="ob-p1">
-        <div class="ob-hl">Tell us about your company</div>
-        <div class="ob-sub">This helps us customise notice templates and compliance settings for your entity type.</div>
-        <label class="f-label">Company / NBFC Name</label>
-        <input class="f-inp" type="text" id="ob-company" placeholder="e.g. Finserv Capital Ltd" value="Finserv Capital Ltd">
-        <label class="f-label">Your Role</label>
-        <select class="f-sel" id="ob-role">
-          <option>Collections Head</option>
-          <option>VP Collections</option>
-          <option>CFO / Finance Head</option>
-          <option>CEO / Founder</option>
-          <option>Operations Lead</option>
-        </select>
-        <div class="ob-row2">
-          <div>
-            <label class="f-label">City</label>
-            <input class="f-inp" type="text" placeholder="Mumbai">
-          </div>
-          <div>
-            <label class="f-label">NBFC / Fintech Type</label>
-            <select class="f-sel">
-              <option>NBFC-MFI</option>
-              <option selected>NBFC (Retail)</option>
-              <option>Fintech Lender</option>
-              <option>DSA / Aggregator</option>
-              <option>Collection Agency</option>
-            </select>
-          </div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:28px">
+      <span style="font-size:10px;color:var(--t3);font-family:'JetBrains Mono',monospace">Company</span>
+      <span style="font-size:10px;color:var(--t3);font-family:'JetBrains Mono',monospace">Portfolio</span>
+      <span style="font-size:10px;color:var(--t3);font-family:'JetBrains Mono',monospace">Confirm</span>
+    </div>
+    <div style="background:var(--s1);border:1px solid var(--bd2);border-radius:16px;padding:32px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--mint),transparent)"></div>
+      <!-- Panel 1 -->
+      <div id="ob-p1" style="display:block">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px">Tell us about your company</div>
+        <div style="font-size:13px;color:var(--t3);margin-bottom:22px">Customises notice templates and compliance settings.</div>
+        <label class="f-label">Company / NBFC Name</label><input class="f-inp" type="text" value="Finserv Capital Ltd">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div><label class="f-label">Your Role</label><select class="f-sel"><option>Collections Head</option><option>VP Collections</option><option>CFO / CEO</option></select></div>
+          <div><label class="f-label">Entity Type</label><select class="f-sel"><option selected>NBFC (Retail)</option><option>NBFC-MFI</option><option>Fintech Lender</option><option>Collection Agency</option></select></div>
         </div>
-        <div class="ob-btns">
-          <button class="btn-mint-sm" style="flex:1" onclick="obNext(2)">Continue &rarr;</button>
-        </div>
+        <div style="display:flex;gap:10px"><button class="btn-mint-sm" style="flex:1" onclick="obNext(2)">Continue →</button></div>
       </div>
-
-      <!-- STEP 2: Portfolio -->
-      <div class="ob-panel" id="ob-p2">
-        <div class="ob-hl">What loan types do you handle?</div>
-        <div class="ob-sub">Select all that apply. We'll pre-configure the right notice formats for each.</div>
-        <div class="loan-chips" id="loan-chips">
-          <div class="loan-chip on" onclick="toggleChip(this)">Personal Loan</div>
-          <div class="loan-chip" onclick="toggleChip(this)">Two-Wheeler</div>
-          <div class="loan-chip on" onclick="toggleChip(this)">MSME / Business</div>
-          <div class="loan-chip" onclick="toggleChip(this)">LAP / Home Loan</div>
-          <div class="loan-chip" onclick="toggleChip(this)">Microfinance</div>
-          <div class="loan-chip" onclick="toggleChip(this)">Consumer Durable</div>
-          <div class="loan-chip" onclick="toggleChip(this)">Vehicle / CV</div>
-          <div class="loan-chip" onclick="toggleChip(this)">Gold Loan</div>
+      <!-- Panel 2 -->
+      <div id="ob-p2" style="display:none">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px">What loan types?</div>
+        <div style="font-size:13px;color:var(--t3);margin-bottom:18px">We'll pre-configure notice formats for each.</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px">
+          <div class="nt" style="padding:8px 14px" onclick="this.classList.toggle('on')">Personal Loan</div>
+          <div class="nt on" style="padding:8px 14px" onclick="this.classList.toggle('on')">Two-Wheeler</div>
+          <div class="nt on" style="padding:8px 14px" onclick="this.classList.toggle('on')">MSME / Business</div>
+          <div class="nt" style="padding:8px 14px" onclick="this.classList.toggle('on')">LAP / Home Loan</div>
+          <div class="nt" style="padding:8px 14px" onclick="this.classList.toggle('on')">Microfinance</div>
+          <div class="nt" style="padding:8px 14px" onclick="this.classList.toggle('on')">Vehicle / CV</div>
         </div>
-        <label class="f-label">Approx DPD accounts per month</label>
-        <select class="f-sel" id="ob-vol">
-          <option>Under 100</option>
-          <option selected>100 – 500</option>
-          <option>500 – 2,000</option>
-          <option>2,000 – 10,000</option>
-          <option>10,000+</option>
-        </select>
-        <div class="ob-btns">
-          <button class="btn-ghost-sm" onclick="obNext(1)">Back</button>
-          <button class="btn-mint-sm" style="flex:1" onclick="obNext(3)">Continue &rarr;</button>
-        </div>
+        <label class="f-label">DPD accounts per month</label>
+        <select class="f-sel"><option>Under 100</option><option selected>100–500</option><option>500–2,000</option><option>2,000–10,000</option><option>10,000+</option></select>
+        <div style="display:flex;gap:10px"><button class="btn-ghost-sm" onclick="obNext(1)">← Back</button><button class="btn-mint-sm" style="flex:1" onclick="obNext(3)">Continue →</button></div>
       </div>
-
-      <!-- STEP 3: Confirm pilot -->
-      <div class="ob-panel" id="ob-p3">
-        <div class="ob-hl">Your free pilot is ready.</div>
-        <div class="ob-sub">Here's what you get — no card required, no commitment.</div>
-        <div class="pilot-confirm-box">
-          <div class="pcb-hl">🎉 10 Free Notices</div>
-          <div class="pcb-rows">
-            <div class="pcb-row"><span class="pcb-k">AI-drafted + advocate-signed</span><span class="pcb-v">✓</span></div>
-            <div class="pcb-row"><span class="pcb-k">India Post Registered AD dispatch</span><span class="pcb-v">✓</span></div>
-            <div class="pcb-row"><span class="pcb-k">WhatsApp + SMS + Email</span><span class="pcb-v">✓</span></div>
-            <div class="pcb-row"><span class="pcb-k">Tracking dashboard</span><span class="pcb-v">✓</span></div>
-            <div class="pcb-row"><span class="pcb-k">Court-admissible PDF proof</span><span class="pcb-v">✓</span></div>
-            <div class="pcb-row"><span class="pcb-k">Cost</span><span class="pcb-v" style="color:var(--mint)">₹0</span></div>
+      <!-- Panel 3 -->
+      <div id="ob-p3" style="display:none">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px">Your free pilot is ready.</div>
+        <div style="font-size:13px;color:var(--t3);margin-bottom:18px">No card, no commitment.</div>
+        <div style="background:var(--mint-d);border:1px solid rgba(0,255,163,.2);border-radius:10px;padding:18px;margin-bottom:20px">
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;color:var(--mint);margin-bottom:10px">🎉 10 Free Notices</div>
+          <div style="display:flex;flex-direction:column;gap:7px;font-size:13px">
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--t2)">AI-drafted + advocate-signed</span><span style="font-family:'JetBrains Mono',monospace;color:var(--mint)">✓</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--t2)">India Post Registered AD dispatch</span><span style="font-family:'JetBrains Mono',monospace;color:var(--mint)">✓</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--t2)">Envelope + AD card auto-generated</span><span style="font-family:'JetBrains Mono',monospace;color:var(--mint)">✓</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--t2)">WhatsApp + SMS + Email</span><span style="font-family:'JetBrains Mono',monospace;color:var(--mint)">✓</span></div>
+            <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(0,255,163,.15);padding-top:7px"><span style="color:var(--t2)">Cost</span><span style="font-family:'JetBrains Mono',monospace;color:var(--mint);font-weight:700">₹0</span></div>
           </div>
         </div>
-        <div class="ob-btns">
-          <button class="btn-ghost-sm" onclick="obNext(2)">Back</button>
-          <button class="btn-mint-sm" style="flex:1" onclick="goApp()">Enter Dashboard &rarr;</button>
-        </div>
+        <div style="display:flex;gap:10px"><button class="btn-ghost-sm" onclick="obNext(2)">← Back</button><button class="btn-mint-sm" style="flex:1" onclick="goClientApp()">Enter Dashboard →</button></div>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════
-     SCREEN 3: MAIN APP
-════════════════════════════════════════════════ -->
-<div id="screen-app" class="screen">
-
-  <!-- SIDEBAR -->
+<!-- ══════════════════════════════════════════════════════
+     CLIENT APP (NBFC side)
+══════════════════════════════════════════════════════ -->
+<div id="screen-client" class="screen app-shell">
   <div class="sidebar">
     <div class="sb-logo"><div class="lv">V</div>Vaasuli</div>
-
+    <div class="sb-mode-tag">NBFC Portal</div>
     <div class="sb-pilot">
       <div class="sbp-label">Free Pilot</div>
       <div class="sbp-bar-bg"><div class="sbp-bar" style="width:30%"></div></div>
       <div class="sbp-txt"><span>3 / 10</span><span style="color:var(--t3)">used</span></div>
     </div>
-
     <nav class="sb-nav">
       <div class="sb-section">Main</div>
-      <div class="sb-item on" onclick="showPage('dashboard',this)"><span class="sb-icon">⬛</span>Dashboard</div>
-      <div class="sb-item" onclick="showPage('cases',this)"><span class="sb-icon">📋</span>All Cases<span class="sb-badge">3</span></div>
-      <div class="sb-item" onclick="showPage('upload',this)"><span class="sb-icon">⬆</span>Upload Cases</div>
-
-      <div class="sb-section">Recovery</div>
-      <div class="sb-item" onclick="showPage('cases',this)"><span class="sb-icon">📨</span>Dispatched</div>
-      <div class="sb-item" onclick="showPage('cases',this)"><span class="sb-icon">⏳</span>Pending</div>
-
+      <div class="sb-item on" id="c-nav-dashboard" onclick="cPage('dashboard',this)"><span class="sb-icon">◾</span>Dashboard</div>
+      <div class="sb-item" id="c-nav-cases" onclick="cPage('cases',this)"><span class="sb-icon">📋</span>All Cases<span class="sb-badge">3</span></div>
+      <div class="sb-item" id="c-nav-upload" onclick="cPage('upload',this)"><span class="sb-icon">↑</span>Upload Cases</div>
+      <div class="sb-section">Dispatch</div>
+      <div class="sb-item" id="c-nav-stationery" onclick="cPage('stationery',this)"><span class="sb-icon">✉</span>Envelopes &amp; AD Cards<span class="sb-badge amber">3</span></div>
+      <div class="sb-item" onclick="cPage('cases',this)"><span class="sb-icon">📨</span>Dispatched</div>
+      <div class="sb-item" onclick="cPage('cases',this)"><span class="sb-icon">⏳</span>Pending</div>
       <div class="sb-section">Account</div>
-      <div class="sb-item" onclick="showPage('billing',this)"><span class="sb-icon">💳</span>Billing &amp; Plans</div>
-      <div class="sb-item"><span class="sb-icon">⚙</span>Settings</div>
+      <div class="sb-item" id="c-nav-settings" onclick="cPage('settings',this)"><span class="sb-icon">⚙</span>Settings &amp; Preferences</div>
+      <div class="sb-item" id="c-nav-billing" onclick="cPage('billing',this)"><span class="sb-icon">💳</span>Billing &amp; Plans</div>
     </nav>
-
     <div class="sb-foot">
       <div class="sb-user">
         <div class="sb-avatar">AS</div>
         <div><div class="sb-uname">Amit Sharma</div><div class="sb-urole">Collections Head</div></div>
-        <div class="sb-signout" onclick="goAuth()">↩</div>
+        <div class="sb-signout" onclick="goAuth()">⇦</div>
       </div>
     </div>
   </div>
-
-  <!-- MAIN -->
   <div class="app-main">
-
-    <!-- TOP BAR -->
     <div class="app-topbar">
-      <div>
-        <div class="tb-title" id="tb-title">Dashboard</div>
-        <div class="tb-breadcrumb" id="tb-crumb">Finserv Capital Ltd</div>
-      </div>
+      <div><div class="tb-title" id="c-tb-title">Dashboard</div><div class="tb-crumb" id="c-tb-crumb">Finserv Capital Ltd</div></div>
       <div class="tb-right">
         <button class="btn-sm-ghost">Export CSV</button>
-        <button class="btn-sm-mint" onclick="showPage('upload',null)">+ Upload Cases</button>
+        <button class="btn-sm-mint" onclick="cPage('upload',null)">+ Upload Cases</button>
       </div>
     </div>
 
-    <!-- ─── DASHBOARD PAGE ── -->
-    <div id="page-dashboard" class="page active">
+    <!-- CLIENT: DASHBOARD -->
+    <div id="c-page-dashboard" class="page active">
       <div class="alert-banner">
         <div class="ab-icon">🎉</div>
-        <div class="ab-text">
-          <div class="ab-hl">Your free pilot is active — 7 notices remaining</div>
-          <div class="ab-sub">Upload your first batch. We'll dispatch advocate-signed notices via India Post + WhatsApp within 48 hours.</div>
-        </div>
-        <div class="ab-action"><button class="btn-sm-mint" onclick="showPage('upload',null)">Upload Now &rarr;</button></div>
+        <div><div class="ab-hl">Free pilot active — 7 notices remaining</div><div class="ab-sub">Upload your first batch. Notices dispatched within 48 hours.</div></div>
+        <div class="ab-action"><button class="btn-sm-mint" onclick="cPage('upload',null)">Upload Now →</button></div>
       </div>
-
+      <div class="alert-banner" style="background:rgba(255,181,71,.07);border-color:rgba(255,181,71,.2)">
+        <div class="ab-icon">✉</div>
+        <div><div class="ab-hl" style="color:var(--amber)">3 envelopes &amp; AD cards ready to print</div><div class="ab-sub">Physical stationery for batch dispatched 12 Mar. Post today.</div></div>
+        <div class="ab-action"><button class="btn-sm-ghost" onclick="cPage('stationery',null)" style="border-color:rgba(255,181,71,.3);color:var(--amber)">Print Stationery →</button></div>
+      </div>
       <div class="stat-grid">
-        <div class="stat">
-          <div class="stat-n">3</div>
-          <div class="stat-l">Total Cases</div>
-          <div class="stat-delta">▲ this month</div>
-        </div>
-        <div class="stat">
-          <div class="stat-n">2<span class="u"> dispatched</span></div>
-          <div class="stat-l">India Post + WhatsApp + SMS</div>
-          <div class="stat-delta" style="color:var(--mint)">✓ Court-admissible</div>
-        </div>
-        <div class="stat">
-          <div class="stat-n">1<span class="u"> reviewing</span></div>
-          <div class="stat-l">Advocate review in progress</div>
-          <div class="stat-delta" style="color:var(--amber)">~ Est. 4hr remaining</div>
-        </div>
-        <div class="stat">
-          <div class="stat-n">₹0</div>
-          <div class="stat-l">Cost this month</div>
-          <div class="stat-delta" style="color:var(--mint)">✓ Free pilot active</div>
-        </div>
+        <div class="stat"><div class="stat-n">3</div><div class="stat-l">Total Cases</div><div class="stat-delta">↑ this month</div></div>
+        <div class="stat"><div class="stat-n">2<span class="u"> dispatched</span></div><div class="stat-l">All channels</div><div class="stat-delta" style="color:var(--mint)">✓ Court-admissible</div></div>
+        <div class="stat"><div class="stat-n">1<span class="u"> reviewing</span></div><div class="stat-l">Advocate review</div><div class="stat-delta" style="color:var(--amber)">~ 4hr remaining</div></div>
+        <div class="stat"><div class="stat-n">₹0</div><div class="stat-l">Cost this month</div><div class="stat-delta" style="color:var(--mint)">✓ Free pilot</div></div>
       </div>
-
-      <div class="section-header">
-        <div class="sh-title">Recent Cases</div>
-        <div class="sh-link" onclick="showPage('cases',null)">View all →</div>
-      </div>
-
-      <div class="case-table-wrap">
-        <div class="ct-head">
-          <div class="ct-h">Borrower</div>
-          <div class="ct-h">Account No.</div>
-          <div class="ct-h">Outstanding</div>
-          <div class="ct-h">Type</div>
-          <div class="ct-h">Status / Channels</div>
-          <div class="ct-h"></div>
+      <div class="section-header"><div class="sh-title">Recent Cases</div><div class="sh-link" onclick="cPage('cases',null)">View all →</div></div>
+      <div class="tbl" style="--cols:2fr 1.2fr 1fr 1fr 1.5fr 80px">
+        <div class="tbl-head" style="grid-template-columns:var(--cols)"><div class="tbl-h">Borrower</div><div class="tbl-h">Account</div><div class="tbl-h">Outstanding</div><div class="tbl-h">Type</div><div class="tbl-h">Status</div><div class="tbl-h"></div></div>
+        <div class="tbl-row" style="grid-template-columns:var(--cols)">
+          <div><div class="tbl-name">Rajesh Kumar Mehra</div><div class="tbl-sub">ACC-2024-001</div></div>
+          <div class="tbl-mono">FIN-PL-4821</div><div class="tbl-mono">₹1,24,500</div><div style="font-size:11px;color:var(--t2)">Personal Loan</div>
+          <div><div style="margin-bottom:5px"><span class="badge dispatched"><span class="badge-dot"></span>Dispatched</span></div><div class="channels"><div class="ch ok">IP</div><div class="ch ok">WA</div><div class="ch ok">SM</div><div class="ch ok">EM</div></div></div>
+          <div class="tbl-action">View →</div>
         </div>
-        <div class="ct-row" onclick="showPage('detail',null)">
-          <div><div class="ct-name">Rajesh Kumar Mehra</div><div class="ct-acc">ACC-2024-001</div></div>
-          <div class="ct-field ct-acc">FIN-PL-4821</div>
-          <div class="ct-amt">₹1,24,500</div>
-          <div class="ct-type">Personal Loan</div>
-          <div>
-            <div style="margin-bottom:5px"><span class="badge dispatched"><span class="badge-dot"></span>Dispatched</span></div>
-            <div class="channels">
-              <div class="ch ok" title="India Post">IP</div>
-              <div class="ch ok" title="WhatsApp">WA</div>
-              <div class="ch ok" title="SMS">SM</div>
-              <div class="ch ok" title="Email">EM</div>
-            </div>
-          </div>
-          <div class="ct-action">View →</div>
+        <div class="tbl-row" style="grid-template-columns:var(--cols)">
+          <div><div class="tbl-name">Priya Suresh Nair</div><div class="tbl-sub">ACC-2024-002</div></div>
+          <div class="tbl-mono">FIN-TW-2204</div><div class="tbl-mono">₹48,200</div><div style="font-size:11px;color:var(--t2)">Two-Wheeler</div>
+          <div><div style="margin-bottom:5px"><span class="badge dispatched"><span class="badge-dot"></span>Dispatched</span></div><div class="channels"><div class="ch ok">IP</div><div class="ch ok">WA</div><div class="ch ok">SM</div><div class="ch pending">EM</div></div></div>
+          <div class="tbl-action">View →</div>
         </div>
-        <div class="ct-row" onclick="showPage('detail',null)">
-          <div><div class="ct-name">Priya Suresh Nair</div><div class="ct-acc">ACC-2024-002</div></div>
-          <div class="ct-field ct-acc">FIN-TW-2204</div>
-          <div class="ct-amt">₹48,200</div>
-          <div class="ct-type">Two-Wheeler</div>
-          <div>
-            <div style="margin-bottom:5px"><span class="badge dispatched"><span class="badge-dot"></span>Dispatched</span></div>
-            <div class="channels">
-              <div class="ch ok">IP</div>
-              <div class="ch ok">WA</div>
-              <div class="ch ok">SM</div>
-              <div class="ch pending">EM</div>
-            </div>
-          </div>
-          <div class="ct-action">View →</div>
-        </div>
-        <div class="ct-row" onclick="showPage('detail',null)">
-          <div><div class="ct-name">Mohan Lal Verma</div><div class="ct-acc">ACC-2024-003</div></div>
-          <div class="ct-field ct-acc">FIN-MS-9903</div>
-          <div class="ct-amt">₹3,80,000</div>
-          <div class="ct-type">MSME Loan</div>
-          <div>
-            <div style="margin-bottom:5px"><span class="badge review"><span class="badge-dot"></span>Advocate Review</span></div>
-            <div class="channels">
-              <div class="ch">IP</div>
-              <div class="ch">WA</div>
-              <div class="ch">SM</div>
-              <div class="ch">EM</div>
-            </div>
-          </div>
-          <div class="ct-action">View →</div>
+        <div class="tbl-row" style="grid-template-columns:var(--cols)">
+          <div><div class="tbl-name">Mohan Lal Verma</div><div class="tbl-sub">ACC-2024-003</div></div>
+          <div class="tbl-mono">FIN-MS-9903</div><div class="tbl-mono">₹3,80,000</div><div style="font-size:11px;color:var(--t2)">MSME Loan</div>
+          <div><div style="margin-bottom:5px"><span class="badge review"><span class="badge-dot"></span>Advocate Review</span></div><div class="channels"><div class="ch">IP</div><div class="ch">WA</div><div class="ch">SM</div><div class="ch">EM</div></div></div>
+          <div class="tbl-action">View →</div>
         </div>
       </div>
     </div>
 
-    <!-- ─── CASES PAGE ── -->
-    <div id="page-cases" class="page">
+    <!-- CLIENT: CASES -->
+    <div id="c-page-cases" class="page">
       <div class="filter-bar">
-        <input class="f-search" placeholder="Search borrower, account, amount…">
+        <input class="f-search" placeholder="Search borrower, account…">
         <div class="f-pill on" onclick="filterPill(this)">All (3)</div>
         <div class="f-pill" onclick="filterPill(this)">Dispatched (2)</div>
         <div class="f-pill" onclick="filterPill(this)">In Review (1)</div>
-        <div class="f-pill" onclick="filterPill(this)">Draft (0)</div>
       </div>
-      <div class="case-table-wrap">
-        <div class="ct-head">
-          <div class="ct-h">Borrower</div>
-          <div class="ct-h">Account No.</div>
-          <div class="ct-h">Outstanding</div>
-          <div class="ct-h">Loan Type</div>
-          <div class="ct-h">Status / Channels</div>
-          <div class="ct-h"></div>
+      <div class="tbl" style="--cols:2fr 1.2fr 1fr 1fr 1.5fr 80px">
+        <div class="tbl-head" style="grid-template-columns:var(--cols)"><div class="tbl-h">Borrower</div><div class="tbl-h">Account</div><div class="tbl-h">Outstanding</div><div class="tbl-h">Loan Type</div><div class="tbl-h">Status</div><div class="tbl-h"></div></div>
+        <div class="tbl-row" style="grid-template-columns:var(--cols)">
+          <div><div class="tbl-name">Rajesh Kumar Mehra</div><div class="tbl-sub">Dispatched 12 Mar 2025</div></div>
+          <div class="tbl-mono">FIN-PL-4821</div><div class="tbl-mono">₹1,24,500</div><div style="font-size:11px;color:var(--t2)">Personal Loan</div>
+          <div><span class="badge dispatched"><span class="badge-dot"></span>Dispatched</span></div>
+          <div class="tbl-action">View →</div>
         </div>
-        <div class="ct-row" onclick="showPage('detail',null)">
-          <div><div class="ct-name">Rajesh Kumar Mehra</div><div class="ct-acc">Dispatched 12 Mar 2025</div></div>
-          <div class="ct-acc">FIN-PL-4821</div>
-          <div class="ct-amt">₹1,24,500</div>
-          <div class="ct-type">Personal Loan</div>
-          <div><div style="margin-bottom:5px"><span class="badge dispatched"><span class="badge-dot"></span>Dispatched</span></div><div class="channels"><div class="ch ok">IP</div><div class="ch ok">WA</div><div class="ch ok">SM</div><div class="ch ok">EM</div></div></div>
-          <div class="ct-action">View →</div>
+        <div class="tbl-row" style="grid-template-columns:var(--cols)">
+          <div><div class="tbl-name">Priya Suresh Nair</div><div class="tbl-sub">Dispatched 12 Mar 2025</div></div>
+          <div class="tbl-mono">FIN-TW-2204</div><div class="tbl-mono">₹48,200</div><div style="font-size:11px;color:var(--t2)">Two-Wheeler</div>
+          <div><span class="badge dispatched"><span class="badge-dot"></span>Dispatched</span></div>
+          <div class="tbl-action">View →</div>
         </div>
-        <div class="ct-row" onclick="showPage('detail',null)">
-          <div><div class="ct-name">Priya Suresh Nair</div><div class="ct-acc">Dispatched 12 Mar 2025</div></div>
-          <div class="ct-acc">FIN-TW-2204</div>
-          <div class="ct-amt">₹48,200</div>
-          <div class="ct-type">Two-Wheeler</div>
-          <div><div style="margin-bottom:5px"><span class="badge dispatched"><span class="badge-dot"></span>Dispatched</span></div><div class="channels"><div class="ch ok">IP</div><div class="ch ok">WA</div><div class="ch ok">SM</div><div class="ch pending">EM</div></div></div>
-          <div class="ct-action">View →</div>
-        </div>
-        <div class="ct-row" onclick="showPage('detail',null)">
-          <div><div class="ct-name">Mohan Lal Verma</div><div class="ct-acc">Submitted 13 Mar 2025</div></div>
-          <div class="ct-acc">FIN-MS-9903</div>
-          <div class="ct-amt">₹3,80,000</div>
-          <div class="ct-type">MSME Loan</div>
-          <div><div style="margin-bottom:5px"><span class="badge review"><span class="badge-dot"></span>Advocate Review</span></div><div class="channels"><div class="ch">IP</div><div class="ch">WA</div><div class="ch">SM</div><div class="ch">EM</div></div></div>
-          <div class="ct-action">View →</div>
+        <div class="tbl-row" style="grid-template-columns:var(--cols)">
+          <div><div class="tbl-name">Mohan Lal Verma</div><div class="tbl-sub">Submitted 13 Mar 2025</div></div>
+          <div class="tbl-mono">FIN-MS-9903</div><div class="tbl-mono">₹3,80,000</div><div style="font-size:11px;color:var(--t2)">MSME Loan</div>
+          <div><span class="badge review"><span class="badge-dot"></span>Advocate Review</span></div>
+          <div class="tbl-action">View →</div>
         </div>
       </div>
     </div>
 
-    <!-- ─── UPLOAD PAGE ── -->
-    <div id="page-upload" class="page">
+    <!-- CLIENT: UPLOAD -->
+    <div id="c-page-upload" class="page">
       <div class="upload-wrap">
-
-        <!-- step indicator -->
-        <div style="display:flex;gap:0;margin-bottom:28px;background:var(--s1);border:1px solid var(--bd);border-radius:8px;overflow:hidden" id="upload-steps">
-          <div style="flex:1;padding:10px 16px;text-align:center;font-size:12px;font-weight:600;color:var(--mint);background:var(--mint-d);border-right:1px solid var(--bd)">1. Upload CSV</div>
+        <div style="display:flex;gap:0;margin-bottom:28px;background:var(--s1);border:1px solid var(--bd);border-radius:8px;overflow:hidden" id="cu-steps">
+          <div style="flex:1;padding:10px 16px;text-align:center;font-size:12px;font-weight:600;color:var(--mint);background:var(--mint-d);border-right:1px solid var(--bd)">1. Upload / Enter Data</div>
           <div style="flex:1;padding:10px 16px;text-align:center;font-size:12px;font-weight:500;color:var(--t3);border-right:1px solid var(--bd)">2. Map Columns</div>
           <div style="flex:1;padding:10px 16px;text-align:center;font-size:12px;font-weight:500;color:var(--t3);border-right:1px solid var(--bd)">3. Notice Type</div>
           <div style="flex:1;padding:10px 16px;text-align:center;font-size:12px;font-weight:500;color:var(--t3)">4. Review &amp; Dispatch</div>
         </div>
-
-        <div id="upload-panel-1">
-          <!-- dropzone -->
-          <div class="dropzone" id="dropzone" onclick="simulateParse()" ondragover="this.classList.add('drag')" ondragleave="this.classList.remove('drag')">
-            <div class="dz-icon">📂</div>
+        <div id="cu-p1">
+          <div class="dropzone" onclick="cuStep(2)">
+            <div class="dz-icon">📁</div>
             <div class="dz-hl">Drop your CSV here, or click to browse</div>
-            <div class="dz-sub">Your borrower data. We'll detect columns automatically.</div>
-            <div class="dz-types">CSV · XLS · XLSX &nbsp;·&nbsp; Max 10MB &nbsp;·&nbsp; Up to 5,000 rows</div>
+            <div class="dz-sub">Borrower data. Columns auto-detected.</div>
+            <div class="dz-types">CSV · XLS · XLSX · Max 10MB · Up to 5,000 rows</div>
           </div>
-
-          <div class="or-row"><div class="or-l"></div><div class="or-t">or enter manually</div><div class="or-l"></div></div>
-
-          <!-- manual entry -->
+          <div style="display:flex;align-items:center;gap:14px;margin:16px 0"><div style="flex:1;height:1px;background:var(--bd)"></div><div style="font-size:12px;color:var(--t3)">or enter manually</div><div style="flex:1;height:1px;background:var(--bd)"></div></div>
           <div style="background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:18px;margin-bottom:20px">
             <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;margin-bottom:14px">Add a single case manually</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
@@ -398,306 +546,1023 @@
               <div><label class="f-label">Outstanding (₹)</label><input class="f-inp" placeholder="1,24,500" style="margin-bottom:0"></div>
               <div><label class="f-label">DPD (days)</label><input class="f-inp" placeholder="65" style="margin-bottom:0"></div>
             </div>
-            <div style="margin-top:12px"><label class="f-label">Full Address (for India Post dispatch)</label><textarea class="f-inp" rows="2" placeholder="Plot 12, Vasant Vihar, New Delhi 110057" style="margin-bottom:0;resize:none"></textarea></div>
+            <div style="margin-top:12px"><label class="f-label">Full Postal Address</label><textarea class="f-inp" rows="2" placeholder="Plot 12, Vasant Vihar, New Delhi 110057" style="margin-bottom:0;resize:none"></textarea></div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
-              <div><label class="f-label">Mobile Number</label><input class="f-inp" placeholder="+91 98765 43210" style="margin-bottom:0"></div>
-              <div><label class="f-label">Email (optional)</label><input class="f-inp" placeholder="rajesh@gmail.com" style="margin-bottom:0"></div>
+              <div><label class="f-label">Mobile</label><input class="f-inp" placeholder="+91 98765 43210" style="margin-bottom:0"></div>
+              <div><label class="f-label">Email</label><input class="f-inp" placeholder="raj@gmail.com" style="margin-bottom:0"></div>
             </div>
-            <button class="btn-sm-mint" style="margin-top:14px" onclick="simulateParse()">Add Case &rarr;</button>
+            <button class="btn-sm-mint" style="margin-top:14px" onclick="cuStep(2)">Add Case →</button>
           </div>
         </div>
-
-        <!-- STEP 2: Column mapper (hidden initially) -->
-        <div id="upload-panel-2" style="display:none">
-          <div class="col-mapper">
-            <div class="cm-head">
-              <div>
-                <div class="cm-hl">Map your columns</div>
-                <div class="cm-sub">We found 7 columns. Tell us what each one contains.</div>
-              </div>
-              <span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mint)">8 rows detected</span>
-            </div>
-            <div class="cm-rows">
-              <div class="cm-row"><div class="cm-col">borrower_name</div><div class="cm-arrow">→</div><select class="cm-map"><option selected>Borrower Full Name</option><option>Account Number</option><option>Skip this column</option></select></div>
-              <div class="cm-row"><div class="cm-col">account_id</div><div class="cm-arrow">→</div><select class="cm-map"><option>Borrower Full Name</option><option selected>Account Number</option><option>Skip this column</option></select></div>
-              <div class="cm-row"><div class="cm-col">outstanding_amt</div><div class="cm-arrow">→</div><select class="cm-map"><option selected>Outstanding Amount (₹)</option><option>Skip this column</option></select></div>
-              <div class="cm-row"><div class="cm-col">dpd_days</div><div class="cm-arrow">→</div><select class="cm-map"><option selected>DPD (days)</option><option>Skip this column</option></select></div>
-              <div class="cm-row"><div class="cm-col">address</div><div class="cm-arrow">→</div><select class="cm-map"><option selected>Postal Address</option><option>Skip this column</option></select></div>
-              <div class="cm-row"><div class="cm-col">mobile</div><div class="cm-arrow">→</div><select class="cm-map"><option selected>Mobile Number</option><option>Skip this column</option></select></div>
-              <div class="cm-row"><div class="cm-col">email_id</div><div class="cm-arrow">→</div><select class="cm-map"><option selected>Email</option><option>Skip this column</option></select></div>
+        <div id="cu-p2" style="display:none">
+          <div style="background:var(--s1);border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:18px">
+            <div style="padding:12px 18px;background:var(--s2);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700">Map your columns</div><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mint)">8 rows detected</span></div>
+            <div style="padding:14px 18px;display:flex;flex-direction:column;gap:10px">
+              <div style="display:grid;grid-template-columns:1fr 32px 1fr;gap:8px;align-items:center"><div style="background:var(--s2);border:1px solid var(--bd);border-radius:6px;padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t2)">borrower_name</div><div style="text-align:center;color:var(--t3)">→</div><select class="f-sel" style="margin-bottom:0;font-size:12px;padding:8px 10px"><option selected>Borrower Full Name</option></select></div>
+              <div style="display:grid;grid-template-columns:1fr 32px 1fr;gap:8px;align-items:center"><div style="background:var(--s2);border:1px solid var(--bd);border-radius:6px;padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t2)">account_id</div><div style="text-align:center;color:var(--t3)">→</div><select class="f-sel" style="margin-bottom:0;font-size:12px;padding:8px 10px"><option selected>Account Number</option></select></div>
+              <div style="display:grid;grid-template-columns:1fr 32px 1fr;gap:8px;align-items:center"><div style="background:var(--s2);border:1px solid var(--bd);border-radius:6px;padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t2)">outstanding_amt</div><div style="text-align:center;color:var(--t3)">→</div><select class="f-sel" style="margin-bottom:0;font-size:12px;padding:8px 10px"><option selected>Outstanding (₹)</option></select></div>
+              <div style="display:grid;grid-template-columns:1fr 32px 1fr;gap:8px;align-items:center"><div style="background:var(--s2);border:1px solid var(--bd);border-radius:6px;padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t2)">address</div><div style="text-align:center;color:var(--t3)">→</div><select class="f-sel" style="margin-bottom:0;font-size:12px;padding:8px 10px"><option selected>Postal Address</option></select></div>
             </div>
           </div>
-          <div style="display:flex;gap:10px">
-            <button class="btn-ghost-sm" onclick="uploadStep(1)">← Back</button>
-            <button class="btn-mint-sm" style="flex:1" onclick="uploadStep(3)">Columns look good &rarr;</button>
-          </div>
+          <div style="display:flex;gap:10px"><button class="btn-ghost-sm" onclick="cuStep(1)">← Back</button><button class="btn-mint-sm" style="flex:1" onclick="cuStep(3)">Looks good →</button></div>
         </div>
-
-        <!-- STEP 3: Notice type -->
-        <div id="upload-panel-3" style="display:none">
-          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;margin-bottom:6px">Select notice type</div>
-          <div style="font-size:13px;color:var(--t3);margin-bottom:18px">Applied to all 8 cases in this batch. You can override per case in the next step.</div>
-          <div class="notice-types" id="notice-type-grid">
-            <div class="nt on" onclick="selectNT(this)">
-              <div class="nt-name">Loan Recall Notice</div>
-              <div class="nt-desc">General demand notice for loan repayment. Most common for retail DPD.</div>
-              <div class="nt-check">✓ Selected</div>
-            </div>
-            <div class="nt" onclick="selectNT(this)">
-              <div class="nt-name">Section 138 — NI Act</div>
-              <div class="nt-desc">Cheque dishonour. Criminal liability. Triggers 15-day reply window.</div>
-              <div class="nt-check">✓ Selected</div>
-            </div>
-            <div class="nt" onclick="selectNT(this)">
-              <div class="nt-name">SARFAESI Demand Notice</div>
-              <div class="nt-desc">For secured NBFCs. Triggers 60-day reply under Section 13(2).</div>
-              <div class="nt-check">✓ Selected</div>
-            </div>
-            <div class="nt" onclick="selectNT(this)">
-              <div class="nt-name">Arbitration Notice</div>
-              <div class="nt-desc">Commences arbitration under the loan agreement arbitration clause.</div>
-              <div class="nt-check">✓ Selected</div>
-            </div>
-            <div class="nt" onclick="selectNT(this)">
-              <div class="nt-name">Pre-Litigation Notice</div>
-              <div class="nt-desc">Civil suit warning. Last step before filing in District Court.</div>
-              <div class="nt-check">✓ Selected</div>
-            </div>
-            <div class="nt" onclick="selectNT(this)">
-              <div class="nt-name">Settlement Offer</div>
-              <div class="nt-desc">One-time settlement proposal with deadline. For older NPA accounts.</div>
-              <div class="nt-check">✓ Selected</div>
-            </div>
+        <div id="cu-p3" style="display:none">
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;margin-bottom:16px">Select notice type</div>
+          <div class="notice-types">
+            <div class="nt on" onclick="selectNT(this)"><div class="nt-name">Loan Recall Notice</div><div class="nt-desc">General demand notice.</div><div class="nt-check">✓ Selected</div></div>
+            <div class="nt" onclick="selectNT(this)"><div class="nt-name">Section 138 — NI Act</div><div class="nt-desc">Cheque dishonour.</div><div class="nt-check">✓ Selected</div></div>
+            <div class="nt" onclick="selectNT(this)"><div class="nt-name">SARFAESI Notice</div><div class="nt-desc">Secured NBFCs, 60-day.</div><div class="nt-check">✓ Selected</div></div>
+            <div class="nt" onclick="selectNT(this)"><div class="nt-name">Arbitration Notice</div><div class="nt-desc">Commences ODR.</div><div class="nt-check">✓ Selected</div></div>
+            <div class="nt" onclick="selectNT(this)"><div class="nt-name">Pre-Litigation</div><div class="nt-desc">Civil suit warning.</div><div class="nt-check">✓ Selected</div></div>
+            <div class="nt" onclick="selectNT(this)"><div class="nt-name">Settlement Offer</div><div class="nt-desc">OTS proposal.</div><div class="nt-check">✓ Selected</div></div>
           </div>
-          <div style="display:flex;gap:10px">
-            <button class="btn-ghost-sm" onclick="uploadStep(2)">← Back</button>
-            <button class="btn-mint-sm" style="flex:1" onclick="uploadStep(4)">Continue to Review &rarr;</button>
-          </div>
+          <div style="display:flex;gap:10px"><button class="btn-ghost-sm" onclick="cuStep(2)">← Back</button><button class="btn-mint-sm" style="flex:1" onclick="cuStep(4)">Review →</button></div>
         </div>
-
-        <!-- STEP 4: Review & Dispatch -->
-        <div id="upload-panel-4" style="display:none">
+        <div id="cu-p4" style="display:none">
           <div class="dispatch-summary">
-            <div class="ds-row"><span class="ds-k">Cases in batch</span><span class="ds-v">8</span></div>
+            <div class="ds-row"><span class="ds-k">Cases</span><span class="ds-v">8</span></div>
             <div class="ds-row"><span class="ds-k">Notice type</span><span class="ds-v">Loan Recall Notice</span></div>
-            <div class="ds-row"><span class="ds-k">Dispatch channels</span><span class="ds-v">India Post + WhatsApp + SMS + Email</span></div>
-            <div class="ds-row"><span class="ds-k">Pilot cases used</span><span class="ds-v">3 → 10 of 10 (pilot limit reached after this batch)</span></div>
-            <div class="ds-row"><span class="ds-k">Cost this batch</span><span class="ds-v">₹0 — covered by free pilot</span></div>
-            <div class="ds-row"><span class="ds-k">Est. dispatch time</span><span class="ds-v">Within 48 hours</span></div>
+            <div class="ds-row"><span class="ds-k">Channels</span><span class="ds-v">India Post + WA + SMS + Email</span></div>
+            <div class="ds-row"><span class="ds-k">Cost</span><span class="ds-v">₹0 — free pilot</span></div>
           </div>
-
-          <div class="review-table">
-            <div class="rt-head">
-              <div class="rt-h">#</div><div class="rt-h">Borrower</div><div class="rt-h">Account / Address</div>
-              <div class="rt-h">Outstanding</div><div class="rt-h">DPD</div><div class="rt-h"></div>
-            </div>
-            <div class="rt-row"><div class="rt-num">01</div><div><div class="rt-name">Rajesh Kumar Mehra</div></div><div><div class="rt-field">FIN-PL-4821</div><div class="rt-addr">Plot 12, Vasant Vihar, Delhi</div></div><div class="rt-field">₹1,24,500</div><div class="rt-field" style="color:var(--red)">65d</div><div class="rt-edit">Edit</div></div>
-            <div class="rt-row"><div class="rt-num">02</div><div><div class="rt-name">Priya Suresh Nair</div></div><div><div class="rt-field">FIN-TW-2204</div><div class="rt-addr">14-B, Koramangala, Bengaluru</div></div><div class="rt-field">₹48,200</div><div class="rt-field" style="color:var(--amber)">42d</div><div class="rt-edit">Edit</div></div>
-            <div class="rt-row"><div class="rt-num">03</div><div><div class="rt-name">Sunil Patkar</div></div><div><div class="rt-field">FIN-PL-8812</div><div class="rt-addr">C-4, Andheri West, Mumbai</div></div><div class="rt-field">₹2,10,000</div><div class="rt-field" style="color:var(--red)">90d</div><div class="rt-edit">Edit</div></div>
-            <div class="rt-row"><div class="rt-num">04</div><div><div class="rt-name">Anita Bose</div></div><div><div class="rt-field">FIN-MS-1102</div><div class="rt-addr">22, Salt Lake, Kolkata</div></div><div class="rt-field">₹5,60,000</div><div class="rt-field" style="color:var(--red)">110d</div><div class="rt-edit">Edit</div></div>
-            <div style="padding:10px 16px;text-align:center;font-size:11px;color:var(--t3);font-family:'JetBrains Mono',monospace">+ 4 more cases in batch</div>
+          <div style="background:var(--s1);border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:18px">
+            <div style="padding:11px 16px;border-bottom:1px solid var(--bd)"><div style="font-size:13px;font-weight:600">Rajesh Kumar Mehra</div><div style="font-size:11px;color:var(--t3);font-family:'JetBrains Mono',monospace">FIN-PL-4821 · ₹1,24,500 · 65d DPD</div></div>
+            <div style="padding:11px 16px;border-bottom:1px solid var(--bd)"><div style="font-size:13px;font-weight:600">Priya Suresh Nair</div><div style="font-size:11px;color:var(--t3);font-family:'JetBrains Mono',monospace">FIN-TW-2204 · ₹48,200 · 42d DPD</div></div>
+            <div style="padding:10px 16px;text-align:center;font-size:11px;color:var(--t3);font-family:'JetBrains Mono',monospace">+ 6 more cases</div>
           </div>
-
-          <div style="display:flex;gap:10px;margin-top:4px">
-            <button class="btn-ghost-sm" onclick="uploadStep(3)">← Back</button>
-            <button class="btn-mint-sm" style="flex:1;font-size:15px;padding:13px" onclick="dispatchBatch()">✓ Confirm &amp; Dispatch All 8 Cases</button>
-          </div>
+          <div style="display:flex;gap:10px"><button class="btn-ghost-sm" onclick="cuStep(3)">← Back</button><button class="btn-mint-sm" style="flex:1;padding:13px;font-size:15px" onclick="cuDispatch()">✓ Confirm &amp; Dispatch All 8</button></div>
         </div>
-
-        <!-- SUCCESS -->
-        <div id="upload-success" style="display:none;text-align:center;padding:48px 20px">
+        <div id="cu-success" style="display:none;text-align:center;padding:48px 20px">
           <div style="font-size:48px;margin-bottom:16px">✅</div>
           <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:var(--mint);margin-bottom:8px;letter-spacing:-.5px">8 cases queued for dispatch</div>
-          <div style="font-size:14px;color:var(--t2);max-width:380px;margin:0 auto 28px;line-height:1.6">Advocate review begins immediately. India Post + WhatsApp + SMS dispatched within 48 hours. You'll get a WhatsApp update when each notice goes out.</div>
+          <div style="font-size:14px;color:var(--t2);max-width:380px;margin:0 auto 28px;line-height:1.6">Advocate review begins immediately. Print envelopes &amp; AD cards to post today.</div>
           <div style="display:flex;gap:10px;justify-content:center">
-            <button class="btn-sm-mint" onclick="showPage('cases',null)" style="padding:11px 22px;font-size:14px">View Cases →</button>
-            <button class="btn-sm-ghost" onclick="resetUpload()">Upload Another Batch</button>
+            <button class="btn-sm-mint" onclick="cPage('stationery',null)" style="padding:11px 22px;font-size:14px">✉ Print Stationery →</button>
+            <button class="btn-sm-ghost" onclick="cPage('cases',null)">View Cases</button>
           </div>
         </div>
-
       </div>
     </div>
 
-    <!-- ─── CASE DETAIL PAGE ── -->
-    <div id="page-detail" class="page">
-      <div style="margin-bottom:20px">
-        <button class="btn-sm-ghost" onclick="showPage('cases',null)" style="font-size:12px">← Back to Cases</button>
-      </div>
-
-      <div style="margin-bottom:20px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+    <!-- CLIENT: STATIONERY -->
+    <div id="c-page-stationery" class="page">
+      <div class="stn-toolbar">
         <div>
-          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:4px">Rajesh Kumar Mehra</div>
-          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-            <span class="badge dispatched"><span class="badge-dot"></span>Dispatched</span>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3)">FIN-PL-4821</span>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3)">Personal Loan</span>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3)">Case #ACC-2024-001</span>
-          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:4px">Viewing case</div>
+          <select class="stn-case-sel" id="stn-case-select" onchange="stnSwitch(this.value)">
+            <option value="0">Case 01 — Rajesh Kumar Mehra</option>
+            <option value="1">Case 02 — Priya Suresh Nair</option>
+            <option value="2">Case 03 — Mohan Lal Verma</option>
+          </select>
         </div>
-        <button class="btn-sm-ghost">Download PDF Proof</button>
+        <div class="stn-nav">
+          <div class="stn-nav-btn" onclick="stnPrev()">←</div>
+          <div class="stn-counter" id="stn-counter">1 / 3</div>
+          <div class="stn-nav-btn" onclick="stnNext()">→</div>
+        </div>
+        <div style="display:flex;gap:8px;margin-left:12px">
+          <button class="btn-sm-ghost" onclick="stnPrintCurrent()">🖨 Print This</button>
+          <button class="btn-sm-mint" onclick="stnPrintAll()">✉ Print All 3</button>
+        </div>
       </div>
-
-      <div class="case-detail-grid">
-        <div class="cd-main">
-
-          <!-- Timeline -->
-          <div class="info-card" style="margin-bottom:14px">
-            <div class="ic-head"><div class="ic-hl">Case Timeline</div></div>
-            <div class="ic-body">
-              <div class="timeline">
-                <div class="tl-item">
-                  <div class="tl-left"><div class="tl-dot done">✓</div><div class="tl-line"></div></div>
-                  <div class="tl-content"><div class="tl-title">Case Created</div><div class="tl-sub">Uploaded via CSV batch. Borrower data verified.</div><div class="tl-time">12 Mar 2025, 10:14 AM</div></div>
-                </div>
-                <div class="tl-item">
-                  <div class="tl-left"><div class="tl-dot done">✓</div><div class="tl-line"></div></div>
-                  <div class="tl-content"><div class="tl-title">AI Notice Generated</div><div class="tl-sub">Loan Recall Notice drafted. Borrower details, outstanding amount, and legal references auto-filled.</div><div class="tl-time">12 Mar 2025, 10:18 AM</div></div>
-                </div>
-                <div class="tl-item">
-                  <div class="tl-left"><div class="tl-dot done">✓</div><div class="tl-line"></div></div>
-                  <div class="tl-content"><div class="tl-title">Advocate Review &amp; Sign</div><div class="tl-sub">Reviewed and signed by Adv. Pallavi Sharma (Bar Council Reg. MH/2018/1024). Letterhead applied.</div><div class="tl-time">12 Mar 2025, 2:40 PM</div></div>
-                </div>
-                <div class="tl-item">
-                  <div class="tl-left"><div class="tl-dot done">✓</div><div class="tl-line"></div></div>
-                  <div class="tl-content">
-                    <div class="tl-title">Dispatched — All Channels</div>
-                    <div class="tl-sub">India Post Regd AD booked (Article No. EW8841201IN). WhatsApp notice delivered. SMS sent. Email delivered.</div>
-                    <div class="tl-time">12 Mar 2025, 4:55 PM</div>
-                    <div class="channel-grid" style="margin-top:10px">
-                      <div class="ch-card">
-                        <div class="chc-top"><span class="chc-icon">📮</span><span class="chc-name">India Post Regd AD</span></div>
-                        <div class="chc-status">Dispatched. Article No. EW8841201IN</div>
-                        <div class="chc-badge"><span class="badge dispatched" style="font-size:9px"><span class="badge-dot"></span>Dispatched</span></div>
-                      </div>
-                      <div class="ch-card">
-                        <div class="chc-top"><span class="chc-icon">💬</span><span class="chc-name">WhatsApp</span></div>
-                        <div class="chc-status">Delivered to +91 98765 43210. Read receipt: pending.</div>
-                        <div class="chc-badge"><span class="badge dispatched" style="font-size:9px"><span class="badge-dot"></span>Delivered</span></div>
-                      </div>
-                      <div class="ch-card">
-                        <div class="chc-top"><span class="chc-icon">📱</span><span class="chc-name">SMS</span></div>
-                        <div class="chc-status">Delivered via MSG91. DLT Template ID verified.</div>
-                        <div class="chc-badge"><span class="badge dispatched" style="font-size:9px"><span class="badge-dot"></span>Delivered</span></div>
-                      </div>
-                      <div class="ch-card">
-                        <div class="chc-top"><span class="chc-icon">📧</span><span class="chc-name">Email</span></div>
-                        <div class="chc-status">Delivered to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="24560a49414c5645644349454d480a474b49">[email&#160;protected]</a>. Opened 1×.</div>
-                        <div class="chc-badge"><span class="badge dispatched" style="font-size:9px"><span class="badge-dot"></span>Opened</span></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tl-item">
-                  <div class="tl-left"><div class="tl-dot active">⏳</div></div>
-                  <div class="tl-content"><div class="tl-title">Awaiting Borrower Response</div><div class="tl-sub">Reply window: 15 days from dispatch. Deadline 27 Mar 2025. No response yet.</div><div class="tl-time">Monitoring…</div></div>
-                </div>
-              </div>
+      <div class="stn-preview-area">
+        <div class="stn-panel">
+          <div class="stn-panel-head"><div class="stn-panel-hl">✉ Envelope</div><div style="display:flex;align-items:center;gap:10px"><span class="stn-panel-tag">DL 220×110mm</span><span id="env-status" class="badge-pending-print">Ready to Print</span></div></div>
+          <div class="stn-panel-body">
+            <div class="envelope">
+              <div class="env-left-stripe"></div><div class="env-right-stripe"></div>
+              <div class="env-sender"><div class="env-sender-name">Adv. Pallavi Sharma</div>On behalf of Finserv Capital Ltd<br>14, Maker Chambers IV, Nariman Point<br>Mumbai – 400 021</div>
+              <div class="env-regd-badge"><div class="env-regd-text">REGISTERED<br>A.D.</div></div>
+              <div class="env-postage">Postage<br>Stamp<br>Here</div>
+              <div class="env-divider"></div>
+              <div class="env-recipient" id="env-recipient"><div class="env-recipient-name">Rajesh Kumar Mehra</div>Plot 12, Vasant Vihar,<br>New Delhi – 110 057</div>
+              <div class="env-article" id="env-article">Article No.: EW8841201IN · Case: FIN-PL-4821 · 12.03.2025</div>
             </div>
           </div>
-
-          <!-- Notice preview -->
-          <div class="info-card">
-            <div class="ic-head"><div class="ic-hl">Notice Preview</div><span style="font-size:11px;color:var(--t3);font-family:'JetBrains Mono',monospace">Loan Recall Notice</span></div>
-            <div class="ic-body">
-              <div class="notice-preview">
-                <div class="np-watermark">VAASULI</div>
-                <div class="np-text">
-                  <p style="text-align:right;margin-bottom:12px;color:var(--t3)">Date: 12th March 2025</p>
-                  <p style="margin-bottom:8px"><strong style="color:var(--t)">To,</strong><br>
-                  Rajesh Kumar Mehra,<br>Plot 12, Vasant Vihar, New Delhi – 110057</p>
-                  <p style="margin-bottom:12px"><strong style="color:var(--t)">Sub: Notice calling upon repayment of outstanding loan amount of ₹1,24,500/-</strong></p>
-                  <p style="margin-bottom:10px">Under instructions from and on behalf of our client, <strong style="color:var(--t)">Finserv Capital Ltd</strong>, a Non-Banking Financial Company registered under the Companies Act, 2013, we hereby issue you this Loan Recall Notice.</p>
-                  <p style="margin-bottom:10px">You had availed a personal loan (Loan Account No. FIN-PL-4821) from our client. As per records, the outstanding principal and interest due as of the date of this notice stands at <strong style="color:var(--mint)">₹1,24,500/-</strong> (Rupees One Lakh Twenty-Four Thousand Five Hundred Only), with the account having been irregular for <strong style="color:var(--t)">65 days</strong>.</p>
-                  <p style="margin-bottom:10px">You are hereby called upon to pay the full outstanding amount within <strong style="color:var(--t)">15 (fifteen) days</strong> from the receipt of this notice, failing which our client reserves the right to initiate appropriate legal proceedings under applicable laws, including but not limited to proceedings under the SARFAESI Act, 2002 and the Arbitration and Conciliation Act, 1996, without further notice to you.</p>
-                  <p style="color:var(--t3);font-style:italic">This notice is issued without prejudice to all other rights and remedies available to our client.</p>
-                  <p style="margin-top:16px;color:var(--t2)">Yours faithfully,<br><strong style="color:var(--t)">Adv. Pallavi Sharma</strong><br>Bar Council No. MH/2018/1024<br><em style="color:var(--t3)">On behalf of Finserv Capital Ltd</em></p>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
-
-        <!-- Right sidebar -->
-        <div class="cd-sidebar">
-          <div class="info-card">
-            <div class="ic-head"><div class="ic-hl">Borrower Details</div></div>
-            <div class="ic-body">
-              <div class="ic-row"><span class="ic-k">Name</span><span class="ic-v">Rajesh Kumar Mehra</span></div>
-              <div class="ic-row"><span class="ic-k">Account No.</span><span class="ic-v">FIN-PL-4821</span></div>
-              <div class="ic-row"><span class="ic-k">Loan Type</span><span class="ic-v">Personal Loan</span></div>
-              <div class="ic-row"><span class="ic-k">Outstanding</span><span class="ic-v" style="color:var(--mint)">₹1,24,500</span></div>
-              <div class="ic-row"><span class="ic-k">DPD</span><span class="ic-v" style="color:var(--red)">65 days</span></div>
-              <div class="ic-row"><span class="ic-k">Mobile</span><span class="ic-v">+91 98765 43210</span></div>
-              <div class="ic-row"><span class="ic-k">Email</span><span class="ic-v"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="43316d2e262b312203242e222a2f6d202c2e">[email&#160;protected]</a></span></div>
-            </div>
-          </div>
-
-          <div class="info-card">
-            <div class="ic-head"><div class="ic-hl">India Post</div></div>
-            <div class="ic-body">
-              <div class="ic-row"><span class="ic-k">Status</span><span class="badge dispatched" style="font-size:10px"><span class="badge-dot"></span>Dispatched</span></div>
-              <div class="ic-row"><span class="ic-k">Article No.</span><span class="ic-v">EW8841201IN</span></div>
-              <div class="ic-row"><span class="ic-k">Dispatched</span><span class="ic-v">12 Mar 2025</span></div>
-              <div class="ic-row"><span class="ic-k">AD Card</span><span class="ic-v" style="color:var(--amber)">Awaited</span></div>
-              <div style="margin-top:12px">
-                <div style="font-size:11px;color:var(--t3);margin-bottom:8px;line-height:1.4">When the AD card is received by post, upload it here to complete the delivery proof.</div>
-                <button class="btn-sm-ghost" style="width:100%">Upload AD Card Scan</button>
+        <div class="stn-panel">
+          <div class="stn-panel-head"><div class="stn-panel-hl">✉ AD Card</div><div style="display:flex;align-items:center;gap:10px"><span class="stn-panel-tag">A6 148×105mm</span><span id="adc-status" class="badge-pending-print">Ready to Print</span></div></div>
+          <div class="stn-panel-body">
+            <div class="ad-card">
+              <div class="adc-header"><div><div class="adc-title">Acknowledgement Due</div><div class="adc-subtitle">India Post · Registered A.D. · Return to Sender</div></div><div class="adc-postal-mark">A.D.</div></div>
+              <div class="adc-article"><span class="adc-art-label">Article No.</span><span class="adc-art-val" id="adc-article-no">EW8841201IN</span></div>
+              <div class="adc-body">
+                <div class="adc-field adc-full"><div class="adc-field-label">Return to (Sender)</div><div class="adc-field-value">Adv. Pallavi Sharma · 14, Maker Chambers IV, Mumbai – 400 021</div></div>
+                <div class="adc-field adc-full"><div class="adc-field-label">Notice served on</div><div class="adc-field-value" id="adc-addressee">Rajesh Kumar Mehra, Plot 12, Vasant Vihar, New Delhi – 110 057</div></div>
+                <div class="adc-field"><div class="adc-field-label">Case Ref</div><div class="adc-field-value" id="adc-case-ref">FIN-PL-4821 · Loan Recall</div></div>
+                <div class="adc-field"><div class="adc-field-label">Dispatch Date</div><div class="adc-field-value">12 March 2025</div></div>
               </div>
+              <div class="adc-sign-row">
+                <div class="adc-sign-box"><div class="adc-sign-label">Signature of Addressee</div><div class="adc-sign-space"></div></div>
+                <div class="adc-sign-box"><div class="adc-sign-label">Date &amp; Postman Signature</div><div class="adc-sign-space"></div></div>
+              </div>
+              <div class="adc-footer"><div class="adc-footer-note">If undelivered, return to sender. Court-admissible proof of service.</div><div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#4a7a4a">vaasuli.com</div></div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="section-header"><div class="sh-title">Batch — 12 Mar 2025</div><div style="display:flex;gap:8px"><button class="btn-sm-ghost" onclick="stnSelectAll()">Select All</button><button class="btn-sm-ghost" onclick="stnMarkPrinted()">Mark Printed</button></div></div>
+      <div class="tbl">
+        <div class="sbl-head"><div class="sbl-h"></div><div class="sbl-h">Borrower</div><div class="sbl-h">Address</div><div class="sbl-h">Article No.</div><div class="sbl-h">Status</div><div class="sbl-h"></div></div>
+        <div class="sbl-row"><div class="sbl-check on" id="chk-0" onclick="stnToggle(0)">✓</div><div><div class="tbl-name">Rajesh Kumar Mehra</div><div class="tbl-sub">FIN-PL-4821</div></div><div style="font-size:11px;color:var(--t2)">Plot 12, Vasant Vihar, Delhi</div><div class="tbl-mono" style="font-size:11px">EW8841201IN</div><div><span class="badge-pending-print" id="status-0">Ready</span></div><div class="tbl-action" onclick="stnSwitch(0)">Preview →</div></div>
+        <div class="sbl-row"><div class="sbl-check on" id="chk-1" onclick="stnToggle(1)">✓</div><div><div class="tbl-name">Priya Suresh Nair</div><div class="tbl-sub">FIN-TW-2204</div></div><div style="font-size:11px;color:var(--t2)">14-B, Koramangala, Bengaluru</div><div class="tbl-mono" style="font-size:11px">EW8841202IN</div><div><span class="badge-pending-print" id="status-1">Ready</span></div><div class="tbl-action" onclick="stnSwitch(1)">Preview →</div></div>
+        <div class="sbl-row"><div class="sbl-check" id="chk-2" onclick="stnToggle(2)"></div><div><div class="tbl-name">Mohan Lal Verma</div><div class="tbl-sub">FIN-MS-9903</div></div><div style="font-size:11px;color:var(--t2)">B-44, Sector 62, Noida</div><div class="tbl-mono" style="font-size:11px">EW8841203IN</div><div><span class="badge-not-printed" id="status-2">Not Printed</span></div><div class="tbl-action" onclick="stnSwitch(2)">Preview →</div></div>
+      </div>
+    </div>
 
-          <div class="info-card">
-            <div class="ic-head"><div class="ic-hl">Escalate</div></div>
-            <div class="ic-body">
-              <div style="font-size:12px;color:var(--t3);margin-bottom:14px;line-height:1.5">No response after 15 days? Move to next stage.</div>
-              <button class="btn-sm-ghost" style="width:100%;margin-bottom:8px">→ Arbitration (ODR)</button>
-              <button class="btn-sm-ghost" style="width:100%">→ SARFAESI / S.138 Prep</button>
-            </div>
+    <!-- CLIENT: SETTINGS -->
+    <div id="c-page-settings" class="page">
+      <div class="settings-grid">
+        <div class="settings-section">
+          <div class="ss-hl">Company Profile</div>
+          <label class="f-label">Company Name</label><input class="f-inp" value="Finserv Capital Ltd">
+          <label class="f-label">Entity Type</label><select class="f-sel"><option selected>NBFC (Retail)</option><option>NBFC-MFI</option><option>Fintech Lender</option></select>
+          <label class="f-label">NBFC Registration No.</label><input class="f-inp" value="N-13.01874">
+          <label class="f-label">GST Number</label><input class="f-inp" value="27AABCF1234A1Z5">
+          <button class="btn-mint-sm">Save Profile</button>
+        </div>
+        <div class="settings-section">
+          <div class="ss-hl">Dispatch Preferences</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--t3);margin-bottom:10px">Default channels</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:18px">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--s2);border:1px solid var(--bd);border-radius:8px"><span style="font-size:13px">India Post Registered AD</span><div style="width:38px;height:20px;background:var(--mint);border-radius:10px;cursor:pointer;position:relative"><div style="position:absolute;right:2px;top:2px;width:16px;height:16px;background:#06090f;border-radius:50%"></div></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--s2);border:1px solid var(--bd);border-radius:8px"><span style="font-size:13px">WhatsApp (Interakt)</span><div style="width:38px;height:20px;background:var(--mint);border-radius:10px;cursor:pointer;position:relative"><div style="position:absolute;right:2px;top:2px;width:16px;height:16px;background:#06090f;border-radius:50%"></div></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--s2);border:1px solid var(--bd);border-radius:8px"><span style="font-size:13px">SMS (MSG91)</span><div style="width:38px;height:20px;background:var(--mint);border-radius:10px;cursor:pointer;position:relative"><div style="position:absolute;right:2px;top:2px;width:16px;height:16px;background:#06090f;border-radius:50%"></div></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--s2);border:1px solid var(--bd);border-radius:8px"><span style="font-size:13px">Email (Resend)</span><div style="width:38px;height:20px;background:var(--s3);border-radius:10px;cursor:pointer;border:1px solid var(--bd2);position:relative"><div style="position:absolute;left:2px;top:2px;width:16px;height:16px;background:var(--t3);border-radius:50%"></div></div></div>
+          </div>
+          <label class="f-label">Reply window (days)</label>
+          <select class="f-sel"><option>7 days</option><option selected>15 days</option><option>30 days</option></select>
+          <button class="btn-mint-sm">Save Preferences</button>
+        </div>
+        <div class="settings-section">
+          <div class="ss-hl">Sender / Advocate</div>
+          <div style="background:var(--mint-d);border:1px solid rgba(0,255,163,.15);border-radius:8px;padding:14px;margin-bottom:16px;display:flex;align-items:center;gap:12px">
+            <div style="width:36px;height:36px;background:var(--mint);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#06090f;font-size:13px">PS</div>
+            <div><div style="font-size:13px;font-weight:700">Adv. Pallavi Sharma</div><div style="font-size:11px;color:var(--t3);font-family:'JetBrains Mono',monospace">MH/2018/1024 · Mumbai</div></div>
+            <span class="badge dispatched" style="margin-left:auto">Active</span>
+          </div>
+          <div style="font-size:12px;color:var(--t3);margin-bottom:14px;line-height:1.5">Your assigned advocate reviews and signs all notices before dispatch. Managed by Vaasuli.</div>
+          <button class="btn-sm-ghost" style="width:100%">Request advocate change</button>
+        </div>
+        <div class="settings-section">
+          <div class="ss-hl">Notifications</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:13px;color:var(--t2)">Case dispatched</span><div style="width:38px;height:20px;background:var(--mint);border-radius:10px;cursor:pointer;position:relative"><div style="position:absolute;right:2px;top:2px;width:16px;height:16px;background:#06090f;border-radius:50%"></div></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:13px;color:var(--t2)">Advocate signs notice</span><div style="width:38px;height:20px;background:var(--mint);border-radius:10px;cursor:pointer;position:relative"><div style="position:absolute;right:2px;top:2px;width:16px;height:16px;background:#06090f;border-radius:50%"></div></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:13px;color:var(--t2)">Borrower reply received</span><div style="width:38px;height:20px;background:var(--mint);border-radius:10px;cursor:pointer;position:relative"><div style="position:absolute;right:2px;top:2px;width:16px;height:16px;background:#06090f;border-radius:50%"></div></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:13px;color:var(--t2)">AD Card scan uploaded</span><div style="width:38px;height:20px;background:var(--s3);border-radius:10px;cursor:pointer;border:1px solid var(--bd2);position:relative"><div style="position:absolute;left:2px;top:2px;width:16px;height:16px;background:var(--t3);border-radius:50%"></div></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:13px;color:var(--t2)">Weekly digest email</span><div style="width:38px;height:20px;background:var(--mint);border-radius:10px;cursor:pointer;position:relative"><div style="position:absolute;right:2px;top:2px;width:16px;height:16px;background:#06090f;border-radius:50%"></div></div></div>
+          </div>
+        </div>
+        <div class="settings-section" style="grid-column:1/-1">
+          <div class="ss-hl">API &amp; Integrations</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+            <div style="background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:14px"><div style="font-size:12px;font-weight:700;margin-bottom:4px">API Key</div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);margin-bottom:10px">vsl_live_••••••••••••••••</div><button class="btn-sm-ghost">Reveal / Rotate</button></div>
+            <div style="background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:14px"><div style="font-size:12px;font-weight:700;margin-bottom:4px">Webhook URL</div><div style="font-size:11px;color:var(--t3);margin-bottom:10px">Not configured</div><button class="btn-sm-ghost">Set Webhook</button></div>
+            <div style="background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:14px"><div style="font-size:12px;font-weight:700;margin-bottom:4px">SFTP Upload</div><div style="font-size:11px;color:var(--t3);margin-bottom:10px">Drop-folder for batch CSV auto-ingestion</div><button class="btn-sm-ghost">Configure</button></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ─── BILLING PAGE ── -->
-    <div id="page-billing" class="page">
+    <!-- CLIENT: BILLING -->
+    <div id="c-page-billing" class="page">
       <div style="max-width:680px">
-        <div class="alert-banner" style="margin-bottom:24px">
-          <div class="ab-icon">🎉</div>
-          <div class="ab-text">
-            <div class="ab-hl">Free Pilot — 3 of 10 notices used</div>
-            <div class="ab-sub">7 notices remaining at no cost. Upgrade any time — no interruption to dispatched cases.</div>
+        <div class="alert-banner" style="margin-bottom:24px"><div class="ab-icon">🎉</div><div><div class="ab-hl">Free Pilot — 3 of 10 used</div><div class="ab-sub">7 notices remaining. Upgrade any time.</div></div></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+          <div style="background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--mint);text-transform:uppercase;margin-bottom:12px">Self-Serve</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1">₹499</div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);margin-bottom:14px">per notice · up to 100/mo</div><button class="btn-sm-ghost" style="width:100%">Select Plan</button></div>
+          <div style="background:var(--s1);border:1px solid var(--mint);border-radius:10px;padding:22px;position:relative"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--mint);border-radius:2px 2px 0 0"></div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--mint);text-transform:uppercase;margin-bottom:12px">Business</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1">₹99</div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);margin-bottom:14px">per notice · 500+/mo</div><button class="btn-sm-mint" style="width:100%;padding:9px">Upgrade Now</button></div>
+          <div style="background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--mint);text-transform:uppercase;margin-bottom:12px">Enterprise</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1">₹33</div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);margin-bottom:14px">per notice · 10,000+/mo</div><button class="btn-sm-ghost" style="width:100%">Contact Sales</button></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /app-main -->
+</div><!-- /screen-client -->
+
+<!-- ══════════════════════════════════════════════════════
+     ADVOCATE APP
+══════════════════════════════════════════════════════ -->
+<div id="screen-advocate" class="screen app-shell">
+  <div class="sidebar">
+    <div class="sb-logo"><div class="lv gold-lv">A</div>Vaasuli</div>
+    <div class="sb-mode-tag adv">⚖ Advocate Portal</div>
+    <div style="margin:12px 14px 0;background:var(--gold-d);border:1px solid rgba(245,200,66,.2);border-radius:8px;padding:12px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:6px">This Month</div>
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;color:var(--gold);line-height:1">₹8,400</div>
+      <div style="font-size:11px;color:var(--t3);margin-top:2px">28 notices signed</div>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-section">Workflow</div>
+      <div class="sb-item gold-on" id="a-nav-dashboard" onclick="aPage('dashboard',this)"><span class="sb-icon">◾</span>Dashboard</div>
+      <div class="sb-item" id="a-nav-queue" onclick="aPage('queue',this)"><span class="sb-icon">📥</span>Review Queue<span class="sb-badge red">5</span></div>
+      <div class="sb-item" id="a-nav-review" onclick="aPage('review',this)"><span class="sb-icon">✏</span>Notice Editor</div>
+      <div class="sb-section">Form Tools</div>
+      <div class="sb-item" id="a-nav-templates" onclick="aPage('templates',this)"><span class="sb-icon">📄</span>Form Templates</div>
+      <div class="sb-item" id="a-nav-builder" onclick="aPage('builder',this)"><span class="sb-icon">🗺</span>Form Builder<span class="sb-badge" style="background:var(--gold);color:#1a1200">New</span></div>
+      <div class="sb-section">Business</div>
+      <div class="sb-item" id="a-nav-clients" onclick="aPage('clients',this)"><span class="sb-icon">🏦</span>My Clients</div>
+      <div class="sb-item" id="a-nav-earnings" onclick="aPage('earnings',this)"><span class="sb-icon">💰</span>Earnings</div>
+      <div class="sb-section">Account</div>
+      <div class="sb-item" id="a-nav-profile" onclick="aPage('profile',this)"><span class="sb-icon">👤</span>My Profile</div>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-user">
+        <div class="sb-avatar gold-av">PS</div>
+        <div><div class="sb-uname">Adv. Pallavi Sharma</div><div class="sb-urole">MH/2018/1024</div></div>
+        <div class="sb-signout" onclick="goAuth()">⇦</div>
+      </div>
+    </div>
+  </div>
+  <div class="app-main">
+    <div class="app-topbar">
+      <div><div class="tb-title" id="a-tb-title">Dashboard</div><div class="tb-crumb" id="a-tb-crumb">Advocate Portal</div></div>
+      <div class="tb-right">
+        <button class="btn-sm-ghost" onclick="aPage('queue',null)">Review Queue (5)</button>
+        <button class="btn-gold-sm" onclick="aPage('review',null)" style="padding:7px 14px;font-size:12px">✏ Open Next Case</button>
+      </div>
+    </div>
+
+    <!-- ADV: DASHBOARD -->
+    <div id="a-page-dashboard" class="page active">
+      <div class="alert-banner" style="background:var(--gold-d);border-color:rgba(245,200,66,.2)">
+        <div class="ab-icon">📥</div>
+        <div><div class="ab-hl" style="color:var(--gold)">5 cases awaiting your review</div><div class="ab-sub">Oldest case in queue: 3 hours. SLA: review within 6 hours.</div></div>
+        <div class="ab-action"><button class="btn-gold-sm" onclick="aPage('queue',null)">Open Queue →</button></div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat"><div class="stat-n">5<span class="u gold"> pending</span></div><div class="stat-l">In review queue</div><div class="stat-delta" style="color:var(--amber)">SLA 6 hours</div></div>
+        <div class="stat"><div class="stat-n">28</div><div class="stat-l">Signed this month</div><div class="stat-delta" style="color:var(--mint)">↑ 4 from last month</div></div>
+        <div class="stat"><div class="stat-n">1</div><div class="stat-l">Rejected (revision needed)</div><div class="stat-delta" style="color:var(--red)">Awaiting resubmission</div></div>
+        <div class="stat"><div class="stat-n">₹<span class="u gold">8,400</span></div><div class="stat-l">Earnings this month</div><div class="stat-delta" style="color:var(--gold)">↑ ₹1,200 from last</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        <div>
+          <div class="section-header"><div class="sh-title">Review Queue</div><div class="sh-link gold" onclick="aPage('queue',null)">View all →</div></div>
+          <div class="tbl" style="--cols:2fr 1fr 1.2fr 70px">
+            <div class="tbl-head" style="grid-template-columns:var(--cols)"><div class="tbl-h">Case</div><div class="tbl-h">Client</div><div class="tbl-h">Queued</div><div class="tbl-h"></div></div>
+            <div class="tbl-row" style="grid-template-columns:var(--cols)" onclick="aPage('review',null)">
+              <div><div class="tbl-name">Mohan Lal Verma</div><div class="tbl-sub">₹3,80,000 · MSME</div></div>
+              <div style="font-size:11px;color:var(--t2)">Finserv Capital</div>
+              <div class="tbl-mono" style="font-size:10px;color:var(--amber)">3h 14m ago</div>
+              <div class="tbl-action gold">Review</div>
+            </div>
+            <div class="tbl-row" style="grid-template-columns:var(--cols)">
+              <div><div class="tbl-name">Sunita Devi Rao</div><div class="tbl-sub">₹92,000 · Personal</div></div>
+              <div style="font-size:11px;color:var(--t2)">Micromax Finance</div>
+              <div class="tbl-mono" style="font-size:10px;color:var(--mint)">48m ago</div>
+              <div class="tbl-action gold">Review</div>
+            </div>
+            <div class="tbl-row" style="grid-template-columns:var(--cols)">
+              <div><div class="tbl-name">Arun Balkrishna Joshi</div><div class="tbl-sub">₹5,40,000 · LAP</div></div>
+              <div style="font-size:11px;color:var(--t2)">Growmax NBFC</div>
+              <div class="tbl-mono" style="font-size:10px;color:var(--mint)">22m ago</div>
+              <div class="tbl-action gold">Review</div>
+            </div>
           </div>
         </div>
-
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
-          <div style="background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:22px">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--mint);text-transform:uppercase;margin-bottom:12px">Self-Serve</div>
-            <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1">₹499</div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);margin-bottom:14px">per notice · up to 100/mo</div>
-            <button class="btn-sm-ghost" style="width:100%">Select Plan</button>
+        <div>
+          <div class="section-header"><div class="sh-title">Form Templates</div><div class="sh-link gold" onclick="aPage('templates',null)">Manage →</div></div>
+          <div class="tmpl-card">
+            <div class="tmpl-icon">📄</div>
+            <div><div class="tmpl-name">Loan Recall Notice</div><div class="tmpl-meta">6 fields · Used 212×</div></div>
+            <div class="tmpl-actions"><button class="btn-sm-gold" onclick="aPage('builder',null)">Edit</button></div>
           </div>
-          <div style="background:var(--s1);border:1px solid var(--mint);border-radius:10px;padding:22px;position:relative">
-            <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--mint);border-radius:2px 2px 0 0"></div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--mint);text-transform:uppercase;margin-bottom:12px">Business</div>
-            <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1">₹99</div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);margin-bottom:14px">per notice · 500+/mo</div>
-            <button class="btn-sm-mint" style="width:100%;padding:9px">Upgrade Now</button>
+          <div class="tmpl-card">
+            <div class="tmpl-icon">📄</div>
+            <div><div class="tmpl-name">Section 138 NI Act</div><div class="tmpl-meta">8 fields · Used 44×</div></div>
+            <div class="tmpl-actions"><button class="btn-sm-gold">Edit</button></div>
           </div>
-          <div style="background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:22px">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--mint);text-transform:uppercase;margin-bottom:12px">Enterprise</div>
-            <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1">₹33</div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);margin-bottom:14px">per notice · 10,000+/mo</div>
-            <button class="btn-sm-ghost" style="width:100%">Contact Sales</button>
+          <div class="tmpl-card" style="border-style:dashed;cursor:pointer" onclick="aPage('builder',null)">
+            <div class="tmpl-icon" style="background:transparent;border-color:var(--bd)">+</div>
+            <div><div class="tmpl-name" style="color:var(--t3)">New Template</div><div class="tmpl-meta">Upload a form PDF</div></div>
           </div>
         </div>
       </div>
     </div>
 
-  </div>
-</div>
+    <!-- ADV: REVIEW QUEUE -->
+    <div id="a-page-queue" class="page">
+      <div class="filter-bar">
+        <input class="f-search" placeholder="Search cases…">
+        <div class="f-pill gold-pill on" onclick="filterPill(this)">All (5)</div>
+        <div class="f-pill gold-pill" onclick="filterPill(this)">Urgent &gt;4h (2)</div>
+        <div class="f-pill gold-pill" onclick="filterPill(this)">Loan Recall (3)</div>
+        <div class="f-pill gold-pill" onclick="filterPill(this)">S.138 (1)</div>
+        <div class="f-pill gold-pill" onclick="filterPill(this)">SARFAESI (1)</div>
+      </div>
+      <div class="tbl" style="--cols:2fr 1.2fr 1fr 1.2fr 1fr 80px">
+        <div class="tbl-head" style="grid-template-columns:var(--cols)"><div class="tbl-h">Borrower</div><div class="tbl-h">Client NBFC</div><div class="tbl-h">Outstanding</div><div class="tbl-h">Notice Type</div><div class="tbl-h">Queued</div><div class="tbl-h"></div></div>
+        <div class="tbl-row" style="grid-template-columns:var(--cols)" onclick="aPage('review',null)">
+          <div><div class="tbl-name">Mohan Lal Verma</div><div class="tbl-sub">FIN-MS-9903 · MSME</div></div>
+          <div style="font-size:12px;color:var(--t2)">Finserv Capital Ltd</div>
+          <div class="tbl-mono" style="color:var(--red)">₹3,80,000</div>
+          <div><span class="badge pending"><span class="badge-dot"></span>Loan Recall</span></div>
+          <div class="tbl-mono" style="font-size:10px;color:var(--amber)">3h 14m</div>
+          <div class="tbl-action gold" onclick="aPage('review',null)">Review →</div>
+        </div>
+        <div class="tbl-row" style="grid-template-columns:var(--cols)">
+          <div><div class="tbl-name">Sunita Devi Rao</div><div class="tbl-sub">MM-PL-7711 · Personal</div></div>
+          <div style="font-size:12px;color:var(--t2)">Micromax Finance</div>
+          <div class="tbl-mono">₹92,000</div>
+          <div><span class="badge pending"><span class="badge-dot"></span>Loan Recall</span></div>
+          <div class="tbl-mono" style="font-size:10px;color:var(--mint)">48m</div>
+          <div class="tbl-action gold">Review →</div>
+        </div>
+        <div class="tbl-row" style="grid-template-columns:var(--cols)">
+          <div><div class="tbl-name">Arun B. Joshi</div><div class="tbl-sub">GM-LAP-0041 · LAP</div></div>
+          <div style="font-size:12px;color:var(--t2)">Growmax NBFC</div>
+          <div class="tbl-mono">₹5,40,000</div>
+          <div><span class="badge review"><span class="badge-dot"></span>SARFAESI</span></div>
+          <div class="tbl-mono" style="font-size:10px;color:var(--mint)">22m</div>
+          <div class="tbl-action gold">Review →</div>
+        </div>
+        <div class="tbl-row" style="grid-template-columns:var(--cols)">
+          <div><div class="tbl-name">Kavita Sanjay Patil</div><div class="tbl-sub">FIN-TW-8892 · 2W</div></div>
+          <div style="font-size:12px;color:var(--t2)">Finserv Capital Ltd</div>
+          <div class="tbl-mono">₹28,500</div>
+          <div><span class="badge pending"><span class="badge-dot"></span>Loan Recall</span></div>
+          <div class="tbl-mono" style="font-size:10px;color:var(--mint)">12m</div>
+          <div class="tbl-action gold">Review →</div>
+        </div>
+        <div class="tbl-row" style="grid-template-columns:var(--cols)">
+          <div><div class="tbl-name">Deepak Ramesh Wagh</div><div class="tbl-sub">MM-S138-0032 · PL</div></div>
+          <div style="font-size:12px;color:var(--t2)">Micromax Finance</div>
+          <div class="tbl-mono">₹1,15,000</div>
+          <div><span class="badge review"><span class="badge-dot"></span>Section 138</span></div>
+          <div class="tbl-mono" style="font-size:10px;color:var(--mint)">8m</div>
+          <div class="tbl-action gold">Review →</div>
+        </div>
+      </div>
+    </div>
 
+    <!-- ADV: NOTICE EDITOR (REVIEW) -->
+    <div id="a-page-review" class="page">
+      <div style="display:grid;grid-template-columns:1fr 300px;gap:20px">
+        <div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+            <div>
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;letter-spacing:-.5px;margin-bottom:3px">Mohan Lal Verma</div>
+              <div style="display:flex;gap:8px;align-items:center"><span class="badge pending"><span class="badge-dot"></span>Awaiting Review</span><span class="tbl-mono" style="font-size:10px">FIN-MS-9903 · Loan Recall Notice</span></div>
+            </div>
+            <div style="margin-left:auto;display:flex;gap:8px">
+              <button class="btn-sm-red" onclick="advReject()">✕ Reject / Flag</button>
+              <button class="btn-gold-sm" onclick="advSign()">✓ Sign &amp; Approve</button>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="ic-head"><div class="ic-hl">Notice Text — Edit before signing</div><span style="font-size:11px;color:var(--t3);font-family:'JetBrains Mono',monospace">AI-generated · editable</span></div>
+            <div class="ic-body" style="padding:0">
+              <div class="notice-edit-wrap" style="border-radius:0;border:none">
+                <div class="ne-watermark">DRAFT</div>
+                <textarea class="notice-textarea" id="notice-text-area">Date: 13th March 2025
 
-<script src="app.js"></script>
+To,
+Mohan Lal Verma,
+B-44, Sector 62, Noida – 201 301
+
+Sub: Notice calling upon repayment of outstanding MSME loan of ₹3,80,000/-
+
+Under instructions from and on behalf of our client, Finserv Capital Ltd (NBFC Registration No. N-13.01874), a Non-Banking Financial Company registered under Section 45-IA of the Reserve Bank of India Act, 1934, we hereby issue you this Loan Recall Notice.
+
+As per records maintained by our client, you have availed a Micro, Small &amp; Medium Enterprises (MSME) Business Loan bearing Account No. FIN-MS-9903 from our client. The outstanding principal and interest currently due and payable by you stands at ₹3,80,000/- (Rupees Three Lakh Eighty Thousand only), with the said account having remained irregular for a period of 90 (ninety) days.
+
+Despite repeated reminders through various channels, you have failed to regularise the said account or make payment towards the outstanding dues.
+
+You are hereby called upon to pay the full outstanding sum of ₹3,80,000/- within 15 (fifteen) days from the receipt of this notice, failing which our client shall be constrained to initiate appropriate legal proceedings, including but not limited to arbitration proceedings under the agreed arbitration clause, without any further notice or intimation to you.
+
+Yours faithfully,
+
+Adv. Pallavi Sharma
+Bar Council No. MH/2018/1024
+On behalf of: Finserv Capital Ltd</textarea>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:12px">
+            <button class="btn-sm-ghost">← Previous Case</button>
+            <button class="btn-sm-ghost" style="margin-left:auto">Add Comment</button>
+            <button class="btn-sm-red" onclick="advReject()">✕ Reject / Flag</button>
+            <button class="btn-gold-sm" onclick="advSign()">✓ Sign &amp; Approve</button>
+          </div>
+        </div>
+        <div>
+          <div class="info-card">
+            <div class="ic-head"><div class="ic-hl">Case Details</div></div>
+            <div class="ic-body">
+              <div class="ic-row"><span class="ic-k">Borrower</span><span class="ic-v">Mohan Lal Verma</span></div>
+              <div class="ic-row"><span class="ic-k">Account</span><span class="ic-v">FIN-MS-9903</span></div>
+              <div class="ic-row"><span class="ic-k">Loan Type</span><span class="ic-v">MSME Business</span></div>
+              <div class="ic-row"><span class="ic-k">Outstanding</span><span class="ic-v" style="color:var(--gold)">₹3,80,000</span></div>
+              <div class="ic-row"><span class="ic-k">DPD</span><span class="ic-v" style="color:var(--red)">90 days</span></div>
+              <div class="ic-row"><span class="ic-k">Client NBFC</span><span class="ic-v">Finserv Capital</span></div>
+              <div class="ic-row"><span class="ic-k">Notice Type</span><span class="ic-v">Loan Recall</span></div>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="ic-head"><div class="ic-hl">Review Checklist</div></div>
+            <div class="ic-body" style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--t2)"><span style="color:var(--mint)">✓</span>Borrower name &amp; address verified</div>
+              <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--t2)"><span style="color:var(--mint)">✓</span>Outstanding amount correct</div>
+              <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--t2)"><span style="color:var(--mint)">✓</span>NBFC reg. number present</div>
+              <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--t2)"><span style="color:var(--mint)">✓</span>Reply window stated (15 days)</div>
+              <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--t2)"><span style="color:var(--amber)">○</span>Verify account number in LOS</div>
+              <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--t2)"><span style="color:var(--t3)">○</span>Confirm dispatch channels</div>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="ic-head"><div class="ic-hl">Your Fee</div></div>
+            <div class="ic-body">
+              <div class="ic-row"><span class="ic-k">Per notice</span><span class="ic-v" style="color:var(--gold)">₹300</span></div>
+              <div class="ic-row"><span class="ic-k">This month total</span><span class="ic-v" style="color:var(--gold)">₹8,400</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Signed confirmation -->
+      <div id="adv-signed-banner" style="display:none;background:var(--gold-d);border:1px solid rgba(245,200,66,.3);border-radius:10px;padding:16px 20px;margin-top:20px;display:none;align-items:center;gap:14px">
+        <div style="font-size:22px">✅</div>
+        <div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;color:var(--gold);margin-bottom:2px">Notice signed and approved</div><div style="font-size:12px;color:var(--t2)">Queued for dispatch. Envelope &amp; AD card generated.</div></div>
+        <button class="btn-gold-sm" style="margin-left:auto" onclick="aPage('queue',null)">Next Case →</button>
+      </div>
+    </div>
+
+    <!-- ADV: FORM TEMPLATES -->
+    <div id="a-page-templates" class="page">
+      <div class="section-header"><div class="sh-title">Form Templates</div><button class="btn-gold-sm" onclick="aPage('builder',null)">+ New Template</button></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="tmpl-card" style="flex-direction:column;align-items:flex-start;padding:20px">
+          <div style="display:flex;align-items:center;gap:12px;width:100%;margin-bottom:14px">
+            <div class="tmpl-icon">📄</div>
+            <div style="flex:1"><div class="tmpl-name">Loan Recall Notice</div><div class="tmpl-meta">6 fields mapped · Last updated 10 Mar</div></div>
+            <span class="badge dispatched" style="font-size:9px">Active</span>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
+            <span style="background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">①  Borrower Name</span>
+            <span style="background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">②  Address</span>
+            <span style="background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">③  Account No.</span>
+            <span style="background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">④  Outstanding (₹)</span>
+            <span style="background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">⑤  DPD (days)</span>
+            <span style="background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">⑥  Date</span>
+          </div>
+          <div style="display:flex;gap:8px;width:100%">
+            <button class="btn-gold-sm" style="flex:1" onclick="aPage('builder',null)">🗺 Edit in Builder</button>
+            <button class="btn-sm-ghost">Preview</button>
+            <button class="btn-sm-ghost">Duplicate</button>
+          </div>
+        </div>
+        <div class="tmpl-card" style="flex-direction:column;align-items:flex-start;padding:20px">
+          <div style="display:flex;align-items:center;gap:12px;width:100%;margin-bottom:14px">
+            <div class="tmpl-icon">📄</div>
+            <div style="flex:1"><div class="tmpl-name">Section 138 — NI Act</div><div class="tmpl-meta">8 fields mapped · Last updated 8 Mar</div></div>
+            <span class="badge dispatched" style="font-size:9px">Active</span>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
+            <span style="background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">①  Drawer Name</span>
+            <span style="background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">②  Cheque No.</span>
+            <span style="background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">③  Bank Name</span>
+            <span style="background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">④  Dishonour Date</span>
+            <span style="background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">⑤  Amount (₹)</span>
+            <span style="background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">⑥  Legal Notice Period</span>
+            <span style="background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">⑦  Address</span>
+            <span style="background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">⑧  Date</span>
+          </div>
+          <div style="display:flex;gap:8px;width:100%">
+            <button class="btn-gold-sm" style="flex:1">🗺 Edit in Builder</button>
+            <button class="btn-sm-ghost">Preview</button>
+            <button class="btn-sm-ghost">Duplicate</button>
+          </div>
+        </div>
+        <div class="tmpl-card" style="flex-direction:column;align-items:flex-start;padding:20px;border-style:dashed;cursor:pointer" onclick="aPage('builder',null)">
+          <div style="display:flex;align-items:center;gap:12px;width:100%">
+            <div class="tmpl-icon" style="background:transparent;border:2px dashed var(--bd2);font-size:22px;color:var(--t3)">+</div>
+            <div><div class="tmpl-name" style="color:var(--t3)">Upload a new form</div><div class="tmpl-meta">PDF · scan or digital · blank spaces auto-detected</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADV: FORM BUILDER ★ -->
+    <div id="a-page-builder" class="page" style="padding:20px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div>
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;letter-spacing:-.5px;margin-bottom:3px">Form Builder</div>
+          <div style="font-size:12px;color:var(--t3)">Upload a blank form → click blank spaces to place field pins → map each pin to a data field</div>
+        </div>
+        <div style="margin-left:auto;display:flex;gap:8px">
+          <button class="fb-mode-btn on" id="fb-mode-map" onclick="fbMode('map')">📍 Map Fields</button>
+          <button class="fb-mode-btn" id="fb-mode-preview" onclick="fbMode('preview')">👁 Preview Filled</button>
+          <button class="btn-gold-sm" onclick="fbSave()">💾 Save Template</button>
+        </div>
+      </div>
+      <div class="fb-wrap">
+        <!-- Canvas -->
+        <div class="fb-canvas-area">
+          <div class="fb-canvas-toolbar">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);letter-spacing:1px">FORM: Loan Recall Notice v2.pdf</span>
+            <div style="margin-left:auto;display:flex;gap:8px">
+              <button class="btn-sm-ghost" onclick="fbUploadForm()" style="font-size:11px">↑ Replace Form</button>
+              <button class="btn-sm-ghost" onclick="fbClearPins()" style="font-size:11px">Clear Pins</button>
+            </div>
+          </div>
+          <div class="fb-canvas" id="fb-canvas" onclick="fbCanvasClick(event)">
+            <!-- Simulated form paper -->
+            <div class="fb-form-paper" id="fb-paper">
+              <!-- Fake form content -->
+              <div style="padding:40px 50px;font-family:'DM Sans',sans-serif;color:#1a1a1a;font-size:12px;line-height:2">
+                <div style="text-align:center;margin-bottom:24px">
+                  <div style="font-weight:800;font-size:18px;letter-spacing:-0.5px">LOAN RECALL NOTICE</div>
+                  <div style="font-size:11px;color:#555;margin-top:4px">Under Section 13(2) of the SARFAESI Act, 2002 / General Law</div>
+                </div>
+                <div style="text-align:right;margin-bottom:16px">Date: <span style="border-bottom:1px solid #aaa;display:inline-block;min-width:120px;color:#aaa;font-style:italic">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+                <div style="margin-bottom:16px">
+                  <div>To,</div>
+                  <div style="border-bottom:1px solid #aaa;min-width:200px;display:block;color:#aaa;font-style:italic;margin:4px 0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                  <div style="border-bottom:1px solid #aaa;min-width:280px;display:block;color:#aaa;font-style:italic;margin-bottom:4px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                </div>
+                <div style="margin-bottom:16px;font-weight:700">Sub: Notice calling upon repayment of outstanding loan amount of ₹ <span style="border-bottom:1px solid #aaa;display:inline-block;min-width:100px;color:#aaa;font-style:italic">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>/-</div>
+                <p style="margin-bottom:14px">Under instructions from and on behalf of our client, we hereby issue this Loan Recall Notice to you in respect of Loan Account No. <span style="border-bottom:1px solid #aaa;display:inline-block;min-width:120px;color:#aaa;font-style:italic">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.</p>
+                <p style="margin-bottom:14px">The outstanding principal and interest due stands at ₹ <span style="border-bottom:1px solid #aaa;display:inline-block;min-width:90px;color:#aaa;font-style:italic">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>/- with the account having been irregular for <span style="border-bottom:1px solid #aaa;display:inline-block;min-width:50px;color:#aaa;font-style:italic">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> days.</p>
+                <p style="margin-bottom:14px">You are hereby called upon to pay the full amount within 15 (fifteen) days.</p>
+                <div style="margin-top:40px">
+                  <div>Yours faithfully,</div>
+                  <div style="margin-top:32px;font-weight:700">Adv. Pallavi Sharma</div>
+                  <div style="font-size:11px;color:#555">Bar Council No. MH/2018/1024</div>
+                </div>
+              </div>
+              <!-- Pins will be injected here by JS -->
+            </div>
+          </div>
+        </div>
+        <!-- Sidebar -->
+        <div class="fb-sidebar">
+          <div class="fb-sb-head">
+            <div class="fb-sb-hl">Field Mapping</div>
+            <div class="fb-sb-sub" id="fb-instructions">Click on a blank space in the form to place a numbered pin. Then map it to a data field below.</div>
+          </div>
+          <div class="fb-fields-list" id="fb-fields-list">
+            <!-- populated by JS -->
+          </div>
+          <div class="fb-sb-footer">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);text-align:center" id="fb-pin-count">0 pins placed</div>
+            <button class="btn-gold-sm" onclick="fbSave()" style="width:100%">💾 Save Template</button>
+            <button class="btn-sm-ghost" onclick="fbClearPins()" style="width:100%;font-size:12px">Clear All Pins</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADV: CLIENTS -->
+    <div id="a-page-clients" class="page">
+      <div class="section-header"><div class="sh-title">My Clients</div><button class="btn-sm-ghost">+ Request New Client</button></div>
+      <div class="tbl" style="--cols:2fr 1fr 1fr 1fr 1fr 80px">
+        <div class="tbl-head" style="grid-template-columns:var(--cols)"><div class="tbl-h">NBFC / Lender</div><div class="tbl-h">Entity Type</div><div class="tbl-h">Notices (MTD)</div><div class="tbl-h">Earnings (MTD)</div><div class="tbl-h">Status</div><div class="tbl-h"></div></div>
+        <div class="tbl-row" style="grid-template-columns:var(--cols)">
+          <div><div class="tbl-name">Finserv Capital Ltd</div><div class="tbl-sub">NBFC (Retail) · Mumbai</div></div>
+          <div style="font-size:12px;color:var(--t2)">NBFC</div>
+          <div class="tbl-mono" style="color:var(--gold)">18</div>
+          <div class="tbl-mono" style="color:var(--gold)">₹5,400</div>
+          <div><span class="badge dispatched" style="font-size:9px">Active</span></div>
+          <div class="tbl-action gold">Details</div>
+        </div>
+        <div class="tbl-row" style="grid-template-columns:var(--cols)">
+          <div><div class="tbl-name">Micromax Finance</div><div class="tbl-sub">NBFC-MFI · Pune</div></div>
+          <div style="font-size:12px;color:var(--t2)">NBFC-MFI</div>
+          <div class="tbl-mono" style="color:var(--gold)">10</div>
+          <div class="tbl-mono" style="color:var(--gold)">₹3,000</div>
+          <div><span class="badge dispatched" style="font-size:9px">Active</span></div>
+          <div class="tbl-action gold">Details</div>
+        </div>
+        <div class="tbl-row" style="grid-template-columns:var(--cols)">
+          <div><div class="tbl-name">Growmax NBFC Ltd</div><div class="tbl-sub">NBFC (SME) · Delhi</div></div>
+          <div style="font-size:12px;color:var(--t2)">NBFC</div>
+          <div class="tbl-mono">0</div>
+          <div class="tbl-mono">₹0</div>
+          <div><span class="badge pending" style="font-size:9px">Onboarding</span></div>
+          <div class="tbl-action gold">Details</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADV: EARNINGS -->
+    <div id="a-page-earnings" class="page">
+      <div class="stat-grid">
+        <div class="stat"><div class="stat-n">₹<span class="u gold">8,400</span></div><div class="stat-l">This month</div><div class="stat-delta" style="color:var(--gold)">28 notices × ₹300</div></div>
+        <div class="stat"><div class="stat-n">₹<span class="u gold">44,100</span></div><div class="stat-l">Last 6 months</div><div class="stat-delta" style="color:var(--mint)">↑ 18% growth</div></div>
+        <div class="stat"><div class="stat-n">₹<span class="u gold">300</span></div><div class="stat-l">Per notice rate</div><div class="stat-delta" style="color:var(--t3)">₹350 for SARFAESI</div></div>
+        <div class="stat"><div class="stat-n">147</div><div class="stat-l">Total notices signed</div><div class="stat-delta" style="color:var(--mint)">Since Jan 2025</div></div>
+      </div>
+      <div class="section-header"><div class="sh-title">Monthly Earnings</div></div>
+      <div class="earnings-chart">
+        <div class="ec-bar-row"><div class="ec-month">Oct</div><div class="ec-bar-bg"><div class="ec-bar" style="width:40%"></div></div><div class="ec-val">₹4,500</div></div>
+        <div class="ec-bar-row"><div class="ec-month">Nov</div><div class="ec-bar-bg"><div class="ec-bar" style="width:52%"></div></div><div class="ec-val">₹5,850</div></div>
+        <div class="ec-bar-row"><div class="ec-month">Dec</div><div class="ec-bar-bg"><div class="ec-bar" style="width:44%"></div></div><div class="ec-val">₹4,950</div></div>
+        <div class="ec-bar-row"><div class="ec-month">Jan</div><div class="ec-bar-bg"><div class="ec-bar" style="width:58%"></div></div><div class="ec-val">₹6,600</div></div>
+        <div class="ec-bar-row"><div class="ec-month">Feb</div><div class="ec-bar-bg"><div class="ec-bar" style="width:65%"></div></div><div class="ec-val">₹7,350</div></div>
+        <div class="ec-bar-row"><div class="ec-month">Mar</div><div class="ec-bar-bg"><div class="ec-bar" style="width:74%"></div></div><div class="ec-val">₹8,400</div></div>
+      </div>
+      <div class="section-header"><div class="sh-title">Payout History</div><button class="btn-sm-ghost">Download PDF</button></div>
+      <div class="tbl" style="--cols:1.5fr 1fr 1fr 1fr 80px">
+        <div class="tbl-head" style="grid-template-columns:var(--cols)"><div class="tbl-h">Period</div><div class="tbl-h">Notices</div><div class="tbl-h">Amount</div><div class="tbl-h">Status</div><div class="tbl-h"></div></div>
+        <div class="tbl-row" style="grid-template-columns:var(--cols)"><div class="tbl-name">Feb 2025</div><div class="tbl-mono">24</div><div class="tbl-mono" style="color:var(--gold)">₹7,350</div><div><span class="badge dispatched" style="font-size:9px">Paid</span></div><div class="tbl-action gold">Receipt</div></div>
+        <div class="tbl-row" style="grid-template-columns:var(--cols)"><div class="tbl-name">Jan 2025</div><div class="tbl-mono">22</div><div class="tbl-mono" style="color:var(--gold)">₹6,600</div><div><span class="badge dispatched" style="font-size:9px">Paid</span></div><div class="tbl-action gold">Receipt</div></div>
+        <div class="tbl-row" style="grid-template-columns:var(--cols)"><div class="tbl-name">Dec 2024</div><div class="tbl-mono">16</div><div class="tbl-mono" style="color:var(--gold)">₹4,950</div><div><span class="badge dispatched" style="font-size:9px">Paid</span></div><div class="tbl-action gold">Receipt</div></div>
+      </div>
+    </div>
+
+    <!-- ADV: PROFILE -->
+    <div id="a-page-profile" class="page">
+      <div style="max-width:600px">
+        <div class="settings-section" style="margin-bottom:16px">
+          <div class="ss-hl">Advocate Profile</div>
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--bd)">
+            <div style="width:56px;height:56px;background:var(--gold-d);border:2px solid rgba(245,200,66,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:var(--gold)">PS</div>
+            <div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800">Adv. Pallavi Sharma</div><div style="font-size:12px;color:var(--t3);font-family:'JetBrains Mono',monospace">Bar Council No. MH/2018/1024</div></div>
+          </div>
+          <label class="f-label">Full Name (as on letterhead)</label><input class="f-inp" value="Adv. Pallavi Sharma">
+          <label class="f-label">Bar Council Registration No.</label><input class="f-inp" value="MH/2018/1024">
+          <label class="f-label">Office Address (for sender block)</label><textarea class="f-inp" rows="2" style="resize:none">14, Maker Chambers IV, Nariman Point, Mumbai – 400 021</textarea>
+          <label class="f-label">Mobile (for OTP sign flow)</label><input class="f-inp" value="+91 98201 12345">
+          <button class="btn-gold-sm">Save Profile</button>
+        </div>
+        <div class="settings-section">
+          <div class="ss-hl">Signature &amp; Letterhead</div>
+          <div style="background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:20px;text-align:center;margin-bottom:14px">
+            <div style="font-size:22px;margin-bottom:8px">📋</div>
+            <div style="font-size:13px;color:var(--t2);margin-bottom:12px">Current letterhead: <span style="font-family:'JetBrains Mono',monospace;color:var(--gold)">pallavi_letterhead_v3.pdf</span></div>
+            <button class="btn-sm-ghost">Replace Letterhead</button>
+          </div>
+          <div style="background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:20px;text-align:center">
+            <div style="font-size:22px;margin-bottom:8px">✍</div>
+            <div style="font-size:13px;color:var(--t2);margin-bottom:12px">Digital signature (PNG, transparent bg)</div>
+            <div style="display:flex;gap:8px;justify-content:center">
+              <button class="btn-sm-ghost">Upload Signature</button>
+              <button class="btn-sm-ghost">Draw Signature</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /app-main -->
+</div><!-- /screen-advocate -->
+
+<script>
+// ══════════════════════════════════════════
+// ROLE + AUTH
+// ══════════════════════════════════════════
+let currentRole = 'nbfc';
+function setRole(r){
+  currentRole = r;
+  const nbfc = document.getElementById('role-nbfc');
+  const adv  = document.getElementById('role-adv');
+  const tl   = document.getElementById('auth-topline');
+  if(r==='nbfc'){
+    nbfc.style.background='var(--mint)';nbfc.style.color='#06090f';
+    adv.style.background='transparent';adv.style.color='var(--t3)';
+    tl.style.background='linear-gradient(90deg,transparent,var(--mint),transparent)';
+    document.getElementById('auth-logo-icon').style.background='var(--mint)';
+    document.getElementById('auth-welcome').textContent='Welcome back';
+    document.getElementById('auth-welcome-sub').textContent='Sign in to your Vaasuli account';
+    document.getElementById('auth-reg-hl').textContent='Start free pilot';
+    document.getElementById('auth-pilot-note').style.display='flex';
+    document.getElementById('reg-extra-label').textContent='Entity / NBFC name';
+    document.getElementById('reg-extra').placeholder='Finserv Capital Ltd';
+    document.getElementById('auth-signin-btn').className='btn-full';
+    document.getElementById('auth-reg-btn').className='btn-full';
+  } else {
+    adv.style.background='var(--gold)';adv.style.color='#1a1200';
+    nbfc.style.background='transparent';nbfc.style.color='var(--t3)';
+    tl.style.background='linear-gradient(90deg,transparent,var(--gold),transparent)';
+    document.getElementById('auth-logo-icon').style.background='var(--gold)';
+    document.getElementById('auth-welcome').textContent='Advocate login';
+    document.getElementById('auth-welcome-sub').textContent='Sign in to your Advocate Portal';
+    document.getElementById('auth-reg-hl').textContent='Join as an Advocate';
+    document.getElementById('auth-pilot-note').style.display='none';
+    document.getElementById('reg-extra-label').textContent='Bar Council Registration No.';
+    document.getElementById('reg-extra').placeholder='MH/2018/1024';
+    document.getElementById('auth-signin-btn').className='btn-full gold';
+    document.getElementById('auth-reg-btn').className='btn-full gold';
+  }
+}
+function authTab(t){
+  document.getElementById('at1').style.cssText=t==='signin'?'flex:1;padding:10px;text-align:center;font-size:13px;font-weight:600;color:var(--mint);cursor:pointer;border-bottom:2px solid var(--mint);margin-bottom:-1px':'flex:1;padding:10px;text-align:center;font-size:13px;font-weight:600;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px';
+  document.getElementById('at2').style.cssText=t==='signup'?'flex:1;padding:10px;text-align:center;font-size:13px;font-weight:600;color:var(--mint);cursor:pointer;border-bottom:2px solid var(--mint);margin-bottom:-1px':'flex:1;padding:10px;text-align:center;font-size:13px;font-weight:600;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px';
+  document.getElementById('auth-signin').style.display=t==='signin'?'block':'none';
+  document.getElementById('auth-signup').style.display=t==='signup'?'block':'none';
+}
+function doSignIn(){
+  if(currentRole==='nbfc') goClientApp();
+  else goAdvApp();
+}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+id).classList.add('active')}
+function goAuth(){show('auth')}
+function goClientApp(){show('client');cPage('dashboard',null)}
+function goAdvApp(){show('advocate');aPage('dashboard',null)}
+
+// ══════════════════════════════════════════
+// ONBOARDING
+// ══════════════════════════════════════════
+let obCurrent=1;
+function obNext(step){
+  document.getElementById('ob-p'+obCurrent).style.display='none';
+  obCurrent=step;
+  document.getElementById('ob-p'+step).style.display='block';
+  [1,2,3].forEach(i=>{
+    const dot=document.getElementById('ob-d'+i);
+    const line=i<3?document.getElementById('ob-l'+i):null;
+    dot.style.borderColor=i<=step?'var(--mint)':'var(--bd2)';
+    dot.style.color=i<step?'#06090f':i===step?'var(--mint)':'var(--t3)';
+    dot.style.background=i<step?'var(--mint)':'transparent';
+    if(line)line.style.background=i<step?'var(--mint)':'var(--bd)';
+  });
+  if(step===3)goClientApp();
+}
+
+// ══════════════════════════════════════════
+// CLIENT NAVIGATION
+// ══════════════════════════════════════════
+const cTitles={dashboard:'Dashboard',cases:'All Cases',upload:'Upload Cases',stationery:'Envelopes & AD Cards',settings:'Settings & Preferences',billing:'Billing & Plans'};
+function cPage(id,navEl){
+  document.querySelectorAll('[id^="c-page-"]').forEach(p=>p.classList.remove('active'));
+  const el=document.getElementById('c-page-'+id);
+  if(el)el.classList.add('active');
+  if(navEl){document.querySelectorAll('[id^="c-nav-"]').forEach(i=>i.classList.remove('on'));navEl.classList.add('on')}
+  else{
+    document.querySelectorAll('[id^="c-nav-"]').forEach(i=>i.classList.remove('on'));
+    const nb=document.getElementById('c-nav-'+id);if(nb)nb.classList.add('on');
+  }
+  document.getElementById('c-tb-title').textContent=cTitles[id]||id;
+  document.getElementById('c-tb-crumb').textContent='Finserv Capital Ltd';
+  if(id==='stationery')stnSwitch(stnIdx);
+}
+
+// ══════════════════════════════════════════
+// ADVOCATE NAVIGATION
+// ══════════════════════════════════════════
+const aTitles={dashboard:'Dashboard',queue:'Review Queue',review:'Notice Editor',templates:'Form Templates',builder:'Form Builder',clients:'My Clients',earnings:'Earnings',profile:'My Profile'};
+function aPage(id,navEl){
+  document.querySelectorAll('[id^="a-page-"]').forEach(p=>p.classList.remove('active'));
+  const el=document.getElementById('a-page-'+id);
+  if(el)el.classList.add('active');
+  if(navEl){document.querySelectorAll('[id^="a-nav-"]').forEach(i=>{i.classList.remove('on');i.classList.remove('gold-on')});navEl.classList.add('gold-on')}
+  else{
+    document.querySelectorAll('[id^="a-nav-"]').forEach(i=>{i.classList.remove('on');i.classList.remove('gold-on')});
+    const nb=document.getElementById('a-nav-'+id);if(nb)nb.classList.add('gold-on');
+  }
+  document.getElementById('a-tb-title').textContent=aTitles[id]||id;
+  document.getElementById('a-tb-crumb').textContent='Advocate Portal · Adv. Pallavi Sharma';
+  if(id==='builder')fbInit();
+}
+
+// ══════════════════════════════════════════
+// UPLOAD FLOW
+// ══════════════════════════════════════════
+function cuStep(n){
+  [1,2,3,4].forEach(i=>{const p=document.getElementById('cu-p'+i);if(p)p.style.display=i===n?'block':'none'});
+  document.querySelectorAll('#cu-steps > div').forEach((s,i)=>{const a=i+1===n;s.style.color=a?'var(--mint)':'var(--t3)';s.style.background=a?'var(--mint-d)':'transparent';s.style.fontWeight=a?'600':'500'});
+}
+function cuDispatch(){
+  [1,2,3,4].forEach(i=>{const p=document.getElementById('cu-p'+i);if(p)p.style.display='none'});
+  document.getElementById('cu-success').style.display='block';
+}
+function selectNT(el){document.querySelectorAll('.nt').forEach(n=>n.classList.remove('on'));el.classList.add('on')}
+function filterPill(el){document.querySelectorAll('.f-pill').forEach(p=>p.classList.remove('on'));el.classList.add('on')}
+
+// ══════════════════════════════════════════
+// STATIONERY
+// ══════════════════════════════════════════
+const CASES=[
+  {name:'Rajesh Kumar Mehra',acc:'FIN-PL-4821',type:'Personal Loan',addr:'Plot 12, Vasant Vihar,\nNew Delhi – 110 057',addrI:'Plot 12, Vasant Vihar, New Delhi – 110 057',article:'EW8841201IN',date:'12 March 2025'},
+  {name:'Priya Suresh Nair',acc:'FIN-TW-2204',type:'Two-Wheeler Loan',addr:'14-B, Koramangala,\nBengaluru – 560 034',addrI:'14-B, Koramangala, Bengaluru – 560 034',article:'EW8841202IN',date:'12 March 2025'},
+  {name:'Mohan Lal Verma',acc:'FIN-MS-9903',type:'MSME Loan',addr:'B-44, Sector 62,\nNoida – 201 309',addrI:'B-44, Sector 62, Noida – 201 309',article:'EW8841203IN',date:'13 March 2025'}
+];
+let stnIdx=0;
+const stnChecked=new Set([0,1]),stnPrinted=new Set();
+function stnSwitch(i){
+  stnIdx=parseInt(i);const c=CASES[stnIdx];
+  document.getElementById('env-recipient').innerHTML='<div class="env-recipient-name">'+c.name+'</div>'+c.addr.replace('\n','<br>');
+  document.getElementById('env-article').textContent='Article No.: '+c.article+' · Case: '+c.acc+' · '+c.date;
+  document.getElementById('adc-article-no').textContent=c.article;
+  document.getElementById('adc-addressee').textContent=c.name+', '+c.addrI;
+  document.getElementById('adc-case-ref').textContent=c.acc+' · Loan Recall';
+  document.getElementById('stn-counter').textContent=(stnIdx+1)+' / '+CASES.length;
+  document.getElementById('stn-case-select').value=stnIdx;
+  const p=stnPrinted.has(stnIdx);
+  document.getElementById('env-status').className=p?'badge-printed':'badge-pending-print';
+  document.getElementById('env-status').textContent=p?'Printed':'Ready to Print';
+  document.getElementById('adc-status').className=p?'badge-printed':'badge-pending-print';
+  document.getElementById('adc-status').textContent=p?'Printed':'Ready to Print';
+}
+function stnNext(){stnSwitch((stnIdx+1)%CASES.length)}
+function stnPrev(){stnSwitch((stnIdx+CASES.length-1)%CASES.length)}
+function stnToggle(i){const el=document.getElementById('chk-'+i);if(stnChecked.has(i)){stnChecked.delete(i);el.classList.remove('on');el.innerHTML=''}else{stnChecked.add(i);el.classList.add('on');el.innerHTML='✓'}}
+function stnSelectAll(){[0,1,2].forEach(i=>{stnChecked.add(i);const el=document.getElementById('chk-'+i);el.classList.add('on');el.innerHTML='✓'})}
+function stnMarkPrinted(){
+  stnChecked.forEach(i=>{stnPrinted.add(i);const s=document.getElementById('status-'+i);s.className='badge-printed';s.textContent='Printed ✓'});
+  if(stnPrinted.has(stnIdx)){document.getElementById('env-status').className='badge-printed';document.getElementById('env-status').textContent='Printed';document.getElementById('adc-status').className='badge-printed';document.getElementById('adc-status').textContent='Printed';}
+}
+function stnPrintCurrent(){stnMarkPrinted();alert('Printing envelope + AD card for Case '+(stnIdx+1)+' ('+CASES[stnIdx].name+').\n\nIn production: browser print dialog opens with @media print CSS isolating stationery.')}
+function stnPrintAll(){[0,1,2].forEach(i=>stnPrinted.add(i));[0,1,2].forEach(i=>{const s=document.getElementById('status-'+i);s.className='badge-printed';s.textContent='Printed ✓'});stnSwitch(stnIdx);alert('Printing all 3 envelopes + AD cards.')}
+
+// ══════════════════════════════════════════
+// ADVOCATE REVIEW
+// ══════════════════════════════════════════
+function advSign(){
+  document.getElementById('adv-signed-banner').style.display='flex';
+  window.scrollTo({top:9999,behavior:'smooth'});
+}
+function advReject(){
+  const reason=prompt('Reason for rejection / flag (will be sent back to NBFC):','');
+  if(reason!==null)alert('Case flagged and returned for revision.\nReason: '+reason);
+}
+
+// ══════════════════════════════════════════
+// FORM BUILDER
+// ══════════════════════════════════════════
+const FIELD_OPTIONS=['— Select data field —','Borrower Full Name','Borrower Address Line 1','Borrower City / District','Borrower PIN Code','Account / Loan No.','Outstanding Amount (₹)','DPD (days)','Loan Type','Date of Notice','Reply Window (days)','NBFC Name','NBFC Reg. No.','Advocate Name','Advocate Bar No.','Custom Text…'];
+let fbPins=[];
+let fbMode_='map';
+let fbNextPin=1;
+
+function fbInit(){
+  fbRenderFields();
+}
+
+function fbMode(m){
+  fbMode_=m;
+  document.getElementById('fb-mode-map').className='fb-mode-btn'+(m==='map'?' on':'');
+  document.getElementById('fb-mode-preview').className='fb-mode-btn'+(m==='preview'?' gold-on':'');
+  const paper=document.getElementById('fb-paper');
+  if(m==='map'){
+    paper.style.cursor='crosshair';
+    document.getElementById('fb-instructions').textContent='Click on a blank space in the form to place a numbered pin. Map each pin to a data field.';
+    // hide filled values
+    document.querySelectorAll('.fb-filled-val').forEach(v=>v.style.display='none');
+  } else {
+    paper.style.cursor='default';
+    document.getElementById('fb-instructions').textContent='Preview showing how data will fill the form. Each pin is replaced by sample data.';
+    // show filled values
+    fbRenderPreview();
+  }
+}
+
+function fbCanvasClick(e){
+  if(fbMode_!=='map')return;
+  const paper=document.getElementById('fb-paper');
+  const rect=paper.getBoundingClientRect();
+  const x=e.clientX-rect.left;
+  const y=e.clientY-rect.top;
+  if(x<0||y<0||x>paper.offsetWidth||y>paper.offsetHeight)return;
+  const pct_x=(x/paper.offsetWidth*100).toFixed(1);
+  const pct_y=(y/paper.offsetHeight*100).toFixed(1);
+  addPin(pct_x,pct_y);
+}
+
+function addPin(px,py){
+  const num=fbNextPin++;
+  fbPins.push({num,px,py,field:''});
+  const pin=document.createElement('div');
+  pin.className='fb-pin';
+  pin.id='fb-pin-'+num;
+  pin.textContent=num;
+  pin.style.left=px+'%';
+  pin.style.top=py+'%';
+  pin.onclick=function(e){e.stopPropagation();fbSelectPin(num)};
+  document.getElementById('fb-paper').appendChild(pin);
+  fbRenderFields();
+  fbSelectPin(num);
+  document.getElementById('fb-pin-count').textContent=fbPins.length+' pin'+(fbPins.length!==1?'s':'')+' placed';
+}
+
+function fbSelectPin(num){
+  document.querySelectorAll('.fb-pin').forEach(p=>p.classList.remove('active'));
+  const pinEl=document.getElementById('fb-pin-'+num);
+  if(pinEl)pinEl.classList.add('active');
+  document.querySelectorAll('.fb-field-item').forEach(f=>f.classList.remove('active'));
+  const fieldEl=document.getElementById('fb-field-'+num);
+  if(fieldEl){fieldEl.classList.add('active');fieldEl.scrollIntoView({behavior:'smooth',block:'nearest'})}
+}
+
+function fbRenderFields(){
+  const list=document.getElementById('fb-fields-list');
+  if(fbPins.length===0){list.innerHTML='<div style="text-align:center;padding:40px 20px;color:var(--t3);font-size:12px;line-height:1.8">No pins yet.<br>Click on blank spaces<br>in the form to add pins.</div>';return}
+  list.innerHTML='';
+  fbPins.forEach(pin=>{
+    const div=document.createElement('div');
+    div.className='fb-field-item';
+    div.id='fb-field-'+pin.num;
+    div.onclick=function(){fbSelectPin(pin.num)};
+    const numEl=document.createElement('div');
+    numEl.className='fb-field-num'+(pin.field?'  mapped':'');
+    numEl.textContent=pin.num;
+    const label=document.createElement('div');
+    label.className='fb-field-label';
+    label.textContent='Field '+pin.num;
+    const sel=document.createElement('select');
+    sel.className='fb-field-select';
+    FIELD_OPTIONS.forEach(opt=>{
+      const o=document.createElement('option');
+      o.value=opt;o.textContent=opt;
+      if(opt===pin.field)o.selected=true;
+      sel.appendChild(o);
+    });
+    sel.onchange=function(){
+      pin.field=this.value;
+      numEl.className='fb-field-num'+(pin.field&&pin.field!=='— Select data field —'?' mapped':'');
+    };
+    div.appendChild(numEl);div.appendChild(label);div.appendChild(sel);
+    const removeBtn=document.createElement('button');
+    removeBtn.className='btn-sm-ghost';removeBtn.style.fontSize='10px';removeBtn.style.marginTop='6px';removeBtn.style.width='100%';
+    removeBtn.textContent='Remove pin';
+    removeBtn.onclick=function(e){e.stopPropagation();fbRemovePin(pin.num)};
+    div.appendChild(removeBtn);
+    list.appendChild(div);
+  });
+}
+
+function fbRemovePin(num){
+  fbPins=fbPins.filter(p=>p.num!==num);
+  const el=document.getElementById('fb-pin-'+num);
+  if(el)el.remove();
+  fbRenderFields();
+  document.getElementById('fb-pin-count').textContent=fbPins.length+' pin'+(fbPins.length!==1?'s':'')+' placed';
+}
+
+function fbClearPins(){
+  if(!confirm('Clear all '+fbPins.length+' pins?'))return;
+  fbPins=[];fbNextPin=1;
+  document.querySelectorAll('.fb-pin').forEach(p=>p.remove());
+  document.querySelectorAll('.fb-filled-val').forEach(p=>p.remove());
+  fbRenderFields();
+  document.getElementById('fb-pin-count').textContent='0 pins placed';
+}
+
+const SAMPLE_DATA={'Borrower Full Name':'Rajesh Kumar Mehra','Borrower Address Line 1':'Plot 12, Vasant Vihar','Borrower City / District':'New Delhi','Borrower PIN Code':'110 057','Account / Loan No.':'FIN-PL-4821','Outstanding Amount (₹)':'₹1,24,500','DPD (days)':'65','Loan Type':'Personal Loan','Date of Notice':'12 March 2025','Reply Window (days)':'15','NBFC Name':'Finserv Capital Ltd','NBFC Reg. No.':'N-13.01874','Advocate Name':'Adv. Pallavi Sharma','Advocate Bar No.':'MH/2018/1024','Custom Text…':'[Custom Value]'};
+
+function fbRenderPreview(){
+  document.querySelectorAll('.fb-filled-val').forEach(v=>v.remove());
+  const paper=document.getElementById('fb-paper');
+  fbPins.forEach(pin=>{
+    if(!pin.field||pin.field==='— Select data field —')return;
+    const val=SAMPLE_DATA[pin.field]||pin.field;
+    const span=document.createElement('div');
+    span.className='fb-filled-val';
+    span.textContent=val;
+    span.style.left=pin.px+'%';
+    span.style.top=pin.py+'%';
+    span.style.display='block';
+    paper.appendChild(span);
+    // hide the pin in preview
+    const pinEl=document.getElementById('fb-pin-'+pin.num);
+    if(pinEl)pinEl.style.opacity='0.2';
+  });
+}
+
+function fbSave(){
+  const mapped=fbPins.filter(p=>p.field&&p.field!=='— Select data field —');
+  alert('Template saved: "Loan Recall Notice"\n'+fbPins.length+' pins placed, '+mapped.length+' fields mapped.\n\nIn production: saved to database and available in the dispatch flow.');
+}
+
+function fbUploadForm(){
+  alert('In production: upload a blank PDF form here. The system renders it in the canvas and you click blank spaces to pin fields.');
+}
+
+// Pre-populate 6 demo pins on init so the builder isn't empty
+window.addEventListener('DOMContentLoaded',()=>{
+  // Demo pins — percentages relative to the paper
+  const demoPins=[
+    {px:73.5,py:5.8,field:'Date of Notice'},
+    {px:30,py:20.5,field:'Borrower Full Name'},
+    {px:38,py:23.2,field:'Borrower Address Line 1'},
+    {px:58,py:30.5,field:'Outstanding Amount (₹)'},
+    {px:42,py:37.5,field:'Account / Loan No.'},
+    {px:50,py:42.2,field:'DPD (days)'},
+  ];
+  // Defer until builder canvas is visible (it's hidden initially)
+  window._fbDemoPins=demoPins;
+});
+
+// Override fbInit to add demo pins
+const _fbInitOrig=fbInit;
+fbInit=function(){
+  if(fbPins.length===0&&window._fbDemoPins){
+    window._fbDemoPins.forEach(d=>{
+      fbPins.push({num:fbNextPin,px:d.px,py:d.py,field:d.field});
+      const pin=document.createElement('div');
+      pin.className='fb-pin';pin.id='fb-pin-'+fbNextPin;
+      pin.textContent=fbNextPin;
+      pin.style.left=d.px+'%';pin.style.top=d.py+'%';
+      pin.onclick=(function(n){return function(e){e.stopPropagation();fbSelectPin(n)}})(fbNextPin);
+      document.getElementById('fb-paper').appendChild(pin);
+      fbNextPin++;
+    });
+    window._fbDemoPins=null;
+    document.getElementById('fb-pin-count').textContent=fbPins.length+' pins placed';
+    fbRenderFields();
+  }
+};
+
+</script>
 </body>
 </html>
