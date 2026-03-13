@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vaasuli Platform — Dashboard</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     SCREEN 1: AUTH
+════════════════════════════════════════════════ -->
+<div id="screen-auth" class="screen active">
+  <div class="auth-card">
+    <div class="auth-top">
+      <div class="auth-logo"><div class="lv">V</div><span>vaasuli.com</span></div>
+      <div class="auth-tabs">
+        <div class="auth-tab on" onclick="authTab('signin')">Sign In</div>
+        <div class="auth-tab" onclick="authTab('signup')">Create Account</div>
+      </div>
+    </div>
+    <div class="auth-body">
+
+      <!-- SIGN IN -->
+      <div id="auth-signin">
+        <div class="auth-hl">Welcome back</div>
+        <div class="auth-sub">Sign in to your Vaasuli account</div>
+        <label class="f-label">Email address</label>
+        <input class="f-inp" type="email" placeholder="you@nbfc.com">
+        <label class="f-label">Password</label>
+        <input class="f-inp" type="password" placeholder="••••••••">
+        <button class="btn-full" onclick="goOnboard()">Sign In &rarr;</button>
+        <div class="auth-or"><div class="auth-or-line"></div><div class="auth-or-txt">new here?</div><div class="auth-or-line"></div></div>
+        <button class="btn-full" style="background:var(--s2);border:1px solid var(--bd2);color:var(--t3)" onclick="authTab('signup')">Create a free account</button>
+      </div>
+
+      <!-- SIGN UP -->
+      <div id="auth-signup" style="display:none">
+        <div class="auth-pilot-note">
+          <div class="apn-badge">FREE</div>
+          <div class="apn-txt">Start with <strong style="color:var(--mint)">10 cases at no cost</strong>. Advocate-signed, India Post dispatched. No credit card needed.</div>
+        </div>
+        <div class="auth-hl">Start your free pilot</div>
+        <div class="auth-sub">Takes 2 minutes. First 10 notices on us.</div>
+        <label class="f-label">Full name</label>
+        <input class="f-inp" type="text" placeholder="Amit Sharma">
+        <label class="f-label">Work email</label>
+        <input class="f-inp" type="email" placeholder="amit@finservcapital.com">
+        <label class="f-label">Password</label>
+        <input class="f-inp" type="password" placeholder="Min. 8 characters">
+        <button class="btn-full" onclick="goOnboard()">Create Account &amp; Start Pilot &rarr;</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SCREEN 2: ONBOARDING
+════════════════════════════════════════════════ -->
+<div id="screen-onboard" class="screen">
+  <div class="ob-wrap">
+    <!-- progress bar -->
+    <div style="margin-bottom:8px">
+      <div class="ob-progress">
+        <div class="ob-step"><div class="ob-dot active" id="ob-d1">1</div><div class="ob-line" id="ob-l1"></div></div>
+        <div class="ob-step"><div class="ob-dot" id="ob-d2">2</div><div class="ob-line" id="ob-l2"></div></div>
+        <div class="ob-step"><div class="ob-dot" id="ob-d3">3</div></div>
+      </div>
+      <div class="ob-labels">
+        <div class="ob-lbl">Company</div>
+        <div class="ob-lbl">Portfolio</div>
+        <div class="ob-lbl">Confirm</div>
+      </div>
+    </div>
+
+    <div class="ob-card">
+
+      <!-- STEP 1: Company -->
+      <div class="ob-panel active" id="ob-p1">
+        <div class="ob-hl">Tell us about your company</div>
+        <div class="ob-sub">This helps us customise notice templates and compliance settings for your entity type.</div>
+        <label class="f-label">Company / NBFC Name</label>
+        <input class="f-inp" type="text" id="ob-company" placeholder="e.g. Finserv Capital Ltd" value="Finserv Capital Ltd">
+        <label class="f-label">Your Role</label>
+        <select class="f-sel" id="ob-role">
+          <option>Collections Head</option>
+          <option>VP Collections</option>
+          <option>CFO / Finance Head</option>
+          <option>CEO / Founder</option>
+          <option>Operations Lead</option>
+        </select>
+        <div class="ob-row2">
+          <div>
+            <label class="f-label">City</label>
+            <input class="f-inp" type="text" placeholder="Mumbai">
+          </div>
+          <div>
+            <label class="f-label">NBFC / Fintech Type</label>
+            <select class="f-sel">
+              <option>NBFC-MFI</option>
+              <option selected>NBFC (Retail)</option>
+              <option>Fintech Lender</option>
+              <option>DSA / Aggregator</option>
+              <option>Collection Agency</option>
+            </select>
+          </div>
+        </div>
+        <div class="ob-btns">
+          <button class="btn-mint-sm" style="flex:1" onclick="obNext(2)">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Portfolio -->
+      <div class="ob-panel" id="ob-p2">
+        <div class="ob-hl">What loan types do you handle?</div>
+        <div class="ob-sub">Select all that apply. We'll pre-configure the right notice formats for each.</div>
+        <div class="loan-chips" id="loan-chips">
+          <div class="loan-chip on" onclick="toggleChip(this)">Personal Loan</div>
+          <div class="loan-chip" onclick="toggleChip(this)">Two-Wheeler</div>
+          <div class="loan-chip on" onclick="toggleChip(this)">MSME / Business</div>
+          <div class="loan-chip" onclick="toggleChip(this)">LAP / Home Loan</div>
+          <div class="loan-chip" onclick="toggleChip(this)">Microfinance</div>
+          <div class="loan-chip" onclick="toggleChip(this)">Consumer Durable</div>
+          <div class="loan-chip" onclick="toggleChip(this)">Vehicle / CV</div>
+          <div class="loan-chip" onclick="toggleChip(this)">Gold Loan</div>
+        </div>
+        <label class="f-label">Approx DPD accounts per month</label>
+        <select class="f-sel" id="ob-vol">
+          <option>Under 100</option>
+          <option selected>100 – 500</option>
+          <option>500 – 2,000</option>
+          <option>2,000 – 10,000</option>
+          <option>10,000+</option>
+        </select>
+        <div class="ob-btns">
+          <button class="btn-ghost-sm" onclick="obNext(1)">Back</button>
+          <button class="btn-mint-sm" style="flex:1" onclick="obNext(3)">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Confirm pilot -->
+      <div class="ob-panel" id="ob-p3">
+        <div class="ob-hl">Your free pilot is ready.</div>
+        <div class="ob-sub">Here's what you get — no card required, no commitment.</div>
+        <div class="pilot-confirm-box">
+          <div class="pcb-hl">🎉 10 Free Notices</div>
+          <div class="pcb-rows">
+            <div class="pcb-row"><span class="pcb-k">AI-drafted + advocate-signed</span><span class="pcb-v">✓</span></div>
+            <div class="pcb-row"><span class="pcb-k">India Post Registered AD dispatch</span><span class="pcb-v">✓</span></div>
+            <div class="pcb-row"><span class="pcb-k">WhatsApp + SMS + Email</span><span class="pcb-v">✓</span></div>
+            <div class="pcb-row"><span class="pcb-k">Tracking dashboard</span><span class="pcb-v">✓</span></div>
+            <div class="pcb-row"><span class="pcb-k">Court-admissible PDF proof</span><span class="pcb-v">✓</span></div>
+            <div class="pcb-row"><span class="pcb-k">Cost</span><span class="pcb-v" style="color:var(--mint)">₹0</span></div>
+          </div>
+        </div>
+        <div class="ob-btns">
+          <button class="btn-ghost-sm" onclick="obNext(2)">Back</button>
+          <button class="btn-mint-sm" style="flex:1" onclick="goApp()">Enter Dashboard &rarr;</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SCREEN 3: MAIN APP
+════════════════════════════════════════════════ -->
+<div id="screen-app" class="screen">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sb-logo"><div class="lv">V</div>Vaasuli</div>
+
+    <div class="sb-pilot">
+      <div class="sbp-label">Free Pilot</div>
+      <div class="sbp-bar-bg"><div class="sbp-bar" style="width:30%"></div></div>
+      <div class="sbp-txt"><span>3 / 10</span><span style="color:var(--t3)">used</span></div>
+    </div>
+
+    <nav class="sb-nav">
+      <div class="sb-section">Main</div>
+      <div class="sb-item on" onclick="showPage('dashboard',this)"><span class="sb-icon">⬛</span>Dashboard</div>
+      <div class="sb-item" onclick="showPage('cases',this)"><span class="sb-icon">📋</span>All Cases<span class="sb-badge">3</span></div>
+      <div class="sb-item" onclick="showPage('upload',this)"><span class="sb-icon">⬆</span>Upload Cases</div>
+
+      <div class="sb-section">Recovery</div>
+      <div class="sb-item" onclick="showPage('cases',this)"><span class="sb-icon">📨</span>Dispatched</div>
+      <div class="sb-item" onclick="showPage('cases',this)"><span class="sb-icon">⏳</span>Pending</div>
+
+      <div class="sb-section">Account</div>
+      <div class="sb-item" onclick="showPage('billing',this)"><span class="sb-icon">💳</span>Billing &amp; Plans</div>
+      <div class="sb-item"><span class="sb-icon">⚙</span>Settings</div>
+    </nav>
+
+    <div class="sb-foot">
+      <div class="sb-user">
+        <div class="sb-avatar">AS</div>
+        <div><div class="sb-uname">Amit Sharma</div><div class="sb-urole">Collections Head</div></div>
+        <div class="sb-signout" onclick="goAuth()">↩</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="app-main">
+
+    <!-- TOP BAR -->
+    <div class="app-topbar">
+      <div>
+        <div class="tb-title" id="tb-title">Dashboard</div>
+        <div class="tb-breadcrumb" id="tb-crumb">Finserv Capital Ltd</div>
+      </div>
+      <div class="tb-right">
+        <button class="btn-sm-ghost">Export CSV</button>
+        <button class="btn-sm-mint" onclick="showPage('upload',null)">+ Upload Cases</button>
+      </div>
+    </div>
+
+    <!-- ─── DASHBOARD PAGE ── -->
+    <div id="page-dashboard" class="page active">
+      <div class="alert-banner">
+        <div class="ab-icon">🎉</div>
+        <div class="ab-text">
+          <div class="ab-hl">Your free pilot is active — 7 notices remaining</div>
+          <div class="ab-sub">Upload your first batch. We'll dispatch advocate-signed notices via India Post + WhatsApp within 48 hours.</div>
+        </div>
+        <div class="ab-action"><button class="btn-sm-mint" onclick="showPage('upload',null)">Upload Now &rarr;</button></div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="stat-n">3</div>
+          <div class="stat-l">Total Cases</div>
+          <div class="stat-delta">▲ this month</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">2<span class="u"> dispatched</span></div>
+          <div class="stat-l">India Post + WhatsApp + SMS</div>
+          <div class="stat-delta" style="color:var(--mint)">✓ Court-admissible</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">1<span class="u"> reviewing</span></div>
+          <div class="stat-l">Advocate review in progress</div>
+          <div class="stat-delta" style="color:var(--amber)">~ Est. 4hr remaining</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">₹0</div>
+          <div class="stat-l">Cost this month</div>
+          <div class="stat-delta" style="color:var(--mint)">✓ Free pilot active</div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div class="sh-title">Recent Cases</div>
+        <div class="sh-link" onclick="showPage('cases',null)">View all →</div>
+      </div>
+
+      <div class="case-table-wrap">
+        <div class="ct-head">
+          <div class="ct-h">Borrower</div>
+          <div class="ct-h">Account No.</div>
+          <div class="ct-h">Outstanding</div>
+          <div class="ct-h">Type</div>
+          <div class="ct-h">Status / Channels</div>
+          <div class="ct-h"></div>
+        </div>
+        <div class="ct-row" onclick="showPage('detail',null)">
+          <div><div class="ct-name">Rajesh Kumar Mehra</div><div class="ct-acc">ACC-2024-001</div></div>
+          <div class="ct-field ct-acc">FIN-PL-4821</div>
+          <div class="ct-amt">₹1,24,500</div>
+          <div class="ct-type">Personal Loan</div>
+          <div>
+            <div style="margin-bottom:5px"><span class="badge dispatched"><span class="badge-dot"></span>Dispatched</span></div>
+            <div class="channels">
+              <div class="ch ok" title="India Post">IP</div>
+              <div class="ch ok" title="WhatsApp">WA</div>
+              <div class="ch ok" title="SMS">SM</div>
+              <div class="ch ok" title="Email">EM</div>
+            </div>
+          </div>
+          <div class="ct-action">View →</div>
+        </div>
+        <div class="ct-row" onclick="showPage('detail',null)">
+          <div><div class="ct-name">Priya Suresh Nair</div><div class="ct-acc">ACC-2024-002</div></div>
+          <div class="ct-field ct-acc">FIN-TW-2204</div>
+          <div class="ct-amt">₹48,200</div>
+          <div class="ct-type">Two-Wheeler</div>
+          <div>
+            <div style="margin-bottom:5px"><span class="badge dispatched"><span class="badge-dot"></span>Dispatched</span></div>
+            <div class="channels">
+              <div class="ch ok">IP</div>
+              <div class="ch ok">WA</div>
+              <div class="ch ok">SM</div>
+              <div class="ch pending">EM</div>
+            </div>
+          </div>
+          <div class="ct-action">View →</div>
+        </div>
+        <div class="ct-row" onclick="showPage('detail',null)">
+          <div><div class="ct-name">Mohan Lal Verma</div><div class="ct-acc">ACC-2024-003</div></div>
+          <div class="ct-field ct-acc">FIN-MS-9903</div>
+          <div class="ct-amt">₹3,80,000</div>
+          <div class="ct-type">MSME Loan</div>
+          <div>
+            <div style="margin-bottom:5px"><span class="badge review"><span class="badge-dot"></span>Advocate Review</span></div>
+            <div class="channels">
+              <div class="ch">IP</div>
+              <div class="ch">WA</div>
+              <div class="ch">SM</div>
+              <div class="ch">EM</div>
+            </div>
+          </div>
+          <div class="ct-action">View →</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── CASES PAGE ── -->
+    <div id="page-cases" class="page">
+      <div class="filter-bar">
+        <input class="f-search" placeholder="Search borrower, account, amount…">
+        <div class="f-pill on" onclick="filterPill(this)">All (3)</div>
+        <div class="f-pill" onclick="filterPill(this)">Dispatched (2)</div>
+        <div class="f-pill" onclick="filterPill(this)">In Review (1)</div>
+        <div class="f-pill" onclick="filterPill(this)">Draft (0)</div>
+      </div>
+      <div class="case-table-wrap">
+        <div class="ct-head">
+          <div class="ct-h">Borrower</div>
+          <div class="ct-h">Account No.</div>
+          <div class="ct-h">Outstanding</div>
+          <div class="ct-h">Loan Type</div>
+          <div class="ct-h">Status / Channels</div>
+          <div class="ct-h"></div>
+        </div>
+        <div class="ct-row" onclick="showPage('detail',null)">
+          <div><div class="ct-name">Rajesh Kumar Mehra</div><div class="ct-acc">Dispatched 12 Mar 2025</div></div>
+          <div class="ct-acc">FIN-PL-4821</div>
+          <div class="ct-amt">₹1,24,500</div>
+          <div class="ct-type">Personal Loan</div>
+          <div><div style="margin-bottom:5px"><span class="badge dispatched"><span class="badge-dot"></span>Dispatched</span></div><div class="channels"><div class="ch ok">IP</div><div class="ch ok">WA</div><div class="ch ok">SM</div><div class="ch ok">EM</div></div></div>
+          <div class="ct-action">View →</div>
+        </div>
+        <div class="ct-row" onclick="showPage('detail',null)">
+          <div><div class="ct-name">Priya Suresh Nair</div><div class="ct-acc">Dispatched 12 Mar 2025</div></div>
+          <div class="ct-acc">FIN-TW-2204</div>
+          <div class="ct-amt">₹48,200</div>
+          <div class="ct-type">Two-Wheeler</div>
+          <div><div style="margin-bottom:5px"><span class="badge dispatched"><span class="badge-dot"></span>Dispatched</span></div><div class="channels"><div class="ch ok">IP</div><div class="ch ok">WA</div><div class="ch ok">SM</div><div class="ch pending">EM</div></div></div>
+          <div class="ct-action">View →</div>
+        </div>
+        <div class="ct-row" onclick="showPage('detail',null)">
+          <div><div class="ct-name">Mohan Lal Verma</div><div class="ct-acc">Submitted 13 Mar 2025</div></div>
+          <div class="ct-acc">FIN-MS-9903</div>
+          <div class="ct-amt">₹3,80,000</div>
+          <div class="ct-type">MSME Loan</div>
+          <div><div style="margin-bottom:5px"><span class="badge review"><span class="badge-dot"></span>Advocate Review</span></div><div class="channels"><div class="ch">IP</div><div class="ch">WA</div><div class="ch">SM</div><div class="ch">EM</div></div></div>
+          <div class="ct-action">View →</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── UPLOAD PAGE ── -->
+    <div id="page-upload" class="page">
+      <div class="upload-wrap">
+
+        <!-- step indicator -->
+        <div style="display:flex;gap:0;margin-bottom:28px;background:var(--s1);border:1px solid var(--bd);border-radius:8px;overflow:hidden" id="upload-steps">
+          <div style="flex:1;padding:10px 16px;text-align:center;font-size:12px;font-weight:600;color:var(--mint);background:var(--mint-d);border-right:1px solid var(--bd)">1. Upload CSV</div>
+          <div style="flex:1;padding:10px 16px;text-align:center;font-size:12px;font-weight:500;color:var(--t3);border-right:1px solid var(--bd)">2. Map Columns</div>
+          <div style="flex:1;padding:10px 16px;text-align:center;font-size:12px;font-weight:500;color:var(--t3);border-right:1px solid var(--bd)">3. Notice Type</div>
+          <div style="flex:1;padding:10px 16px;text-align:center;font-size:12px;font-weight:500;color:var(--t3)">4. Review &amp; Dispatch</div>
+        </div>
+
+        <div id="upload-panel-1">
+          <!-- dropzone -->
+          <div class="dropzone" id="dropzone" onclick="simulateParse()" ondragover="this.classList.add('drag')" ondragleave="this.classList.remove('drag')">
+            <div class="dz-icon">📂</div>
+            <div class="dz-hl">Drop your CSV here, or click to browse</div>
+            <div class="dz-sub">Your borrower data. We'll detect columns automatically.</div>
+            <div class="dz-types">CSV · XLS · XLSX &nbsp;·&nbsp; Max 10MB &nbsp;·&nbsp; Up to 5,000 rows</div>
+          </div>
+
+          <div class="or-row"><div class="or-l"></div><div class="or-t">or enter manually</div><div class="or-l"></div></div>
+
+          <!-- manual entry -->
+          <div style="background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:18px;margin-bottom:20px">
+            <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;margin-bottom:14px">Add a single case manually</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div><label class="f-label">Borrower Full Name</label><input class="f-inp" placeholder="Rajesh Kumar Mehra" style="margin-bottom:0"></div>
+              <div><label class="f-label">Account / Loan ID</label><input class="f-inp" placeholder="FIN-PL-4821" style="margin-bottom:0"></div>
+              <div><label class="f-label">Outstanding (₹)</label><input class="f-inp" placeholder="1,24,500" style="margin-bottom:0"></div>
+              <div><label class="f-label">DPD (days)</label><input class="f-inp" placeholder="65" style="margin-bottom:0"></div>
+            </div>
+            <div style="margin-top:12px"><label class="f-label">Full Address (for India Post dispatch)</label><textarea class="f-inp" rows="2" placeholder="Plot 12, Vasant Vihar, New Delhi 110057" style="margin-bottom:0;resize:none"></textarea></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+              <div><label class="f-label">Mobile Number</label><input class="f-inp" placeholder="+91 98765 43210" style="margin-bottom:0"></div>
+              <div><label class="f-label">Email (optional)</label><input class="f-inp" placeholder="rajesh@gmail.com" style="margin-bottom:0"></div>
+            </div>
+            <button class="btn-sm-mint" style="margin-top:14px" onclick="simulateParse()">Add Case &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Column mapper (hidden initially) -->
+        <div id="upload-panel-2" style="display:none">
+          <div class="col-mapper">
+            <div class="cm-head">
+              <div>
+                <div class="cm-hl">Map your columns</div>
+                <div class="cm-sub">We found 7 columns. Tell us what each one contains.</div>
+              </div>
+              <span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mint)">8 rows detected</span>
+            </div>
+            <div class="cm-rows">
+              <div class="cm-row"><div class="cm-col">borrower_name</div><div class="cm-arrow">→</div><select class="cm-map"><option selected>Borrower Full Name</option><option>Account Number</option><option>Skip this column</option></select></div>
+              <div class="cm-row"><div class="cm-col">account_id</div><div class="cm-arrow">→</div><select class="cm-map"><option>Borrower Full Name</option><option selected>Account Number</option><option>Skip this column</option></select></div>
+              <div class="cm-row"><div class="cm-col">outstanding_amt</div><div class="cm-arrow">→</div><select class="cm-map"><option selected>Outstanding Amount (₹)</option><option>Skip this column</option></select></div>
+              <div class="cm-row"><div class="cm-col">dpd_days</div><div class="cm-arrow">→</div><select class="cm-map"><option selected>DPD (days)</option><option>Skip this column</option></select></div>
+              <div class="cm-row"><div class="cm-col">address</div><div class="cm-arrow">→</div><select class="cm-map"><option selected>Postal Address</option><option>Skip this column</option></select></div>
+              <div class="cm-row"><div class="cm-col">mobile</div><div class="cm-arrow">→</div><select class="cm-map"><option selected>Mobile Number</option><option>Skip this column</option></select></div>
+              <div class="cm-row"><div class="cm-col">email_id</div><div class="cm-arrow">→</div><select class="cm-map"><option selected>Email</option><option>Skip this column</option></select></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px">
+            <button class="btn-ghost-sm" onclick="uploadStep(1)">← Back</button>
+            <button class="btn-mint-sm" style="flex:1" onclick="uploadStep(3)">Columns look good &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Notice type -->
+        <div id="upload-panel-3" style="display:none">
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;margin-bottom:6px">Select notice type</div>
+          <div style="font-size:13px;color:var(--t3);margin-bottom:18px">Applied to all 8 cases in this batch. You can override per case in the next step.</div>
+          <div class="notice-types" id="notice-type-grid">
+            <div class="nt on" onclick="selectNT(this)">
+              <div class="nt-name">Loan Recall Notice</div>
+              <div class="nt-desc">General demand notice for loan repayment. Most common for retail DPD.</div>
+              <div class="nt-check">✓ Selected</div>
+            </div>
+            <div class="nt" onclick="selectNT(this)">
+              <div class="nt-name">Section 138 — NI Act</div>
+              <div class="nt-desc">Cheque dishonour. Criminal liability. Triggers 15-day reply window.</div>
+              <div class="nt-check">✓ Selected</div>
+            </div>
+            <div class="nt" onclick="selectNT(this)">
+              <div class="nt-name">SARFAESI Demand Notice</div>
+              <div class="nt-desc">For secured NBFCs. Triggers 60-day reply under Section 13(2).</div>
+              <div class="nt-check">✓ Selected</div>
+            </div>
+            <div class="nt" onclick="selectNT(this)">
+              <div class="nt-name">Arbitration Notice</div>
+              <div class="nt-desc">Commences arbitration under the loan agreement arbitration clause.</div>
+              <div class="nt-check">✓ Selected</div>
+            </div>
+            <div class="nt" onclick="selectNT(this)">
+              <div class="nt-name">Pre-Litigation Notice</div>
+              <div class="nt-desc">Civil suit warning. Last step before filing in District Court.</div>
+              <div class="nt-check">✓ Selected</div>
+            </div>
+            <div class="nt" onclick="selectNT(this)">
+              <div class="nt-name">Settlement Offer</div>
+              <div class="nt-desc">One-time settlement proposal with deadline. For older NPA accounts.</div>
+              <div class="nt-check">✓ Selected</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px">
+            <button class="btn-ghost-sm" onclick="uploadStep(2)">← Back</button>
+            <button class="btn-mint-sm" style="flex:1" onclick="uploadStep(4)">Continue to Review &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: Review & Dispatch -->
+        <div id="upload-panel-4" style="display:none">
+          <div class="dispatch-summary">
+            <div class="ds-row"><span class="ds-k">Cases in batch</span><span class="ds-v">8</span></div>
+            <div class="ds-row"><span class="ds-k">Notice type</span><span class="ds-v">Loan Recall Notice</span></div>
+            <div class="ds-row"><span class="ds-k">Dispatch channels</span><span class="ds-v">India Post + WhatsApp + SMS + Email</span></div>
+            <div class="ds-row"><span class="ds-k">Pilot cases used</span><span class="ds-v">3 → 10 of 10 (pilot limit reached after this batch)</span></div>
+            <div class="ds-row"><span class="ds-k">Cost this batch</span><span class="ds-v">₹0 — covered by free pilot</span></div>
+            <div class="ds-row"><span class="ds-k">Est. dispatch time</span><span class="ds-v">Within 48 hours</span></div>
+          </div>
+
+          <div class="review-table">
+            <div class="rt-head">
+              <div class="rt-h">#</div><div class="rt-h">Borrower</div><div class="rt-h">Account / Address</div>
+              <div class="rt-h">Outstanding</div><div class="rt-h">DPD</div><div class="rt-h"></div>
+            </div>
+            <div class="rt-row"><div class="rt-num">01</div><div><div class="rt-name">Rajesh Kumar Mehra</div></div><div><div class="rt-field">FIN-PL-4821</div><div class="rt-addr">Plot 12, Vasant Vihar, Delhi</div></div><div class="rt-field">₹1,24,500</div><div class="rt-field" style="color:var(--red)">65d</div><div class="rt-edit">Edit</div></div>
+            <div class="rt-row"><div class="rt-num">02</div><div><div class="rt-name">Priya Suresh Nair</div></div><div><div class="rt-field">FIN-TW-2204</div><div class="rt-addr">14-B, Koramangala, Bengaluru</div></div><div class="rt-field">₹48,200</div><div class="rt-field" style="color:var(--amber)">42d</div><div class="rt-edit">Edit</div></div>
+            <div class="rt-row"><div class="rt-num">03</div><div><div class="rt-name">Sunil Patkar</div></div><div><div class="rt-field">FIN-PL-8812</div><div class="rt-addr">C-4, Andheri West, Mumbai</div></div><div class="rt-field">₹2,10,000</div><div class="rt-field" style="color:var(--red)">90d</div><div class="rt-edit">Edit</div></div>
+            <div class="rt-row"><div class="rt-num">04</div><div><div class="rt-name">Anita Bose</div></div><div><div class="rt-field">FIN-MS-1102</div><div class="rt-addr">22, Salt Lake, Kolkata</div></div><div class="rt-field">₹5,60,000</div><div class="rt-field" style="color:var(--red)">110d</div><div class="rt-edit">Edit</div></div>
+            <div style="padding:10px 16px;text-align:center;font-size:11px;color:var(--t3);font-family:'JetBrains Mono',monospace">+ 4 more cases in batch</div>
+          </div>
+
+          <div style="display:flex;gap:10px;margin-top:4px">
+            <button class="btn-ghost-sm" onclick="uploadStep(3)">← Back</button>
+            <button class="btn-mint-sm" style="flex:1;font-size:15px;padding:13px" onclick="dispatchBatch()">✓ Confirm &amp; Dispatch All 8 Cases</button>
+          </div>
+        </div>
+
+        <!-- SUCCESS -->
+        <div id="upload-success" style="display:none;text-align:center;padding:48px 20px">
+          <div style="font-size:48px;margin-bottom:16px">✅</div>
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:var(--mint);margin-bottom:8px;letter-spacing:-.5px">8 cases queued for dispatch</div>
+          <div style="font-size:14px;color:var(--t2);max-width:380px;margin:0 auto 28px;line-height:1.6">Advocate review begins immediately. India Post + WhatsApp + SMS dispatched within 48 hours. You'll get a WhatsApp update when each notice goes out.</div>
+          <div style="display:flex;gap:10px;justify-content:center">
+            <button class="btn-sm-mint" onclick="showPage('cases',null)" style="padding:11px 22px;font-size:14px">View Cases →</button>
+            <button class="btn-sm-ghost" onclick="resetUpload()">Upload Another Batch</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ─── CASE DETAIL PAGE ── -->
+    <div id="page-detail" class="page">
+      <div style="margin-bottom:20px">
+        <button class="btn-sm-ghost" onclick="showPage('cases',null)" style="font-size:12px">← Back to Cases</button>
+      </div>
+
+      <div style="margin-bottom:20px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+        <div>
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:4px">Rajesh Kumar Mehra</div>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <span class="badge dispatched"><span class="badge-dot"></span>Dispatched</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3)">FIN-PL-4821</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3)">Personal Loan</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3)">Case #ACC-2024-001</span>
+          </div>
+        </div>
+        <button class="btn-sm-ghost">Download PDF Proof</button>
+      </div>
+
+      <div class="case-detail-grid">
+        <div class="cd-main">
+
+          <!-- Timeline -->
+          <div class="info-card" style="margin-bottom:14px">
+            <div class="ic-head"><div class="ic-hl">Case Timeline</div></div>
+            <div class="ic-body">
+              <div class="timeline">
+                <div class="tl-item">
+                  <div class="tl-left"><div class="tl-dot done">✓</div><div class="tl-line"></div></div>
+                  <div class="tl-content"><div class="tl-title">Case Created</div><div class="tl-sub">Uploaded via CSV batch. Borrower data verified.</div><div class="tl-time">12 Mar 2025, 10:14 AM</div></div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-left"><div class="tl-dot done">✓</div><div class="tl-line"></div></div>
+                  <div class="tl-content"><div class="tl-title">AI Notice Generated</div><div class="tl-sub">Loan Recall Notice drafted. Borrower details, outstanding amount, and legal references auto-filled.</div><div class="tl-time">12 Mar 2025, 10:18 AM</div></div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-left"><div class="tl-dot done">✓</div><div class="tl-line"></div></div>
+                  <div class="tl-content"><div class="tl-title">Advocate Review &amp; Sign</div><div class="tl-sub">Reviewed and signed by Adv. Pallavi Sharma (Bar Council Reg. MH/2018/1024). Letterhead applied.</div><div class="tl-time">12 Mar 2025, 2:40 PM</div></div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-left"><div class="tl-dot done">✓</div><div class="tl-line"></div></div>
+                  <div class="tl-content">
+                    <div class="tl-title">Dispatched — All Channels</div>
+                    <div class="tl-sub">India Post Regd AD booked (Article No. EW8841201IN). WhatsApp notice delivered. SMS sent. Email delivered.</div>
+                    <div class="tl-time">12 Mar 2025, 4:55 PM</div>
+                    <div class="channel-grid" style="margin-top:10px">
+                      <div class="ch-card">
+                        <div class="chc-top"><span class="chc-icon">📮</span><span class="chc-name">India Post Regd AD</span></div>
+                        <div class="chc-status">Dispatched. Article No. EW8841201IN</div>
+                        <div class="chc-badge"><span class="badge dispatched" style="font-size:9px"><span class="badge-dot"></span>Dispatched</span></div>
+                      </div>
+                      <div class="ch-card">
+                        <div class="chc-top"><span class="chc-icon">💬</span><span class="chc-name">WhatsApp</span></div>
+                        <div class="chc-status">Delivered to +91 98765 43210. Read receipt: pending.</div>
+                        <div class="chc-badge"><span class="badge dispatched" style="font-size:9px"><span class="badge-dot"></span>Delivered</span></div>
+                      </div>
+                      <div class="ch-card">
+                        <div class="chc-top"><span class="chc-icon">📱</span><span class="chc-name">SMS</span></div>
+                        <div class="chc-status">Delivered via MSG91. DLT Template ID verified.</div>
+                        <div class="chc-badge"><span class="badge dispatched" style="font-size:9px"><span class="badge-dot"></span>Delivered</span></div>
+                      </div>
+                      <div class="ch-card">
+                        <div class="chc-top"><span class="chc-icon">📧</span><span class="chc-name">Email</span></div>
+                        <div class="chc-status">Delivered to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="24560a49414c5645644349454d480a474b49">[email&#160;protected]</a>. Opened 1×.</div>
+                        <div class="chc-badge"><span class="badge dispatched" style="font-size:9px"><span class="badge-dot"></span>Opened</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-left"><div class="tl-dot active">⏳</div></div>
+                  <div class="tl-content"><div class="tl-title">Awaiting Borrower Response</div><div class="tl-sub">Reply window: 15 days from dispatch. Deadline 27 Mar 2025. No response yet.</div><div class="tl-time">Monitoring…</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notice preview -->
+          <div class="info-card">
+            <div class="ic-head"><div class="ic-hl">Notice Preview</div><span style="font-size:11px;color:var(--t3);font-family:'JetBrains Mono',monospace">Loan Recall Notice</span></div>
+            <div class="ic-body">
+              <div class="notice-preview">
+                <div class="np-watermark">VAASULI</div>
+                <div class="np-text">
+                  <p style="text-align:right;margin-bottom:12px;color:var(--t3)">Date: 12th March 2025</p>
+                  <p style="margin-bottom:8px"><strong style="color:var(--t)">To,</strong><br>
+                  Rajesh Kumar Mehra,<br>Plot 12, Vasant Vihar, New Delhi – 110057</p>
+                  <p style="margin-bottom:12px"><strong style="color:var(--t)">Sub: Notice calling upon repayment of outstanding loan amount of ₹1,24,500/-</strong></p>
+                  <p style="margin-bottom:10px">Under instructions from and on behalf of our client, <strong style="color:var(--t)">Finserv Capital Ltd</strong>, a Non-Banking Financial Company registered under the Companies Act, 2013, we hereby issue you this Loan Recall Notice.</p>
+                  <p style="margin-bottom:10px">You had availed a personal loan (Loan Account No. FIN-PL-4821) from our client. As per records, the outstanding principal and interest due as of the date of this notice stands at <strong style="color:var(--mint)">₹1,24,500/-</strong> (Rupees One Lakh Twenty-Four Thousand Five Hundred Only), with the account having been irregular for <strong style="color:var(--t)">65 days</strong>.</p>
+                  <p style="margin-bottom:10px">You are hereby called upon to pay the full outstanding amount within <strong style="color:var(--t)">15 (fifteen) days</strong> from the receipt of this notice, failing which our client reserves the right to initiate appropriate legal proceedings under applicable laws, including but not limited to proceedings under the SARFAESI Act, 2002 and the Arbitration and Conciliation Act, 1996, without further notice to you.</p>
+                  <p style="color:var(--t3);font-style:italic">This notice is issued without prejudice to all other rights and remedies available to our client.</p>
+                  <p style="margin-top:16px;color:var(--t2)">Yours faithfully,<br><strong style="color:var(--t)">Adv. Pallavi Sharma</strong><br>Bar Council No. MH/2018/1024<br><em style="color:var(--t3)">On behalf of Finserv Capital Ltd</em></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right sidebar -->
+        <div class="cd-sidebar">
+          <div class="info-card">
+            <div class="ic-head"><div class="ic-hl">Borrower Details</div></div>
+            <div class="ic-body">
+              <div class="ic-row"><span class="ic-k">Name</span><span class="ic-v">Rajesh Kumar Mehra</span></div>
+              <div class="ic-row"><span class="ic-k">Account No.</span><span class="ic-v">FIN-PL-4821</span></div>
+              <div class="ic-row"><span class="ic-k">Loan Type</span><span class="ic-v">Personal Loan</span></div>
+              <div class="ic-row"><span class="ic-k">Outstanding</span><span class="ic-v" style="color:var(--mint)">₹1,24,500</span></div>
+              <div class="ic-row"><span class="ic-k">DPD</span><span class="ic-v" style="color:var(--red)">65 days</span></div>
+              <div class="ic-row"><span class="ic-k">Mobile</span><span class="ic-v">+91 98765 43210</span></div>
+              <div class="ic-row"><span class="ic-k">Email</span><span class="ic-v"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="43316d2e262b312203242e222a2f6d202c2e">[email&#160;protected]</a></span></div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="ic-head"><div class="ic-hl">India Post</div></div>
+            <div class="ic-body">
+              <div class="ic-row"><span class="ic-k">Status</span><span class="badge dispatched" style="font-size:10px"><span class="badge-dot"></span>Dispatched</span></div>
+              <div class="ic-row"><span class="ic-k">Article No.</span><span class="ic-v">EW8841201IN</span></div>
+              <div class="ic-row"><span class="ic-k">Dispatched</span><span class="ic-v">12 Mar 2025</span></div>
+              <div class="ic-row"><span class="ic-k">AD Card</span><span class="ic-v" style="color:var(--amber)">Awaited</span></div>
+              <div style="margin-top:12px">
+                <div style="font-size:11px;color:var(--t3);margin-bottom:8px;line-height:1.4">When the AD card is received by post, upload it here to complete the delivery proof.</div>
+                <button class="btn-sm-ghost" style="width:100%">Upload AD Card Scan</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="ic-head"><div class="ic-hl">Escalate</div></div>
+            <div class="ic-body">
+              <div style="font-size:12px;color:var(--t3);margin-bottom:14px;line-height:1.5">No response after 15 days? Move to next stage.</div>
+              <button class="btn-sm-ghost" style="width:100%;margin-bottom:8px">→ Arbitration (ODR)</button>
+              <button class="btn-sm-ghost" style="width:100%">→ SARFAESI / S.138 Prep</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── BILLING PAGE ── -->
+    <div id="page-billing" class="page">
+      <div style="max-width:680px">
+        <div class="alert-banner" style="margin-bottom:24px">
+          <div class="ab-icon">🎉</div>
+          <div class="ab-text">
+            <div class="ab-hl">Free Pilot — 3 of 10 notices used</div>
+            <div class="ab-sub">7 notices remaining at no cost. Upgrade any time — no interruption to dispatched cases.</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+          <div style="background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:22px">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--mint);text-transform:uppercase;margin-bottom:12px">Self-Serve</div>
+            <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1">₹499</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);margin-bottom:14px">per notice · up to 100/mo</div>
+            <button class="btn-sm-ghost" style="width:100%">Select Plan</button>
+          </div>
+          <div style="background:var(--s1);border:1px solid var(--mint);border-radius:10px;padding:22px;position:relative">
+            <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--mint);border-radius:2px 2px 0 0"></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--mint);text-transform:uppercase;margin-bottom:12px">Business</div>
+            <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1">₹99</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);margin-bottom:14px">per notice · 500+/mo</div>
+            <button class="btn-sm-mint" style="width:100%;padding:9px">Upgrade Now</button>
+          </div>
+          <div style="background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:22px">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--mint);text-transform:uppercase;margin-bottom:12px">Enterprise</div>
+            <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1">₹33</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);margin-bottom:14px">per notice · 10,000+/mo</div>
+            <button class="btn-sm-ghost" style="width:100%">Contact Sales</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script src="app.js"></script>
+</body>
+</html>

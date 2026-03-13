@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vaasuli — Recovery Automation for NBFCs &amp; Fintechs</title>
+
+<!-- ═══ SEO META ═══════════════════════════════════════════════ -->
+<meta name="description" content="Vaasuli automates legal notice dispatch for Indian NBFCs and fintechs. AI-drafted, advocate-signed, India Post Registered AD + WhatsApp + SMS. From ₹33/notice.">
+<meta name="keywords" content="NBFC recovery automation, legal notice dispatch India, DPD collections, NPA recovery software, advocate signed notices, India Post legal notice, debt recovery fintech">
+<meta name="author" content="Vaasuli by ClearCase">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://vaasuli.com/">
+
+<!-- ═══ OPEN GRAPH ═════════════════════════════════════════════ -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://vaasuli.com/">
+<meta property="og:title" content="Vaasuli — Recovery Automation for NBFCs &amp; Fintechs">
+<meta property="og:description" content="Dispatch advocate-signed legal notices at scale. India Post + WhatsApp + SMS. From ₹33/notice. Free 10-case pilot for NBFCs.">
+<meta property="og:image" content="https://vaasuli.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_IN">
+<meta property="og:site_name" content="Vaasuli">
+
+<!-- ═══ TWITTER / X CARD ═══════════════════════════════════════ -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@vaasuliin">
+<meta name="twitter:title" content="Vaasuli — Recovery Automation for NBFCs &amp; Fintechs">
+<meta name="twitter:description" content="AI-drafted, advocate-signed legal notices at scale. India Post + WhatsApp + SMS. Free 10-case pilot.">
+<meta name="twitter:image" content="https://vaasuli.com/og-image.png">
+
+<!-- ═══ AD PLATFORM VERIFICATION ══════════════════════════════ -->
+<meta name="google-site-verification" content="GOOGLE_SEARCH_CONSOLE_VERIFICATION_CODE">
+<meta name="facebook-domain-verification" content="META_DOMAIN_VERIFICATION_TOKEN">
+
+<!-- ═══ STRUCTURED DATA ════════════════════════════════════════ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Vaasuli",
+  "url": "https://vaasuli.com",
+  "description": "Legal notice automation platform for Indian NBFCs and fintechs. AI-drafted, advocate-signed notices dispatched via India Post, WhatsApp, SMS, and Email.",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "33",
+    "priceCurrency": "INR",
+    "description": "Enterprise per-notice pricing"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "ClearCase",
+    "url": "https://vaasuli.com"
+  }
+}
+</script>
+
+<!-- ═══ GOOGLE ANALYTICS 4 ═════════════════════════════════════ -->
+<!-- Replace G-XXXXXXXXXXXX with your Measurement ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXXXX', {
+    page_title: 'Vaasuli Landing Page',
+    page_location: window.location.href
+  });
+  function trackEvent(eventName, params) {
+    gtag('event', eventName, params || {});
+  }
+</script>
+
+<!-- ═══ META PIXEL ═════════════════════════════════════════════ -->
+<!-- Replace XXXXXXXXXXXXXXX with your Pixel ID -->
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+  (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', 'XXXXXXXXXXXXXXX');
+  fbq('track', 'PageView');
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=XXXXXXXXXXXXXXX&ev=PageView&noscript=1" alt="">
+</noscript>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="logo"><div class="lv">V</div>vaasuli.com</div>
+  <ul class="nav-links">
+    <li><a href="#pipeline">Recovery Pipeline</a></li>
+    <li><a href="#solve">What We Solve</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <div class="nav-r">
+    <a href="platform/" class="nb-g">Sign In</a>
+    <a href="#" class="nb-m" onclick="openPilot();return false">Start Recovery &rarr;</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="h-kicker"><span class="kd"></span>Recovery infrastructure &middot; India</div>
+    <h1>Your collections<br>team shouldn&rsquo;t be<br><span class="em">printing notices.</span></h1>
+    <p class="h-sub">Bulk legal notice automation for NBFCs and fintechs. AI-drafted, advocate-signed, India Post tracked. From &#8377;33 per notice.</p>
+    <div class="h-btns">
+      <a href="#pipeline" class="btn-mint">See Recovery Pipeline &darr;</a>
+      <a href="#" class="btn-ghost" onclick="openPilot();return false">Book a Demo</a>
+    </div>
+    <div class="h-tags">
+      <span class="ht">India Post AD</span>
+      <span class="ht">SARFAESI</span>
+      <span class="ht">NI Act s.138</span>
+      <span class="ht">RBI Compliant</span>
+      <span class="ht">Court Admissible</span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc" id="pipeline">
+    <div class="c-head">
+      <div class="c-head-t">Recovery Pipeline Calculator</div>
+      <div class="c-live"><span class="c-live-dot"></span>Live</div>
+    </div>
+    <div class="c-body">
+
+      <div class="sl-row">
+        <div class="sl-hdr">
+          <span class="sl-lbl">DPD accounts / month</span>
+          <span class="sl-val" id="d-vol">500</span>
+        </div>
+        <input type="range" id="vol" min="50" max="5000" value="500" step="50" oninput="calc()">
+      </div>
+
+      <div class="sl-row">
+        <div class="sl-hdr">
+          <span class="sl-lbl">Avg. outstanding per account</span>
+          <span class="sl-val" id="d-amt">&#8377;2L</span>
+        </div>
+        <input type="range" id="amt" min="50000" max="2000000" value="200000" step="50000" oninput="calc()">
+      </div>
+
+      <div class="stage-ladder">
+        <div class="s-ladder-head">
+          <div class="slh">Stage</div>
+          <div class="slh r">Our fee</div>
+          <div class="slh r">Net recovered</div>
+          <div class="slh r">Settles</div>
+        </div>
+
+        <div class="stage active" id="st1">
+          <div class="stage-row">
+            <div class="s-info">
+              <div class="s-name">Soft Reminder</div>
+              <div class="s-sub">WhatsApp + SMS + Email &mdash; instant digital reach</div>
+            </div>
+            <div class="s-fee" id="f1">&#8377;—</div>
+            <div class="s-recover" id="r1">&#8377;—</div>
+            <div class="s-pct"><span class="s-pct-txt" id="n1">—</span></div>
+          </div>
+          <div class="s-bar-wrap">
+            <div class="s-bar-bg"><div class="s-bar-fill" id="b1" style="width:30%;background:var(--blue)"></div></div>
+            <div class="s-pct-lbl"><span style="color:var(--blue)" id="p1">30% settle here</span></div>
+          </div>
+        </div>
+
+        <div class="stage" id="st2">
+          <div class="stage-row">
+            <div class="s-info">
+              <div class="s-name">Legal Notice</div>
+              <div class="s-sub">Advocate-signed &middot; India Post Regd AD &middot; Court-admissible</div>
+            </div>
+            <div class="s-fee" id="f2">&#8377;—</div>
+            <div class="s-recover" id="r2">&#8377;—</div>
+            <div class="s-pct"><span class="s-pct-txt" id="n2">—</span></div>
+          </div>
+          <div class="s-bar-wrap">
+            <div class="s-bar-bg"><div class="s-bar-fill" id="b2" style="width:55%"></div></div>
+            <div class="s-pct-lbl"><span style="color:var(--mint)" id="p2">55% cumulative</span></div>
+          </div>
+        </div>
+
+        <div class="stage" id="st3">
+          <div class="stage-row">
+            <div class="s-info">
+              <div class="s-name">Arbitration (ODR)</div>
+              <div class="s-sub">30&ndash;90 day resolution &middot; Section 17 interim relief available</div>
+            </div>
+            <div class="s-fee" id="f3">&#8377;—</div>
+            <div class="s-recover" id="r3">&#8377;—</div>
+            <div class="s-pct"><span class="s-pct-txt" id="n3">—</span></div>
+          </div>
+          <div class="s-bar-wrap">
+            <div class="s-bar-bg"><div class="s-bar-fill" id="b3" style="width:8%;background:var(--amber)"></div></div>
+            <div class="s-pct-lbl"><span style="color:var(--amber)" id="p3">8% more</span></div>
+          </div>
+        </div>
+
+        <div class="stage" id="st4">
+          <div class="stage-row">
+            <div class="s-info">
+              <div class="s-name">SARFAESI / S.138 Prep</div>
+              <div class="s-sub">Court filing documents &middot; DRT &middot; Criminal complaint prep</div>
+            </div>
+            <div class="s-fee" id="f4">&#8377;—</div>
+            <div class="s-recover" id="r4">&#8377;—</div>
+            <div class="s-pct"><span class="s-pct-txt" id="n4">—</span></div>
+          </div>
+          <div class="s-bar-wrap">
+            <div class="s-bar-bg"><div class="s-bar-fill" id="b4" style="width:7%;background:var(--red)"></div></div>
+            <div class="s-pct-lbl"><span style="color:var(--red)" id="p4">remaining 7%</span></div>
+          </div>
+        </div>
+
+        <div class="s-total">
+          <div>
+            <div class="st-lbl">Total recoverable this month</div>
+            <div class="st-sub-txt" id="total-sub">across all stages at 72% overall response</div>
+          </div>
+          <div style="text-align:right">
+            <div class="st-val" id="grand-total">&#8377;—</div>
+            <div class="st-sub" id="total-cost-lbl">total Vaasuli cost: &#8377;—</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="c-note">&#9432; Fees shown are per account at your volume. Recovery estimates use 72% response rate and 18% avg overdue of outstanding. Actual results vary.</p>
+      <a href="#" class="c-cta" id="c-cta" onclick="openPilot();return false">Start Recovery &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<!-- METRICS STRIP -->
+<div class="strip">
+  <div class="m rev"><div class="m-n">10<span class="u">K+</span></div><div class="m-l">Notices dispatched<br>via platform</div></div>
+  <div class="m rev"><div class="m-n">72<span class="u">%</span></div><div class="m-l">Avg. debtor response<br>within 15 days</div></div>
+  <div class="m rev"><div class="m-n">48<span class="u">hr</span></div><div class="m-l">Upload to dispatch<br>turnaround</div></div>
+  <div class="m rev"><div class="m-n">&#8377;33</div><div class="m-l">Per notice at<br>10,000+/month</div></div>
+</div>
+
+<!-- WHAT WE SOLVE -->
+<div class="solve" id="solve">
+  <div class="solve-inner">
+    <div class="rev">
+      <div class="sec-ey">// What We Solve</div>
+      <h2>More than notices.<br>End-to-end recovery ops.</h2>
+    </div>
+    <div class="solve-grid rev">
+      <div class="sv">
+        <span class="sv-icon">&#128228;</span>
+        <h3>DPD Automation</h3>
+        <p>Auto-trigger the right action at 30, 60, 90 DPD and NPA. No manual intervention. No accounts slipping through the cracks.</p>
+        <span class="sv-tag">&#10003; Set &amp; Forget</span>
+      </div>
+      <div class="sv">
+        <span class="sv-icon">&#128236;</span>
+        <h3>4-Channel Dispatch</h3>
+        <p>India Post Regd AD + WhatsApp + SMS + Email simultaneously. Debtor cannot claim non-receipt. Maximum pressure, minimum ops effort.</p>
+        <span class="sv-tag">&#10003; Court-Admissible</span>
+      </div>
+      <div class="sv">
+        <span class="sv-icon">&#128451;</span>
+        <h3>Evidence File</h3>
+        <p>Every notice, delivery scan, AD card, and response — auto-archived per borrower. One click exports a court-ready evidence bundle.</p>
+        <span class="sv-tag">&#10003; RBI Compliant</span>
+      </div>
+      <div class="sv">
+        <span class="sv-icon">&#9878;&#65039;</span>
+        <h3>Arbitration Pipeline</h3>
+        <p>When notices don&rsquo;t move the debtor, escalate to ODR arbitration via Manch. 30&ndash;90 day resolution. Section 17 asset freeze available.</p>
+        <span class="sv-tag">&#10003; Faster Than Court</span>
+      </div>
+      <div class="sv">
+        <span class="sv-icon">&#128203;</span>
+        <h3>SARFAESI &amp; S.138 Prep</h3>
+        <p>For secured lenders: pre-built SARFAESI demand notice series. For cheque bounce: Section 138 NI Act complaint filing documents — ready in minutes.</p>
+        <span class="sv-tag">&#10003; SARFAESI Ready</span>
+      </div>
+      <div class="sv">
+        <span class="sv-icon">&#128279;</span>
+        <h3>API &amp; White-Label</h3>
+        <p>REST API with webhooks for collection software integration. White-label for recovery agencies and CA firms — your brand, our infrastructure.</p>
+        <span class="sv-tag">&#10003; API-First</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div class="pricing" id="pricing">
+  <div class="p-inner">
+    <div class="rev">
+      <div class="sec-ey">// Pricing</div>
+      <h2>Per notice. No lock-in.</h2>
+    </div>
+    <div class="p-grid rev">
+      <div class="pc">
+        <div class="pc-plan">Self-Serve</div>
+        <div class="pc-price">&#8377;499</div>
+        <div class="pc-per">per notice &middot; up to 100/mo</div>
+        <div class="pc-desc">Start without a contract. For businesses sending occasional notices.</div>
+        <ul class="pc-ul">
+          <li>AI-drafted, advocate-signed</li>
+          <li>India Post Registered AD</li>
+          <li>WhatsApp + SMS delivery</li>
+          <li>Tracking dashboard + PDF proof</li>
+        </ul>
+        <a href="platform/" class="pc-btn">Get Started &rarr;</a>
+      </div>
+      <div class="pc hot">
+        <div class="pc-plan">Business</div>
+        <div class="pc-price">&#8377;99</div>
+        <div class="pc-per">per notice &middot; 500+/mo</div>
+        <div class="pc-desc">For active NBFC collections teams. Automated DPD workflows included.</div>
+        <ul class="pc-ul">
+          <li>Everything in Self-Serve</li>
+          <li>Bulk CSV upload</li>
+          <li>Auto DPD series (30/60/90)</li>
+          <li>AD card management portal</li>
+          <li>Team access + priority SLA</li>
+        </ul>
+        <a href="#" class="pc-btn m" onclick="openPilot();return false">Talk to Sales &rarr;</a>
+      </div>
+      <div class="pc">
+        <div class="pc-plan">Enterprise</div>
+        <div class="pc-price">&#8377;33</div>
+        <div class="pc-per">per notice &middot; 10,000+/mo</div>
+        <div class="pc-desc">API-first, white-label. For large lenders and collection agencies.</div>
+        <ul class="pc-ul">
+          <li>Everything in Business</li>
+          <li>REST API + webhooks</li>
+          <li>White-label option</li>
+          <li>Arbitration escalation (ODR)</li>
+          <li>SARFAESI &amp; S.138 doc prep</li>
+        </ul>
+        <a href="#" class="pc-btn" onclick="openPilot();return false">Contact Us &rarr;</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM CTA -->
+<div class="cta">
+  <h2 class="rev">Stop printing.<br><span class="em">Start recovering.</span></h2>
+  <p class="rev">First campaign live in 48 hours. Upload your CSV — we handle everything from dispatch to escalation.</p>
+  <div class="cta-r rev">
+    <a href="#" class="btn-mint" style="font-size:15px;padding:14px 28px" onclick="openPilot();return false">Start Recovery &rarr;</a>
+    <a href="#" class="btn-ghost" style="font-size:15px;padding:14px 22px" onclick="openPilot();return false">Book a Demo</a>
+  </div>
+</div>
+
+<footer>
+  <div class="logo"><div class="lv" style="width:20px;height:20px;font-size:10px">V</div>vaasuli.com</div>
+  <div class="f-disc">Technology by ClearCase. Legal notices prepared by empanelled advocates. Not independent legal advice.</div>
+  <div class="f-links">
+    <a href="privacy-policy.html">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">API</a>
+    <a href="#" onclick="openPilot();return false">Contact</a>
+  </div>
+</footer>
+
+<!-- PILOT MODAL -->
+<div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <button class="m-close" onclick="closePilot()" aria-label="Close">&times;</button>
+
+    <div class="pilot-offer">
+      <div class="po-badge">Free Pilot</div>
+      <div class="po-text">
+        <div class="po-hl">10 cases. Zero cost. No commitment.</div>
+        <div class="po-sub">We dispatch your first 10 recovery notices — advocate-signed, India Post Regd AD — completely free. See real results before you decide.</div>
+      </div>
+    </div>
+
+    <div class="m-body" id="m-form-state">
+      <div class="m-title">Start your free pilot</div>
+      <div class="m-desc">Takes 2 minutes. We'll call you within 4 business hours to onboard.</div>
+
+      <div class="f-row-2">
+        <div>
+          <label for="f-name">Your Name</label>
+          <input class="f-input" id="f-name" name="name" type="text" placeholder="Amit Sharma">
+        </div>
+        <div>
+          <label for="f-phone">Mobile Number</label>
+          <input class="f-input" id="f-phone" name="mobile" type="tel" placeholder="+91 98765 43210">
+        </div>
+      </div>
+
+      <div class="f-row">
+        <label for="f-company">Company / NBFC Name</label>
+        <input class="f-input" id="f-company" name="company" type="text" placeholder="e.g. Finserv Capital Ltd">
+      </div>
+
+      <div class="f-row-2">
+        <div>
+          <label for="f-role">Your Role</label>
+          <select class="f-input" id="f-role" name="role">
+            <option value="" disabled selected>Select role</option>
+            <option>Collections Head</option>
+            <option>VP Collections</option>
+            <option>CFO / Finance Head</option>
+            <option>CEO / Founder</option>
+            <option>Risk Manager</option>
+            <option>Operations Lead</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div>
+          <label for="f-loan">Loan Type</label>
+          <select class="f-input" id="f-loan" name="loan_type">
+            <option value="" disabled selected>Select type</option>
+            <option>Personal Loan</option>
+            <option>Two-Wheeler Loan</option>
+            <option>MSME / Business Loan</option>
+            <option>LAP / Home Loan</option>
+            <option>Microfinance (MFI)</option>
+            <option>Consumer Durable</option>
+            <option>Mixed Portfolio</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="f-row">
+        <label for="f-vol-s">Approx. DPD accounts per month</label>
+        <select class="f-input" id="f-vol-s" name="dpd_volume">
+          <option value="" disabled selected>Select volume</option>
+          <option>Under 100</option>
+          <option>100 – 500</option>
+          <option>500 – 2,000</option>
+          <option>2,000 – 10,000</option>
+          <option>10,000+</option>
+        </select>
+      </div>
+
+      <button class="m-submit" onclick="submitForm()">Claim Free Pilot &rarr;</button>
+
+      <div class="or-div"><div class="or-line"></div><div class="or-txt">or connect instantly</div><div class="or-line"></div></div>
+
+      <a class="m-wa" id="wa-btn" href="#" target="_blank" rel="noopener">
+        <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chat on WhatsApp
+      </a>
+
+      <p class="m-fine">No spam. No pushy sales calls. We'll confirm pilot details over WhatsApp or phone — your choice. By submitting you agree to our <a href="privacy-policy.html" target="_blank">Privacy Policy</a>.</p>
+    </div>
+
+    <div class="m-success" id="m-success-state">
+      <div class="ms-icon">&#10003;</div>
+      <div class="ms-hl">You're on the list.</div>
+      <div class="ms-sub">We'll call you within 4 business hours to set up your 10-case pilot. Meanwhile, you can also reach us directly on WhatsApp.</div>
+      <a class="ms-wa" id="wa-btn-success" href="#" target="_blank" rel="noopener">
+        <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Message us on WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
