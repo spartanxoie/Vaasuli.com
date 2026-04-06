@@ -121,13 +121,13 @@ nav.sc{background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-botto
 .hero-pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--bd2);border-radius:20px;padding:5px 14px;margin-bottom:28px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);letter-spacing:1px;text-transform:uppercase;opacity:0;animation:up .6s .1s var(--ease) forwards;}
 .pill-dot{width:5px;height:5px;border-radius:50%;background:var(--mint-text);animation:blink 2s infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
-.hero-h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(40px,5.5vw,72px);font-weight:800;letter-spacing:-2.5px;line-height:.98;color:var(--t);margin-bottom:22px;}
-.hero-h1 .ln{display:block;overflow:hidden;}
-.hero-h1 .li{display:block;opacity:0;transform:translateY(100%);animation:slideup .65s var(--ease) forwards;}
-.hero-h1 .ln:nth-child(1) .li{animation-delay:.18s;}
-.hero-h1 .ln:nth-child(2) .li{animation-delay:.3s;}
-.hero-h1 .ln:nth-child(3) .li{animation-delay:.42s;}
-@keyframes slideup{to{opacity:1;transform:translateY(0);}}
+.hero-h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(40px,5.5vw,72px);font-weight:800;letter-spacing:-2.5px;line-height:1.0;color:var(--t);margin-bottom:22px;opacity:0;animation:up .7s .18s var(--ease) forwards;}
+
+
+
+
+
+
 .hero-h1 .g{color:var(--mint);}
 .hero-p{font-size:clamp(15px,1.8vw,17px);color:var(--t2);line-height:1.8;max-width:460px;margin-bottom:32px;opacity:0;animation:up .6s .7s var(--ease) forwards;}
 .hero-btns{display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:up .6s .85s var(--ease) forwards;}
@@ -543,9 +543,7 @@ html.dark .grad-text{background:linear-gradient(135deg,#00e896 0%,#00ffa3 100%);
     <div class="hero-left">
       <div class="hero-pill"><div class="pill-dot"></div>Recovery Infrastructure · India</div>
       <h1 class="hero-h1">
-        <span class="ln"><span class="li">Your collections team</span></span>
-        <span class="ln"><span class="li">shouldn't be </span></span>
-        <span class="ln" style="overflow:visible"><span class="li" style="overflow:visible"><span class="grad-text" id="wc-container" style="display:inline-block"><span class="wc-word active">printing notices.</span><span class="wc-word">behind on recoveries.</span><span class="wc-word">drowning in paperwork.</span><span class="wc-word">wasting time on this.</span></span></span></span>
+        Your collections team shouldn't be <span class="grad-text" id="wc-container"><span class="wc-word active">printing notices.</span><span class="wc-word">behind on recoveries.</span><span class="wc-word">drowning in paperwork.</span><span class="wc-word">wasting time on this.</span></span>
       </h1>
       <p class="hero-p">Bulk legal notice automation for NBFCs and fintechs. AI-drafted, advocate-signed, India Post tracked. From ₹33 per notice.</p>
       <div class="hero-btns">
