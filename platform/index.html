@@ -8,13 +8,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#06090f;--s1:#0b1220;--s2:#0f1829;--s3:#142035;
-  --bd:rgba(232,237,245,0.07);--bd2:rgba(232,237,245,0.12);--bd3:rgba(232,237,245,0.20);
-  --t:#e8edf5;--t2:rgba(232,237,245,0.55);--t3:rgba(232,237,245,0.28);--t4:rgba(232,237,245,0.12);
-  --mint:#00ffa3;--mint-d:rgba(0,255,163,0.07);--mint-b:rgba(0,255,163,0.25);
-  --red:#ff5555;--amber:#ffb547;--amber-d:rgba(255,181,71,0.1);
-  --blue:#5b8fff;--blue-d:rgba(91,143,255,0.1);
-  --gold:#f5c842;--gold-d:rgba(245,200,66,0.08);
+  --bg:#f5f7fc;--s1:#ffffff;--s2:#edf0f7;--s3:#e2e7f0;
+  --bd:rgba(15,30,70,0.07);--bd2:rgba(15,30,70,0.13);--bd3:rgba(15,30,70,0.26);
+  --t:#0c1526;
+  --t2:#2a3d58;
+  --t3:#506070;
+  --t4:#8098b0;
+  --mint:#00e896;--mint-text:#00a868;--mint-d:rgba(0,232,150,0.10);--mint-b:rgba(0,232,150,0.26);
+  --red:#c0392b;--amber:#c97a00;--amber-d:rgba(201,122,0,0.10);
+  --blue:#1d4ed8;--blue-d:rgba(29,78,216,0.10);
+  --gold:#b45309;--gold-d:rgba(180,83,9,0.09);
   --sidebar:224px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -104,7 +107,7 @@ body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--t);-webki
 .sb-signout{margin-left:auto;font-size:10px;color:var(--t3);cursor:pointer;transition:color .15s}
 .sb-signout:hover{color:var(--red)}
 .app-main{margin-left:var(--sidebar);flex:1;min-height:100vh}
-.app-topbar{height:52px;border-bottom:1px solid var(--bd);display:flex;align-items:center;padding:0 28px;gap:16px;background:rgba(6,9,15,0.85);backdrop-filter:blur(12px);position:sticky;top:0;z-index:40}
+.app-topbar{height:52px;border-bottom:1px solid var(--bd);display:flex;align-items:center;padding:0 28px;gap:16px;background:rgba(245,247,252,0.92);backdrop-filter:blur(12px);position:sticky;top:0;z-index:40}
 .tb-title{font-family:"Bricolage Grotesque",sans-serif;font-size:15px;font-weight:700;color:var(--t)}
 .tb-crumb{font-size:11px;color:var(--t3);font-family:"JetBrains Mono",monospace}
 .tb-right{margin-left:auto;display:flex;align-items:center;gap:10px}
@@ -410,6 +413,7 @@ body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--t);-webki
      CLIENT APP (NBFC side)
 ══════════════════════════════════════════════════════ -->
 <div id="screen-client" class="screen app-shell">
+  <div class="sb-overlay" id="sb-overlay-c" onclick="closeSidebar()"></div>
   <div class="sidebar">
     <div class="sb-logo"><div class="lv">V</div>Vaasuli</div>
     <div class="sb-mode-tag">NBFC Portal</div>
@@ -441,8 +445,10 @@ body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--t);-webki
   </div>
   <div class="app-main">
     <div class="app-topbar">
+      <button class="ham-btn" onclick="openSidebar()" aria-label="Menu">☰</button>
       <div><div class="tb-title" id="c-tb-title">Dashboard</div><div class="tb-crumb" id="c-tb-crumb">Finserv Capital Ltd</div></div>
       <div class="tb-right">
+        <button id="theme-btn" onclick="toggleTheme()" style="width:32px;height:32px;border-radius:7px;background:var(--s2);border:1px solid var(--bd2);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" title="Toggle dark mode">🌙</button>
         <button class="btn-sm-ghost">Export CSV</button>
         <button class="btn-sm-mint" onclick="cPage('upload',null)">+ Upload Cases</button>
       </div>
@@ -467,7 +473,7 @@ body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--t);-webki
         <div class="stat"><div class="stat-n">₹0</div><div class="stat-l">Cost this month</div><div class="stat-delta" style="color:var(--mint)">✓ Free pilot</div></div>
       </div>
       <div class="section-header"><div class="sh-title">Recent Cases</div><div class="sh-link" onclick="cPage('cases',null)">View all →</div></div>
-      <div class="tbl" style="--cols:2fr 1.2fr 1fr 1fr 1.5fr 80px">
+      <div class="tbl" style="overflow-x:auto;-webkit-overflow-scrolling:touch;" style="--cols:2fr 1.2fr 1fr 1fr 1.5fr 80px">
         <div class="tbl-head" style="grid-template-columns:var(--cols)"><div class="tbl-h">Borrower</div><div class="tbl-h">Account</div><div class="tbl-h">Outstanding</div><div class="tbl-h">Type</div><div class="tbl-h">Status</div><div class="tbl-h"></div></div>
         <div class="tbl-row" style="grid-template-columns:var(--cols)">
           <div><div class="tbl-name">Rajesh Kumar Mehra</div><div class="tbl-sub">ACC-2024-001</div></div>
@@ -498,7 +504,7 @@ body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--t);-webki
         <div class="f-pill" onclick="filterPill(this)">Dispatched (2)</div>
         <div class="f-pill" onclick="filterPill(this)">In Review (1)</div>
       </div>
-      <div class="tbl" style="--cols:2fr 1.2fr 1fr 1fr 1.5fr 80px">
+      <div class="tbl" style="overflow-x:auto;-webkit-overflow-scrolling:touch;" style="--cols:2fr 1.2fr 1fr 1fr 1.5fr 80px">
         <div class="tbl-head" style="grid-template-columns:var(--cols)"><div class="tbl-h">Borrower</div><div class="tbl-h">Account</div><div class="tbl-h">Outstanding</div><div class="tbl-h">Loan Type</div><div class="tbl-h">Status</div><div class="tbl-h"></div></div>
         <div class="tbl-row" style="grid-template-columns:var(--cols)">
           <div><div class="tbl-name">Rajesh Kumar Mehra</div><div class="tbl-sub">Dispatched 12 Mar 2025</div></div>
@@ -625,7 +631,7 @@ body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--t);-webki
           <button class="btn-sm-mint" onclick="stnPrintAll()">✉ Print All 3</button>
         </div>
       </div>
-      <div class="stn-preview-area">
+      <div class="stn-preview-area" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
         <div class="stn-panel">
           <div class="stn-panel-head"><div class="stn-panel-hl">✉ Envelope</div><div style="display:flex;align-items:center;gap:10px"><span class="stn-panel-tag">DL 220×110mm</span><span id="env-status" class="badge-pending-print">Ready to Print</span></div></div>
           <div class="stn-panel-body">
@@ -662,7 +668,7 @@ body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--t);-webki
         </div>
       </div>
       <div class="section-header"><div class="sh-title">Batch — 12 Mar 2025</div><div style="display:flex;gap:8px"><button class="btn-sm-ghost" onclick="stnSelectAll()">Select All</button><button class="btn-sm-ghost" onclick="stnMarkPrinted()">Mark Printed</button></div></div>
-      <div class="tbl">
+      <div class="tbl" style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
         <div class="sbl-head"><div class="sbl-h"></div><div class="sbl-h">Borrower</div><div class="sbl-h">Address</div><div class="sbl-h">Article No.</div><div class="sbl-h">Status</div><div class="sbl-h"></div></div>
         <div class="sbl-row"><div class="sbl-check on" id="chk-0" onclick="stnToggle(0)">✓</div><div><div class="tbl-name">Rajesh Kumar Mehra</div><div class="tbl-sub">FIN-PL-4821</div></div><div style="font-size:11px;color:var(--t2)">Plot 12, Vasant Vihar, Delhi</div><div class="tbl-mono" style="font-size:11px">EW8841201IN</div><div><span class="badge-pending-print" id="status-0">Ready</span></div><div class="tbl-action" onclick="stnSwitch(0)">Preview →</div></div>
         <div class="sbl-row"><div class="sbl-check on" id="chk-1" onclick="stnToggle(1)">✓</div><div><div class="tbl-name">Priya Suresh Nair</div><div class="tbl-sub">FIN-TW-2204</div></div><div style="font-size:11px;color:var(--t2)">14-B, Koramangala, Bengaluru</div><div class="tbl-mono" style="font-size:11px">EW8841202IN</div><div><span class="badge-pending-print" id="status-1">Ready</span></div><div class="tbl-action" onclick="stnSwitch(1)">Preview →</div></div>
@@ -744,6 +750,7 @@ body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--t);-webki
      ADVOCATE APP
 ══════════════════════════════════════════════════════ -->
 <div id="screen-advocate" class="screen app-shell">
+  <div class="sb-overlay" id="sb-overlay-a" onclick="closeSidebar()"></div>
   <div class="sidebar">
     <div class="sb-logo"><div class="lv gold-lv">A</div>Vaasuli</div>
     <div class="sb-mode-tag adv">⚖ Advocate Portal</div>
@@ -776,6 +783,7 @@ body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--t);-webki
   </div>
   <div class="app-main">
     <div class="app-topbar">
+      <button class="ham-btn" onclick="openSidebar()" aria-label="Menu">☰</button>
       <div><div class="tb-title" id="a-tb-title">Dashboard</div><div class="tb-crumb" id="a-tb-crumb">Advocate Portal</div></div>
       <div class="tb-right">
         <button class="btn-sm-ghost" onclick="aPage('queue',null)">Review Queue (5)</button>
@@ -799,7 +807,7 @@ body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--t);-webki
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
         <div>
           <div class="section-header"><div class="sh-title">Review Queue</div><div class="sh-link gold" onclick="aPage('queue',null)">View all →</div></div>
-          <div class="tbl" style="--cols:2fr 1fr 1.2fr 70px">
+          <div class="tbl" style="overflow-x:auto;-webkit-overflow-scrolling:touch;" style="--cols:2fr 1fr 1.2fr 70px">
             <div class="tbl-head" style="grid-template-columns:var(--cols)"><div class="tbl-h">Case</div><div class="tbl-h">Client</div><div class="tbl-h">Queued</div><div class="tbl-h"></div></div>
             <div class="tbl-row" style="grid-template-columns:var(--cols)" onclick="aPage('review',null)">
               <div><div class="tbl-name">Mohan Lal Verma</div><div class="tbl-sub">₹3,80,000 · MSME</div></div>
@@ -851,7 +859,7 @@ body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--t);-webki
         <div class="f-pill gold-pill" onclick="filterPill(this)">S.138 (1)</div>
         <div class="f-pill gold-pill" onclick="filterPill(this)">SARFAESI (1)</div>
       </div>
-      <div class="tbl" style="--cols:2fr 1.2fr 1fr 1.2fr 1fr 80px">
+      <div class="tbl" style="overflow-x:auto;-webkit-overflow-scrolling:touch;" style="--cols:2fr 1.2fr 1fr 1.2fr 1fr 80px">
         <div class="tbl-head" style="grid-template-columns:var(--cols)"><div class="tbl-h">Borrower</div><div class="tbl-h">Client NBFC</div><div class="tbl-h">Outstanding</div><div class="tbl-h">Notice Type</div><div class="tbl-h">Queued</div><div class="tbl-h"></div></div>
         <div class="tbl-row" style="grid-template-columns:var(--cols)" onclick="aPage('review',null)">
           <div><div class="tbl-name">Mohan Lal Verma</div><div class="tbl-sub">FIN-MS-9903 · MSME</div></div>
@@ -1115,7 +1123,7 @@ On behalf of: Finserv Capital Ltd</textarea>
     <!-- ADV: CLIENTS -->
     <div id="a-page-clients" class="page">
       <div class="section-header"><div class="sh-title">My Clients</div><button class="btn-sm-ghost">+ Request New Client</button></div>
-      <div class="tbl" style="--cols:2fr 1fr 1fr 1fr 1fr 80px">
+      <div class="tbl" style="overflow-x:auto;-webkit-overflow-scrolling:touch;" style="--cols:2fr 1fr 1fr 1fr 1fr 80px">
         <div class="tbl-head" style="grid-template-columns:var(--cols)"><div class="tbl-h">NBFC / Lender</div><div class="tbl-h">Entity Type</div><div class="tbl-h">Notices (MTD)</div><div class="tbl-h">Earnings (MTD)</div><div class="tbl-h">Status</div><div class="tbl-h"></div></div>
         <div class="tbl-row" style="grid-template-columns:var(--cols)">
           <div><div class="tbl-name">Finserv Capital Ltd</div><div class="tbl-sub">NBFC (Retail) · Mumbai</div></div>
@@ -1162,7 +1170,7 @@ On behalf of: Finserv Capital Ltd</textarea>
         <div class="ec-bar-row"><div class="ec-month">Mar</div><div class="ec-bar-bg"><div class="ec-bar" style="width:74%"></div></div><div class="ec-val">₹8,400</div></div>
       </div>
       <div class="section-header"><div class="sh-title">Payout History</div><button class="btn-sm-ghost">Download PDF</button></div>
-      <div class="tbl" style="--cols:1.5fr 1fr 1fr 1fr 80px">
+      <div class="tbl" style="overflow-x:auto;-webkit-overflow-scrolling:touch;" style="--cols:1.5fr 1fr 1fr 1fr 80px">
         <div class="tbl-head" style="grid-template-columns:var(--cols)"><div class="tbl-h">Period</div><div class="tbl-h">Notices</div><div class="tbl-h">Amount</div><div class="tbl-h">Status</div><div class="tbl-h"></div></div>
         <div class="tbl-row" style="grid-template-columns:var(--cols)"><div class="tbl-name">Feb 2025</div><div class="tbl-mono">24</div><div class="tbl-mono" style="color:var(--gold)">₹7,350</div><div><span class="badge dispatched" style="font-size:9px">Paid</span></div><div class="tbl-action gold">Receipt</div></div>
         <div class="tbl-row" style="grid-template-columns:var(--cols)"><div class="tbl-name">Jan 2025</div><div class="tbl-mono">22</div><div class="tbl-mono" style="color:var(--gold)">₹6,600</div><div><span class="badge dispatched" style="font-size:9px">Paid</span></div><div class="tbl-action gold">Receipt</div></div>
@@ -1562,6 +1570,47 @@ fbInit=function(){
     fbRenderFields();
   }
 };
+
+
+/* ── THEME ── */
+(function(){
+  var dark = localStorage.getItem('vTheme') === 'dark' ||
+    (!localStorage.getItem('vTheme') && window.matchMedia('(prefers-color-scheme:dark)').matches);
+  function apply(d){
+    dark = d;
+    document.documentElement.classList.toggle('dark', d);
+    var btn = document.getElementById('theme-btn');
+    if(btn) btn.textContent = d ? '☀️' : '🌙';
+    localStorage.setItem('vTheme', d ? 'dark' : 'light');
+  }
+  window.toggleTheme = function(){ apply(!dark); };
+  window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change', function(e){
+    if(!localStorage.getItem('vTheme')) apply(e.matches);
+  });
+  apply(dark);
+})();
+
+/* ── MOBILE SIDEBAR ── */
+function openSidebar(){
+  var screen = document.querySelector('.screen.active');
+  if(!screen) return;
+  var sb = screen.querySelector('.sidebar');
+  var ov = screen.querySelector('.sb-overlay');
+  if(sb) sb.classList.add('open');
+  if(ov) ov.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function closeSidebar(){
+  document.querySelectorAll('.sidebar').forEach(function(sb){ sb.classList.remove('open'); });
+  document.querySelectorAll('.sb-overlay').forEach(function(ov){ ov.style.display = 'none'; });
+  document.body.style.overflow = '';
+}
+// Close sidebar when nav item clicked on mobile
+document.querySelectorAll('.sb-item').forEach(function(item){
+  item.addEventListener('click', function(){
+    if(window.innerWidth <= 768) closeSidebar();
+  });
+});
 
 </script>
 </body>

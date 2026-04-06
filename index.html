@@ -1,475 +1,1069 @@
 <!DOCTYPE html>
-<html lang="en-IN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vaasuli — Recovery Automation for NBFCs &amp; Fintechs</title>
-
-<!-- ═══ SEO META ═══════════════════════════════════════════════ -->
-<meta name="description" content="Vaasuli automates legal notice dispatch for Indian NBFCs and fintechs. AI-drafted, advocate-signed, India Post Registered AD + WhatsApp + SMS. From ₹33/notice.">
-<meta name="keywords" content="NBFC recovery automation, legal notice dispatch India, DPD collections, NPA recovery software, advocate signed notices, India Post legal notice, debt recovery fintech">
-<meta name="author" content="Vaasuli by ClearCase">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://vaasuli.com/">
-
-<!-- ═══ OPEN GRAPH ═════════════════════════════════════════════ -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://vaasuli.com/">
-<meta property="og:title" content="Vaasuli — Recovery Automation for NBFCs &amp; Fintechs">
-<meta property="og:description" content="Dispatch advocate-signed legal notices at scale. India Post + WhatsApp + SMS. From ₹33/notice. Free 10-case pilot for NBFCs.">
-<meta property="og:image" content="https://vaasuli.com/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:locale" content="en_IN">
-<meta property="og:site_name" content="Vaasuli">
-
-<!-- ═══ TWITTER / X CARD ═══════════════════════════════════════ -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@vaasuliin">
-<meta name="twitter:title" content="Vaasuli — Recovery Automation for NBFCs &amp; Fintechs">
-<meta name="twitter:description" content="AI-drafted, advocate-signed legal notices at scale. India Post + WhatsApp + SMS. Free 10-case pilot.">
-<meta name="twitter:image" content="https://vaasuli.com/og-image.png">
-
-<!-- ═══ AD PLATFORM VERIFICATION ══════════════════════════════ -->
-<meta name="google-site-verification" content="GOOGLE_SEARCH_CONSOLE_VERIFICATION_CODE">
-<meta name="facebook-domain-verification" content="META_DOMAIN_VERIFICATION_TOKEN">
-
-<!-- ═══ STRUCTURED DATA ════════════════════════════════════════ -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Vaasuli",
-  "url": "https://vaasuli.com",
-  "description": "Legal notice automation platform for Indian NBFCs and fintechs. AI-drafted, advocate-signed notices dispatched via India Post, WhatsApp, SMS, and Email.",
-  "applicationCategory": "BusinessApplication",
-  "operatingSystem": "Web",
-  "offers": {
-    "@type": "Offer",
-    "price": "33",
-    "priceCurrency": "INR",
-    "description": "Enterprise per-notice pricing"
-  },
-  "provider": {
-    "@type": "Organization",
-    "name": "ClearCase",
-    "url": "https://vaasuli.com"
-  }
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Vaasuli — Legal Notice Automation for NBFCs</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff;
+  --card:#f5f7fc;
+  --card2:#edf0f7;
+  --card3:#e2e7f0;
+  --bd:rgba(15,30,70,0.07);
+  --bd2:rgba(15,30,70,0.13);
+  --bd3:rgba(15,30,70,0.26);
+  --t:#0c1526;
+  --t2:#2a3d58;
+  --t3:#506070;
+  --t4:#8098b0;
+  --mint:#00e896;
+  --mint-d:rgba(0,232,150,0.10);
+  --mint-b:rgba(0,232,150,0.28);
+  --mint-text:#00a868;
+  --amber:#c97a00;
+  --blue:#1d4ed8;
+  --red:#c0392b;
+  --ease:cubic-bezier(.16,1,.3,1);
 }
-</script>
+body{background:#ffffff !important;color:#0c1526 !important;}
+html.dark,html.dark body{background:#07090e !important;color:#ffffff !important;}
+html.dark{
+  --bg:#07090e;--card:#0f1117;--card2:#141720;--card3:#1a1e28;
+  --bd:rgba(255,255,255,0.07);--bd2:rgba(255,255,255,0.13);--bd3:rgba(255,255,255,0.26);
+  --t:#ffffff;--t2:#c8d4e8;--t3:#8fa3bf;--t4:#566880;
+  --mint:#00e896;--mint-d:rgba(0,232,150,0.09);--mint-b:rgba(0,232,150,0.25);
+  --mint-text:#00e896;
+  --amber:#ffb547;--blue:#5b8fff;--red:#ff5555;
+}
+html.dark nav.sc{background:rgba(7,9,14,0.90) !important;border-bottom-color:rgba(255,255,255,0.07) !important;}
+html.dark .mb{opacity:0.3 !important;}
 
-<!-- ═══ GOOGLE ANALYTICS 4 ═════════════════════════════════════ -->
-<!-- Replace G-XXXXXXXXXXXX with your Measurement ID -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXXXX', {
-    page_title: 'Vaasuli Landing Page',
-    page_location: window.location.href
-  });
-  function trackEvent(eventName, params) {
-    gtag('event', eventName, params || {});
-  }
-</script>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t);-webkit-font-smoothing:antialiased;overflow-x:hidden;cursor:none;}
+@media(max-width:768px){body{cursor:auto;}}
 
-<!-- ═══ META PIXEL ═════════════════════════════════════════════ -->
-<!-- Replace XXXXXXXXXXXXXXX with your Pixel ID -->
-<script>
-  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
-  (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', 'XXXXXXXXXXXXXXX');
-  fbq('track', 'PageView');
-</script>
-<noscript>
-  <img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=XXXXXXXXXXXXXXX&ev=PageView&noscript=1" alt="">
-</noscript>
+/* THEME */
+var dark=localStorage.getItem('vt')?localStorage.getItem('vt')==='dark':window.matchMedia('(prefers-color-scheme:dark)').matches;
+function applyTheme(d){
+  dark=d;
+  document.documentElement.classList.toggle('dark',d);
+  var b=document.getElementById('tbtn');
+  if(b)b.textContent=d?'☀️':'🌙';
+  localStorage.setItem('vt',d?'dark':'light');
+}
+function toggleTheme(){
+  applyTheme(!dark);
+  var b=document.getElementById('tbtn');
+  b.style.transform='scale(1.3) rotate(30deg)';
+  setTimeout(function(){b.style.transition='transform .3s';b.style.transform='';},80);
+}
+window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',function(e){
+  if(!localStorage.getItem('vt'))applyTheme(e.matches);
+});
+applyTheme(dark);
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+/* CURSOR */
+#cur{position:fixed;width:8px;height:8px;background:var(--mint);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;}
+#cur-r{position:fixed;width:32px;height:32px;border:1px solid rgba(0,255,163,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s var(--ease),height .25s var(--ease);}
+#cur.h{width:16px;height:16px;}
+#cur-r.h{width:52px;height:52px;border-color:rgba(0,255,163,.18);}
+@media(max-width:768px){#cur,#cur-r{display:none;}}
+
+/* SCROLL BAR */
+.spb{position:fixed;top:0;left:0;height:2px;background:var(--mint);z-index:300;width:0%;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:56px;
+  background:rgba(255,255,255,0);border-bottom:1px solid transparent;
+  transition:background .4s,border-color .4s,backdrop-filter .4s;}
+nav.sc{background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-bottom-color:var(--bd);}
+.ni{height:56px;max-width:1160px;margin:0 auto;padding:0 28px;display:flex;align-items:center;gap:16px;}
+.nav-logo{display:flex;align-items:center;gap:9px;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;color:var(--t);text-decoration:none;flex-shrink:0;}
+.lv{width:26px;height:26px;background:var(--mint);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#06090f;transition:transform .25s var(--ease);}
+.nav-logo:hover .lv{transform:rotate(-8deg) scale(1.12);}
+.nlinks{display:none;}
+@media(min-width:768px){
+  .nlinks{display:flex;gap:28px;margin-left:36px;}
+  .nlinks a{font-size:13px;color:var(--t3);text-decoration:none;transition:color .15s;position:relative;}
+  .nlinks a::after{content:'';position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--mint);transition:width .2s;}
+  .nlinks a:hover{color:var(--t);}
+  .nlinks a:hover::after{width:100%;}
+}
+.nr{margin-left:auto;display:flex;align-items:center;gap:8px;}
+.btn-si{display:none;}
+@media(min-width:580px){
+  .btn-si{display:block;padding:8px 16px;background:transparent;border:1px solid var(--bd2);border-radius:8px;font-size:13px;color:var(--t2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;}
+  .btn-si:hover{border-color:var(--bd3);color:var(--t);}
+}
+.btn-th{width:34px;height:34px;border-radius:8px;background:var(--card);border:1px solid var(--bd2);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;transition:all .2s;flex-shrink:0;}
+.btn-th:hover{border-color:var(--mint);transform:rotate(20deg) scale(1.08);}
+.btn-cta{padding:9px 20px;background:var(--mint);border:none;border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:800;color:#06090f;cursor:pointer;transition:all .2s;white-space:nowrap;position:relative;overflow:hidden;}
+.btn-cta:hover{box-shadow:0 8px 28px rgba(0,255,163,.38);transform:translateY(-2px);}
+.btn-cta:active{transform:translateY(0);}
+.btn-cta::after{content:'';position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transform:skewX(-20deg);transition:left .5s;}
+.btn-cta:hover::after{left:160%;}
+
+/* WRAP */
+.wrap{max-width:1160px;margin:0 auto;padding:0 28px;}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━
+   HERO
+━━━━━━━━━━━━━━━━━━━━━━ */
+.hero{min-height:100vh;display:flex;align-items:center;padding:100px 28px 60px;position:relative;z-index:1;}
+.hero-inner{max-width:1160px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr;gap:60px;align-items:center;}
+@media(min-width:960px){.hero-inner{grid-template-columns:1fr 1fr;}}
+
+/* LEFT */
+.hero-left{}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--bd2);border-radius:20px;padding:5px 14px;margin-bottom:28px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);letter-spacing:1px;text-transform:uppercase;opacity:0;animation:up .6s .1s var(--ease) forwards;}
+.pill-dot{width:5px;height:5px;border-radius:50%;background:var(--mint-text);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.hero-h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(40px,5.5vw,72px);font-weight:800;letter-spacing:-2.5px;line-height:.98;color:var(--t);margin-bottom:22px;}
+.hero-h1 .ln{display:block;overflow:hidden;}
+.hero-h1 .li{display:block;opacity:0;transform:translateY(100%);animation:slideup .65s var(--ease) forwards;}
+.hero-h1 .ln:nth-child(1) .li{animation-delay:.18s;}
+.hero-h1 .ln:nth-child(2) .li{animation-delay:.3s;}
+.hero-h1 .ln:nth-child(3) .li{animation-delay:.42s;}
+@keyframes slideup{to{opacity:1;transform:translateY(0);}}
+.hero-h1 .g{color:var(--mint);}
+.hero-p{font-size:clamp(15px,1.8vw,17px);color:var(--t2);line-height:1.8;max-width:460px;margin-bottom:32px;opacity:0;animation:up .6s .7s var(--ease) forwards;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:up .6s .85s var(--ease) forwards;}
+.btn-hero{padding:14px 28px;background:var(--mint);border:none;border-radius:10px;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;color:#06090f;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.btn-hero:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,255,163,.35);}
+.btn-hero::after{content:'';position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transform:skewX(-20deg);transition:left .5s;}
+.btn-hero:hover::after{left:160%;}
+.btn-hero-o{padding:14px 24px;background:transparent;border:1px solid var(--bd2);border-radius:10px;font-size:14px;color:var(--t2);cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.btn-hero-o:hover{border-color:var(--bd3);color:var(--t);}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px;opacity:0;animation:up .6s 1s var(--ease) forwards;}
+.h-tag{padding:4px 11px;border:1px solid var(--bd2);border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.8px;color:var(--t3);text-transform:uppercase;transition:all .2s;cursor:default;}
+.h-tag:hover{border-color:var(--mint-b);color:var(--mint);}
+@keyframes up{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+/* RIGHT — product preview card */
+.hero-right{opacity:0;animation:up .7s .5s var(--ease) forwards;}
+.hero-card{background:var(--card);border:1px solid var(--bd);border-radius:20px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.6);}
+.hc-bar{background:var(--card2);border-bottom:1px solid var(--bd);padding:12px 16px;display:flex;align-items:center;gap:10px;}
+.hc-dots{display:flex;gap:6px;}
+.hc-dot{width:10px;height:10px;border-radius:50%;}
+.hc-title{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);letter-spacing:.5px;margin:0 auto;}
+.hc-body{padding:20px;}
+/* dispatch flow inside hero card */
+.dispatch-flow{display:flex;flex-direction:column;gap:10px;}
+.df-row{display:flex;align-items:center;gap:12px;background:var(--card2);border:1px solid var(--bd);border-radius:12px;padding:12px 16px;transition:border-color .2s;}
+.df-row:hover{border-color:var(--bd2);}
+.df-row.active{border-color:var(--mint-b);background:var(--mint-d);}
+.df-num{width:24px;height:24px;border-radius:50%;background:var(--card3);border:1px solid var(--bd2);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);flex-shrink:0;}
+.df-row.active .df-num{background:var(--mint);border-color:var(--mint);color:#06090f;}
+.df-info{flex:1;min-width:0;}
+.df-name{font-size:12px;font-weight:600;color:var(--t);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.df-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);}
+.df-badge{flex-shrink:0;padding:2px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;}
+.df-badge.dis{background:var(--mint-d);color:var(--mint);border:1px solid var(--mint-b);}
+.df-badge.rev{background:rgba(255,181,71,.10);color:var(--amber);border:1px solid rgba(255,181,71,.28);}
+.df-badge.q{background:rgba(91,143,255,.10);color:var(--blue);border:1px solid rgba(91,143,255,.25);}
+.df-chs{display:flex;gap:3px;margin-left:6px;}
+.df-ch{width:16px;height:16px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;background:var(--card3);color:var(--t4);border:1px solid var(--bd);}
+.df-ch.ok{background:var(--mint-d);color:var(--mint);border-color:var(--mint-b);}
+.df-ch.p{background:rgba(255,181,71,.10);color:var(--amber);border-color:rgba(255,181,71,.25);}
+/* mini stats below */
+.hc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);border-top:1px solid var(--bd);}
+.hc-stat{background:var(--card2);padding:14px;text-align:center;}
+.hc-stat-n{font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:var(--t);letter-spacing:-0.5px;line-height:1;margin-bottom:3px;}
+.hc-stat-n .ac{color:var(--mint);font-size:13px;}
+.hc-stat-l{font-size:10px;color:var(--t3);}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━
+   LOGOS / TRUST
+━━━━━━━━━━━━━━━━━━━━━━ */
+.trust-strip{position:relative;z-index:1;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:20px 28px;display:flex;align-items:center;gap:32px;overflow:hidden;}
+.trust-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t4);white-space:nowrap;flex-shrink:0;}
+.trust-logos{display:flex;gap:32px;align-items:center;flex-wrap:wrap;}
+.trust-logo{font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:700;color:var(--t4);letter-spacing:-.5px;transition:color .2s;cursor:default;}
+.trust-logo:hover{color:var(--t3);}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━
+   BENTO GRID
+━━━━━━━━━━━━━━━━━━━━━━ */
+.bento-section{padding:80px 0;position:relative;z-index:1;}
+.bento-header{margin-bottom:48px;}
+.s-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--mint-text);margin-bottom:12px;}
+.s-h{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(28px,4.5vw,50px);font-weight:800;letter-spacing:-1.5px;color:var(--t);line-height:1.05;margin-bottom:10px;}
+.s-p{font-size:clamp(14px,1.8vw,16px);color:var(--t2);line-height:1.75;max-width:480px;}
+
+.bento{display:grid;grid-template-columns:1fr;gap:12px;}
+@media(min-width:640px){.bento{grid-template-columns:1fr 1fr;}}
+@media(min-width:960px){.bento{grid-template-columns:repeat(12,1fr);}}
+
+.bc{background:var(--card);border:1px solid var(--bd);border-radius:18px;overflow:hidden;transition:border-color .25s,box-shadow .25s;position:relative;}
+.bc:hover{border-color:var(--bd2);box-shadow:0 24px 60px rgba(0,0,0,.3);}
+@media(min-width:960px){
+  .bc.w5{grid-column:span 5;}
+  .bc.w7{grid-column:span 7;}
+  .bc.w4{grid-column:span 4;}
+  .bc.w8{grid-column:span 8;}
+  .bc.w6{grid-column:span 6;}
+  .bc.w12{grid-column:span 12;}
+}
+
+.bc-head{padding:24px 24px 0;}
+.bc-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mint-text);margin-bottom:8px;}
+.bc-title{font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:700;color:var(--t);margin-bottom:6px;letter-spacing:-.3px;line-height:1.2;}
+.bc-desc{font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:20px;}
+
+/* Card UI previews */
+.bc-ui{padding:0 24px 24px;}
+
+/* dispatch channels UI */
+.channel-list{display:flex;flex-direction:column;gap:8px;}
+.ch-row{display:flex;align-items:center;gap:12px;background:var(--card2);border:1px solid var(--bd);border-radius:10px;padding:10px 14px;}
+.ch-icon{font-size:16px;flex-shrink:0;}
+.ch-name{font-size:13px;font-weight:500;color:var(--t);flex:1;}
+.ch-status{display:flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:10px;}
+.ch-status.ok{color:var(--mint);}
+.ch-status.wait{color:var(--amber);}
+.ch-dot{width:5px;height:5px;border-radius:50%;}
+
+/* notice preview UI */
+.notice-mini{background:#f9f8f4;border-radius:10px;padding:16px;font-size:11px;line-height:2;color:#333;font-family:'DM Sans',sans-serif;position:relative;overflow:hidden;}
+.nm-head{font-weight:700;font-size:12px;text-align:center;margin-bottom:8px;color:#111;}
+.nm-blank{display:inline-block;border-bottom:1px solid #aaa;color:var(--mint-text);font-weight:600;padding:0 4px;}
+.nm-wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-25deg);font-size:28px;font-weight:900;color:rgba(0,0,0,.04);white-space:nowrap;pointer-events:none;font-family:'Bricolage Grotesque',sans-serif;}
+
+/* advocate flow */
+.adv-card{background:var(--card2);border:1px solid var(--bd);border-radius:12px;padding:14px;}
+.adv-top{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.adv-av{width:32px;height:32px;border-radius:50%;background:var(--mint);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#06090f;flex-shrink:0;}
+.adv-name{font-size:13px;font-weight:600;color:var(--t);line-height:1.2;}
+.adv-role{font-size:10px;color:var(--t3);font-family:'JetBrains Mono',monospace;}
+.adv-time{margin-left:auto;font-size:10px;color:var(--amber);font-family:'JetBrains Mono',monospace;}
+.adv-checks{display:flex;flex-direction:column;gap:6px;}
+.adv-check{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--t2);}
+.adv-check .tick{color:var(--mint);font-size:10px;}
+.adv-check .pend{color:var(--amber);font-size:10px;}
+.adv-btns{display:flex;gap:8px;margin-top:14px;}
+.adv-btn-r{padding:7px 12px;border:1px solid rgba(255,85,85,.3);border-radius:7px;font-size:11px;color:var(--red);background:transparent;cursor:pointer;font-family:'DM Sans',sans-serif;flex:1;text-align:center;}
+.adv-btn-g{padding:7px 12px;background:var(--mint);border:none;border-radius:7px;font-size:11px;font-weight:700;color:#06090f;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;flex:1;text-align:center;}
+
+/* evidence file */
+.file-list{display:flex;flex-direction:column;gap:6px;}
+.file-item{display:flex;align-items:center;gap:10px;background:var(--card2);border:1px solid var(--bd);border-radius:8px;padding:9px 12px;}
+.file-icon{font-size:14px;flex-shrink:0;}
+.file-name{font-size:12px;color:var(--t);flex:1;}
+.file-size{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t4);}
+.file-ok{color:var(--mint);font-size:11px;}
+
+/* big stat card */
+.big-stat{padding:32px 24px;text-align:center;}
+.big-num{font-family:'Bricolage Grotesque',sans-serif;font-size:72px;font-weight:800;letter-spacing:-3px;color:var(--t);line-height:1;}
+.big-num .ac{color:var(--mint);font-size:40px;}
+.big-label{font-size:14px;color:var(--t2);margin-top:8px;}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━
+   CALCULATOR
+━━━━━━━━━━━━━━━━━━━━━━ */
+.calc-section{padding:0 0 80px;position:relative;z-index:1;}
+.calc-wrap{background:var(--card);border:1px solid var(--bd);border-radius:20px;overflow:hidden;}
+.calc-top{padding:22px 28px;background:var(--card2);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.calc-title{font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;color:var(--t);}
+.live-pill{display:flex;align-items:center;gap:6px;border:1px solid var(--mint-b);border-radius:20px;padding:4px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mint-text);}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--mint);animation:blink 1.5s infinite;}
+.calc-sliders{padding:28px 28px 22px;border-bottom:1px solid var(--bd);display:flex;flex-direction:column;gap:26px;}
+.sl-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
+.sl-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);}
+.sl-val{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;color:var(--t);}
+input[type=range]{-webkit-appearance:none;width:100%;height:4px;border-radius:2px;outline:none;cursor:pointer;transition:height .15s;}
+input[type=range]:hover{height:7px;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 4px rgba(0,255,163,.18);cursor:pointer;transition:transform .15s,box-shadow .15s;}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.25);box-shadow:0 0 0 8px rgba(0,255,163,.12);}
+.sl-ticks{display:flex;justify-content:space-between;margin-top:6px;}
+.sl-ticks span{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t4);}
+.calc-stages{padding:22px 28px;border-bottom:1px solid var(--bd);display:grid;grid-template-columns:1fr;gap:10px;}
+@media(min-width:600px){.calc-stages{grid-template-columns:repeat(3,1fr);}}
+.cs{background:var(--card2);border:1px solid var(--bd);border-radius:14px;padding:18px;transition:all .2s;}
+.cs:hover{border-color:var(--bd2);transform:translateY(-2px);}
+.cs-icon{font-size:20px;margin-bottom:10px;}
+.cs-name{font-size:12px;font-weight:600;color:var(--t);margin-bottom:3px;}
+.cs-fee{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-bottom:12px;}
+.cs-bg{height:3px;background:var(--card3);border-radius:2px;margin-bottom:10px;overflow:hidden;}
+.cs-bar{height:100%;border-radius:2px;transition:width .7s var(--ease);}
+.cs-amt{font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;letter-spacing:-.5px;}
+.cs-settle{font-size:10px;color:var(--t3);font-family:'JetBrains Mono',monospace;margin-top:3px;}
+.calc-total{padding:22px 28px;background:linear-gradient(135deg,var(--mint-d),rgba(0,255,163,.02));border-top:1px solid var(--mint-b);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.ct-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mint-text);margin-bottom:6px;}
+.ct-big{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(26px,4vw,40px);font-weight:800;letter-spacing:-1.5px;color:var(--t);line-height:1;}
+.ct-sub{font-size:11px;color:var(--t3);margin-top:4px;}
+.btn-calc{padding:14px 28px;background:var(--mint);border:none;border-radius:10px;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;color:#06090f;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.btn-calc:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,255,163,.38);}
+.calc-fn{padding:12px 28px;border-top:1px solid var(--bd);font-size:11px;color:var(--t3);line-height:1.6;}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━
+   PRICING
+━━━━━━━━━━━━━━━━━━━━━━ */
+.price-section{padding:0 0 80px;position:relative;z-index:1;}
+.price-grid{display:grid;grid-template-columns:1fr;gap:2px;background:var(--bd);border:1px solid var(--bd);border-radius:20px;overflow:hidden;}
+@media(min-width:768px){.price-grid{grid-template-columns:repeat(3,1fr);}}
+.pc{background:var(--card);padding:32px 28px;position:relative;transition:background .2s;}
+.pc:hover{background:var(--card2);}
+.pc.hot{border:1px solid var(--mint);border-radius:0;position:relative;}
+.pc.hot::before{content:'MOST POPULAR';position:absolute;top:-1px;right:28px;background:var(--mint);color:#06090f;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;padding:3px 10px;border-radius:0 0 6px 6px;letter-spacing:.5px;}
+.pc-tier{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--mint-text);margin-bottom:16px;}
+.pc-price{font-family:'Bricolage Grotesque',sans-serif;font-size:48px;font-weight:800;letter-spacing:-2px;color:var(--t);line-height:1;margin-bottom:4px;}
+.pc-cad{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);margin-bottom:16px;}
+.pc-blurb{font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:24px;min-height:60px;}
+.pc-feats{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
+.pc-feats li{font-size:13px;color:var(--t2);display:flex;gap:10px;}
+.fd{color:var(--mint);flex-shrink:0;}
+.fd.no{color:var(--t4);}
+.btn-pc{width:100%;padding:13px;border-radius:9px;font-size:14px;font-weight:700;font-family:'Bricolage Grotesque',sans-serif;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.btn-pc.g{background:transparent;border:1px solid var(--bd2);color:var(--t2);}
+.btn-pc.g:hover{border-color:var(--bd3);color:var(--t);}
+.btn-pc.s{background:var(--mint);border:none;color:#06090f;}
+.btn-pc.s:hover{box-shadow:0 10px 28px rgba(0,255,163,.38);transform:translateY(-1px);}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━
+   CTA
+━━━━━━━━━━━━━━━━━━━━━━ */
+.cta-section{padding:0 0 80px;position:relative;z-index:1;}
+.cta-card{background:var(--card);border:1px solid var(--bd);border-radius:24px;padding:clamp(48px,6vw,80px) clamp(28px,5vw,60px);text-align:center;position:relative;overflow:hidden;}
+.cta-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--mint),transparent);}
+.cta-card::after{content:'';position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:500px;height:400px;background:radial-gradient(circle,rgba(0,255,163,.06),transparent 65%);pointer-events:none;}
+.cta-h{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,5vw,56px);font-weight:800;letter-spacing:-2px;color:var(--t);line-height:1.0;margin-bottom:16px;position:relative;z-index:1;}
+.cta-p{font-size:clamp(14px,2vw,17px);color:var(--t2);line-height:1.75;margin-bottom:32px;position:relative;z-index:1;}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--bd);padding:28px 0;position:relative;z-index:1;}
+.foot-i{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;}
+.foot-logo{display:flex;align-items:center;gap:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;color:var(--t);}
+.foot-note{font-size:11px;color:var(--t4);}
+.foot-links{display:flex;gap:20px;}
+.foot-links a{font-size:12px;color:var(--t4);text-decoration:none;transition:color .15s;}
+.foot-links a:hover{color:var(--mint);}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .6s var(--ease);}
+.rv.in{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.08s;}.d2{transition-delay:.16s;}.d3{transition-delay:.24s;}
+
+/* RIPPLE */
+.rpl-el{position:absolute;border-radius:50%;background:rgba(255,255,255,.22);transform:scale(0);animation:rpl .55s linear;pointer-events:none;}
+@keyframes rpl{to{transform:scale(4);opacity:0;}}
+
+/* NUM FLASH */
+@keyframes nf{0%,100%{color:var(--mint);}50%{color:var(--t);}}
+.fl{animation:nf .25s ease;}
+
+/* mesh */
+.mesh{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.mb{position:absolute;border-radius:50%;filter:blur(120px);opacity:.15;animation:drift 14s ease-in-out infinite alternate;}
+.mb:nth-child(1){width:600px;height:600px;background:radial-gradient(circle,rgba(0,232,150,.12),transparent 70%);top:-10%;left:-8%;animation-delay:0s;}
+.mb:nth-child(2){width:450px;height:450px;background:radial-gradient(circle,rgba(29,78,216,.06),transparent 70%);bottom:-10%;right:-8%;animation-delay:-6s;}
+@keyframes drift{to{transform:translate(30px,20px) scale(1.05);}}
+
+/* ── MARQUEE ── */
+.marquee-wrap{position:relative;overflow:hidden;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:18px 0;}
+.marquee-wrap::before,.marquee-wrap::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;}
+.marquee-wrap::before{left:0;background:linear-gradient(to right,var(--bg),transparent);}
+.marquee-wrap::after{right:0;background:linear-gradient(to left,var(--bg),transparent);}
+.marquee-track{display:flex;gap:0;animation:marquee 28s linear infinite;}
+.marquee-track:hover{animation-play-state:paused;}
+.marquee-inner{display:flex;gap:56px;align-items:center;flex-shrink:0;padding-right:56px;}
+.m-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t4);white-space:nowrap;}
+.m-logo{font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;color:var(--t3);letter-spacing:-.5px;white-space:nowrap;transition:color .2s;cursor:default;}
+.m-logo:hover{color:var(--t2);}
+.m-dot{width:4px;height:4px;border-radius:50%;background:var(--bd3);flex-shrink:0;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ── WORD CYCLE ── */
+.wc{display:inline-block;position:relative;color:var(--mint-text);}
+.wc-word{position:absolute;left:0;top:0;opacity:0;transform:translateY(40px);transition:opacity .5s,transform .5s;white-space:nowrap;color:var(--mint);}
+.wc-word.active{position:relative;opacity:1;transform:translateY(0);}
+.wc-word.out{opacity:0;transform:translateY(-40px);}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:28px;right:28px;z-index:500;background:var(--card);border:1px solid var(--bd2);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 20px 50px rgba(0,0,0,.15);transform:translateY(100px);opacity:0;transition:transform .5s var(--ease),opacity .5s;max-width:300px;pointer-events:none;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast-icon{font-size:20px;flex-shrink:0;}
+.toast-title{font-size:13px;font-weight:600;color:var(--t);line-height:1.3;margin-bottom:2px;}
+.toast-sub{font-size:11px;color:var(--t3);}
+.toast-dot{width:8px;height:8px;border-radius:50%;background:var(--mint);flex-shrink:0;animation:blink 1.5s infinite;}
+
+/* ── ANIMATED ROW (hero card) ── */
+.df-row{transition:background .4s,border-color .4s,opacity .4s;}
+.df-row.new-row{animation:rowIn .5s var(--ease) forwards;}
+@keyframes rowIn{from{opacity:0;transform:translateX(-12px);}to{opacity:1;transform:translateX(0);}}
+
+/* ── BENTO STAGGER ── */
+.bc{opacity:0;transform:translateY(32px);transition:opacity .6s var(--ease),transform .6s var(--ease),border-color .25s,box-shadow .25s;}
+.bc.in{opacity:1;transform:translateY(0);}
+.bc:nth-child(1){transition-delay:.0s;}
+.bc:nth-child(2){transition-delay:.1s;}
+.bc:nth-child(3){transition-delay:.2s;}
+.bc:nth-child(4){transition-delay:.3s;}
+.bc:nth-child(5){transition-delay:.15s;}
+.bc:nth-child(6){transition-delay:.25s;}
+
+/* ── COUNTER FLIP ── */
+.flip-num{display:inline-block;transition:transform .3s var(--ease),opacity .3s;}
+.flip-num.flip{animation:flip .35s var(--ease);}
+@keyframes flip{0%{transform:translateY(-8px);opacity:0;}100%{transform:translateY(0);opacity:1;}}
+
+/* ── GRADIENT HEADING ── */
+.grad-text{background:linear-gradient(135deg,var(--mint) 0%,#00c47a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+html.dark .grad-text{background:linear-gradient(135deg,#00e896 0%,#00ffa3 100%);-webkit-background-clip:text;background-clip:text;}
+
+
+/* ── LANDING MOBILE EXTRAS (replaced) ── */
+@media(max-width:600px){
+  .hero{padding:90px 20px 40px;}
+  .hero-h1{letter-spacing:-1.5px;}
+  .hc-stats{grid-template-columns:repeat(3,1fr);}
+  .bento-section{padding:48px 0;}
+  .cta-card{padding:40px 20px;}
+  .price-grid{border-radius:14px;}
+  .pc{padding:24px 20px;}
+  .pc.hot::before{right:20px;}
+  .wrap{padding:0 16px;}
+  .calc-sliders{padding:20px 16px 16px;}
+  .calc-stages{padding:16px;}
+  .calc-total{padding:16px;flex-direction:column;align-items:flex-start;}
+  .btn-calc{width:100%;}
+  .calc-fn{padding:10px 16px;}
+  .trust-strip{padding:16px;}
+  .foot-i{flex-direction:column;text-align:center;gap:10px;}
+}
+@media(max-width:480px){
+  .hero-btns{flex-direction:column;}
+  .btn-hero,.btn-hero-o{width:100%;text-align:center;}
+  .hc-bar .hc-title{display:none;}
+  .ni{padding:0 16px;}
+  .hero-tags{gap:6px;}
+  .h-tag{font-size:9px;padding:3px 8px;}
+}
+
+
+/* ── BENTO MOBILE FIXES ── */
+@media(max-width:959px){
+  .bc.w5,.bc.w7,.bc.w4,.bc.w8,.bc.w6,.bc.w12{grid-column:span 1 !important;}
+}
+/* ── NOTICE MINI OVERFLOW ── */
+.notice-mini{overflow-x:auto;word-break:break-word;}
+/* ── DF-ROW CHANNELS WRAP ── */
+@media(max-width:480px){
+  .df-row{flex-wrap:wrap;gap:8px;}
+  .df-chs{flex-shrink:0;}
+  .df-name{font-size:11px;}
+  .df-meta{font-size:9px;}
+}
+/* ── TOAST MOBILE ── */
+@media(max-width:480px){
+  .toast{left:16px;right:16px;bottom:16px;max-width:none;transform:translateY(120px);}
+  .toast.show{transform:translateY(0);}
+}
+/* ── HERO CARD MOBILE ── */
+@media(max-width:480px){
+  .hc-body{padding:14px;}
+  .df-row{padding:10px 12px;}
+  .hc-stat-n{font-size:16px;}
+}
+/* ── BIG STAT MOBILE ── */
+@media(max-width:480px){
+  .big-num{font-size:52px;}
+}
+/* ── CALC TOTAL MOBILE ── */
+@media(max-width:600px){
+  .calc-total{flex-direction:column;align-items:stretch;}
+  .btn-calc{width:100%;text-align:center;}
+}
+/* ── PRICING MOBILE ── */
+@media(max-width:500px){
+  .pc-price{font-size:36px;}
+  .pc{padding:24px 20px;}
+  .pc.hot::before{right:20px;}
+}
+/* ── CTA MOBILE ── */
+@media(max-width:480px){
+  .cta-btns{flex-direction:column;}
+  .cta-btns button{width:100%;}
+}
+/* ── ADVC CARD MOBILE ── */
+@media(max-width:480px){
+  .adv-time{display:none;}
+}
+/* ── FILE LIST MOBILE ── */
+@media(max-width:400px){
+  .file-name{font-size:11px;}
+  .file-size{display:none;}
+}
+/* ── TRUST STRIP MOBILE ── */
+@media(max-width:480px){
+  .trust-label{display:none;}
+}
+
+</style>
 </head>
 <body>
 
-<nav>
-  <div class="logo"><div class="lv">V</div>vaasuli.com</div>
-  <ul class="nav-links">
-    <li><a href="#pipeline">Recovery Pipeline</a></li>
-    <li><a href="#solve">What We Solve</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-  </ul>
-  <div class="nav-r">
-    <a href="platform/" class="nb-g">Sign In</a>
-    <a href="#" class="nb-m" onclick="openPilot();return false">Start Recovery &rarr;</a>
+<div id="cur"></div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-dot"></div>
+  <div class="toast-icon" id="toast-icon">✉️</div>
+  <div><div class="toast-title" id="toast-title">Notice dispatched</div><div class="toast-sub" id="toast-sub">Rajesh Kumar Mehra · FIN-PL-4821</div></div>
+</div>
+
+<div id="cur-r"></div>
+<div class="mesh"><div class="mb"></div><div class="mb"></div></div>
+<div class="spb" id="spb"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="ni">
+    <a href="#" class="nav-logo"><div class="lv">V</div>vaasuli.com</a>
+    <div class="nlinks">
+      <a href="#features">Features</a>
+      <a href="#calculator">Calculator</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+    <div class="nr">
+      <button class="btn-th" id="tbtn" onclick="toggleTheme()">🌙</button>
+      <button class="btn-si" onclick="rpl(this)">Sign In</button>
+      <button class="btn-cta" onclick="rpl(this)">Start Recovery →</button>
+    </div>
   </div>
 </nav>
 
 <!-- HERO -->
-<div class="hero">
-  <div>
-    <div class="h-kicker"><span class="kd"></span>Recovery infrastructure &middot; India</div>
-    <h1>Your collections<br>team shouldn&rsquo;t be<br><span class="em">printing notices.</span></h1>
-    <p class="h-sub">Bulk legal notice automation for NBFCs and fintechs. AI-drafted, advocate-signed, India Post tracked. From &#8377;33 per notice.</p>
-    <div class="h-btns">
-      <a href="#pipeline" class="btn-mint">See Recovery Pipeline &darr;</a>
-      <a href="#" class="btn-ghost" onclick="openPilot();return false">Book a Demo</a>
+<section class="hero">
+  <div class="hero-inner wrap">
+    <div class="hero-left">
+      <div class="hero-pill"><div class="pill-dot"></div>Recovery Infrastructure · India</div>
+      <h1 class="hero-h1">
+        <span class="ln"><span class="li">Your collections</span></span>
+        <span class="ln"><span class="li">team shouldn't be</span></span>
+        <span class="ln"><span class="li"><span class="grad-text" id="wc-container"><span class="wc-word active">printing notices.</span><span class="wc-word">manual paperwork.</span><span class="wc-word">ops bottlenecks.</span><span class="wc-word">missed escalations.</span></span></span></span>
+      </h1>
+      <p class="hero-p">Bulk legal notice automation for NBFCs and fintechs. AI-drafted, advocate-signed, India Post tracked. From ₹33 per notice.</p>
+      <div class="hero-btns">
+        <button class="btn-hero" onclick="rpl(this);scrollTo('#calculator')">See Recovery Pipeline ↓</button>
+        <button class="btn-hero-o" onclick="rpl(this)">Book a Demo</button>
+      </div>
+      <div class="hero-tags">
+        <div class="h-tag">India Post AD</div>
+        <div class="h-tag">SARFAESI</div>
+        <div class="h-tag">NI Act S.138</div>
+        <div class="h-tag">RBI Compliant</div>
+        <div class="h-tag">Court Admissible</div>
+      </div>
     </div>
-    <div class="h-tags">
-      <span class="ht">India Post AD</span>
-      <span class="ht">SARFAESI</span>
-      <span class="ht">NI Act s.138</span>
-      <span class="ht">RBI Compliant</span>
-      <span class="ht">Court Admissible</span>
+
+    <!-- product preview -->
+    <div class="hero-right">
+      <div class="hero-card">
+        <div class="hc-bar">
+          <div class="hc-dots"><div class="hc-dot" style="background:#ff5f57"></div><div class="hc-dot" style="background:#febc2e"></div><div class="hc-dot" style="background:#28c840"></div></div>
+          <div class="hc-title">Vaasuli — Case Dashboard</div>
+        </div>
+        <div class="hc-body">
+          <div class="dispatch-flow">
+            <div class="df-row active">
+              <div class="df-num">✓</div>
+              <div class="df-info"><div class="df-name">Rajesh Kumar Mehra</div><div class="df-meta">FIN-PL-4821 · ₹1,24,500 · 65d DPD</div></div>
+              <div class="df-badge dis">Dispatched</div>
+              <div class="df-chs"><div class="df-ch ok">IP</div><div class="df-ch ok">WA</div><div class="df-ch ok">SM</div><div class="df-ch ok">EM</div></div>
+            </div>
+            <div class="df-row">
+              <div class="df-num">✓</div>
+              <div class="df-info"><div class="df-name">Priya Suresh Nair</div><div class="df-meta">FIN-TW-2204 · ₹48,200 · 42d DPD</div></div>
+              <div class="df-badge dis">Dispatched</div>
+              <div class="df-chs"><div class="df-ch ok">IP</div><div class="df-ch ok">WA</div><div class="df-ch ok">SM</div><div class="df-ch p">EM</div></div>
+            </div>
+            <div class="df-row">
+              <div class="df-num">2</div>
+              <div class="df-info"><div class="df-name">Mohan Lal Verma</div><div class="df-meta">FIN-MS-9903 · ₹3,80,000 · 90d DPD</div></div>
+              <div class="df-badge rev">In Review</div>
+              <div class="df-chs"><div class="df-ch">IP</div><div class="df-ch">WA</div><div class="df-ch">SM</div><div class="df-ch">EM</div></div>
+            </div>
+            <div class="df-row">
+              <div class="df-num">3</div>
+              <div class="df-info"><div class="df-name">Sunita Devi Rao</div><div class="df-meta">MM-PL-7711 · ₹92,000 · 38d DPD</div></div>
+              <div class="df-badge q">Queued</div>
+              <div class="df-chs"><div class="df-ch">IP</div><div class="df-ch">WA</div><div class="df-ch">SM</div><div class="df-ch">EM</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="hc-stats">
+          <div class="hc-stat"><div class="hc-stat-n">4</div><div class="hc-stat-l">Cases</div></div>
+          <div class="hc-stat"><div class="hc-stat-n">2<span class="ac">✓</span></div><div class="hc-stat-l">Dispatched</div></div>
+          <div class="hc-stat"><div class="hc-stat-n">₹<span style="font-size:14px">0</span></div><div class="hc-stat-l">Cost (pilot)</div></div>
+        </div>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- CALCULATOR -->
-  <div class="calc" id="pipeline">
-    <div class="c-head">
-      <div class="c-head-t">Recovery Pipeline Calculator</div>
-      <div class="c-live"><span class="c-live-dot"></span>Live</div>
+<!-- TRUST -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-inner">
+      <div class="m-label">Trusted by NBFCs</div>
+      <div class="m-dot"></div>
+      <div class="m-logo">Finserv Capital</div>
+      <div class="m-dot"></div>
+      <div class="m-logo">Micromax Finance</div>
+      <div class="m-dot"></div>
+      <div class="m-logo">Growmax NBFC</div>
+      <div class="m-dot"></div>
+      <div class="m-logo">IndiaFirst Lending</div>
+      <div class="m-dot"></div>
+      <div class="m-logo">CreditBridge</div>
+      <div class="m-dot"></div>
+      <div class="m-logo">RapidFin</div>
+      <div class="m-dot"></div>
+      <div class="m-logo">ProcredLenders</div>
+      <div class="m-dot"></div>
+      <div class="m-logo">SwiftCapital</div>
     </div>
-    <div class="c-body">
-
-      <div class="sl-row">
-        <div class="sl-hdr">
-          <span class="sl-lbl">DPD accounts / month</span>
-          <span class="sl-val" id="d-vol">500</span>
-        </div>
-        <input type="range" id="vol" min="50" max="5000" value="500" step="50" oninput="calc()">
-      </div>
-
-      <div class="sl-row">
-        <div class="sl-hdr">
-          <span class="sl-lbl">Avg. outstanding per account</span>
-          <span class="sl-val" id="d-amt">&#8377;2L</span>
-        </div>
-        <input type="range" id="amt" min="50000" max="2000000" value="200000" step="50000" oninput="calc()">
-      </div>
-
-      <div class="stage-ladder">
-        <div class="s-ladder-head">
-          <div class="slh">Stage</div>
-          <div class="slh r">Our fee</div>
-          <div class="slh r">Net recovered</div>
-          <div class="slh r">Settles</div>
-        </div>
-
-        <div class="stage active" id="st1">
-          <div class="stage-row">
-            <div class="s-info">
-              <div class="s-name">Soft Reminder</div>
-              <div class="s-sub">WhatsApp + SMS + Email &mdash; instant digital reach</div>
-            </div>
-            <div class="s-fee" id="f1">&#8377;—</div>
-            <div class="s-recover" id="r1">&#8377;—</div>
-            <div class="s-pct"><span class="s-pct-txt" id="n1">—</span></div>
-          </div>
-          <div class="s-bar-wrap">
-            <div class="s-bar-bg"><div class="s-bar-fill" id="b1" style="width:30%;background:var(--blue)"></div></div>
-            <div class="s-pct-lbl"><span style="color:var(--blue)" id="p1">30% settle here</span></div>
-          </div>
-        </div>
-
-        <div class="stage" id="st2">
-          <div class="stage-row">
-            <div class="s-info">
-              <div class="s-name">Legal Notice</div>
-              <div class="s-sub">Advocate-signed &middot; India Post Regd AD &middot; Court-admissible</div>
-            </div>
-            <div class="s-fee" id="f2">&#8377;—</div>
-            <div class="s-recover" id="r2">&#8377;—</div>
-            <div class="s-pct"><span class="s-pct-txt" id="n2">—</span></div>
-          </div>
-          <div class="s-bar-wrap">
-            <div class="s-bar-bg"><div class="s-bar-fill" id="b2" style="width:55%"></div></div>
-            <div class="s-pct-lbl"><span style="color:var(--mint)" id="p2">55% cumulative</span></div>
-          </div>
-        </div>
-
-        <div class="stage" id="st3">
-          <div class="stage-row">
-            <div class="s-info">
-              <div class="s-name">Arbitration (ODR)</div>
-              <div class="s-sub">30&ndash;90 day resolution &middot; Section 17 interim relief available</div>
-            </div>
-            <div class="s-fee" id="f3">&#8377;—</div>
-            <div class="s-recover" id="r3">&#8377;—</div>
-            <div class="s-pct"><span class="s-pct-txt" id="n3">—</span></div>
-          </div>
-          <div class="s-bar-wrap">
-            <div class="s-bar-bg"><div class="s-bar-fill" id="b3" style="width:8%;background:var(--amber)"></div></div>
-            <div class="s-pct-lbl"><span style="color:var(--amber)" id="p3">8% more</span></div>
-          </div>
-        </div>
-
-        <div class="stage" id="st4">
-          <div class="stage-row">
-            <div class="s-info">
-              <div class="s-name">SARFAESI / S.138 Prep</div>
-              <div class="s-sub">Court filing documents &middot; DRT &middot; Criminal complaint prep</div>
-            </div>
-            <div class="s-fee" id="f4">&#8377;—</div>
-            <div class="s-recover" id="r4">&#8377;—</div>
-            <div class="s-pct"><span class="s-pct-txt" id="n4">—</span></div>
-          </div>
-          <div class="s-bar-wrap">
-            <div class="s-bar-bg"><div class="s-bar-fill" id="b4" style="width:7%;background:var(--red)"></div></div>
-            <div class="s-pct-lbl"><span style="color:var(--red)" id="p4">remaining 7%</span></div>
-          </div>
-        </div>
-
-        <div class="s-total">
-          <div>
-            <div class="st-lbl">Total recoverable this month</div>
-            <div class="st-sub-txt" id="total-sub">across all stages at 72% overall response</div>
-          </div>
-          <div style="text-align:right">
-            <div class="st-val" id="grand-total">&#8377;—</div>
-            <div class="st-sub" id="total-cost-lbl">total Vaasuli cost: &#8377;—</div>
-          </div>
-        </div>
-      </div>
-
-      <p class="c-note">&#9432; Fees shown are per account at your volume. Recovery estimates use 72% response rate and 18% avg overdue of outstanding. Actual results vary.</p>
-      <a href="#" class="c-cta" id="c-cta" onclick="openPilot();return false">Start Recovery &rarr;</a>
+    <div class="marquee-inner" aria-hidden="true">
+      <div class="m-label">Trusted by NBFCs</div>
+      <div class="m-dot"></div>
+      <div class="m-logo">Finserv Capital</div>
+      <div class="m-dot"></div>
+      <div class="m-logo">Micromax Finance</div>
+      <div class="m-dot"></div>
+      <div class="m-logo">Growmax NBFC</div>
+      <div class="m-dot"></div>
+      <div class="m-logo">IndiaFirst Lending</div>
+      <div class="m-dot"></div>
+      <div class="m-logo">CreditBridge</div>
+      <div class="m-dot"></div>
+      <div class="m-logo">RapidFin</div>
+      <div class="m-dot"></div>
+      <div class="m-logo">ProcredLenders</div>
+      <div class="m-dot"></div>
+      <div class="m-logo">SwiftCapital</div>
     </div>
   </div>
 </div>
 
-<!-- METRICS STRIP -->
-<div class="strip">
-  <div class="m rev"><div class="m-n">10<span class="u">K+</span></div><div class="m-l">Notices dispatched<br>via platform</div></div>
-  <div class="m rev"><div class="m-n">72<span class="u">%</span></div><div class="m-l">Avg. debtor response<br>within 15 days</div></div>
-  <div class="m rev"><div class="m-n">48<span class="u">hr</span></div><div class="m-l">Upload to dispatch<br>turnaround</div></div>
-  <div class="m rev"><div class="m-n">&#8377;33</div><div class="m-l">Per notice at<br>10,000+/month</div></div>
-</div>
-
-<!-- WHAT WE SOLVE -->
-<div class="solve" id="solve">
-  <div class="solve-inner">
-    <div class="rev">
-      <div class="sec-ey">// What We Solve</div>
-      <h2>More than notices.<br>End-to-end recovery ops.</h2>
+<!-- BENTO FEATURES -->
+<section class="bento-section" id="features">
+  <div class="wrap">
+    <div class="bento-header rv">
+      <div class="s-eyebrow">Platform</div>
+      <div class="s-h">More than notices.<br>End-to-end recovery ops.</div>
     </div>
-    <div class="solve-grid rev">
-      <div class="sv">
-        <span class="sv-icon">&#128228;</span>
-        <h3>DPD Automation</h3>
-        <p>Auto-trigger the right action at 30, 60, 90 DPD and NPA. No manual intervention. No accounts slipping through the cracks.</p>
-        <span class="sv-tag">&#10003; Set &amp; Forget</span>
+    <div class="bento">
+
+      <!-- Big stat -->
+      <div class="bc w5">
+        <div class="big-stat">
+          <div class="big-num"><span class="ctr" data-to="10" data-sfx="K+">0</span></div>
+          <div style="font-size:13px;color:var(--t2);margin-top:10px;line-height:1.6">Notices dispatched<br>via Vaasuli platform</div>
+        </div>
+        <div class="bc-head" style="padding-top:0">
+          <div class="bc-eyebrow">Dispatch</div>
+          <div class="bc-title">All 4 channels. Simultaneously.</div>
+          <div class="bc-desc">India Post Registered AD, WhatsApp, SMS, and email — all at once. Debtor cannot claim non-receipt.</div>
+        </div>
+        <div class="bc-ui">
+          <div class="channel-list">
+            <div class="ch-row"><div class="ch-icon">🇮🇳</div><div class="ch-name">India Post Regd AD</div><div class="ch-status ok"><div class="ch-dot" style="background:var(--mint)"></div>Delivered</div></div>
+            <div class="ch-row"><div class="ch-icon">💬</div><div class="ch-name">WhatsApp</div><div class="ch-status ok"><div class="ch-dot" style="background:var(--mint)"></div>Delivered</div></div>
+            <div class="ch-row"><div class="ch-icon">📱</div><div class="ch-name">SMS (MSG91)</div><div class="ch-status ok"><div class="ch-dot" style="background:var(--mint)"></div>Delivered</div></div>
+            <div class="ch-row"><div class="ch-icon">✉️</div><div class="ch-name">Email (Resend)</div><div class="ch-status wait"><div class="ch-dot" style="background:var(--amber)"></div>Pending</div></div>
+          </div>
+        </div>
       </div>
-      <div class="sv">
-        <span class="sv-icon">&#128236;</span>
-        <h3>4-Channel Dispatch</h3>
-        <p>India Post Regd AD + WhatsApp + SMS + Email simultaneously. Debtor cannot claim non-receipt. Maximum pressure, minimum ops effort.</p>
-        <span class="sv-tag">&#10003; Court-Admissible</span>
+
+      <!-- Advocate review -->
+      <div class="bc w7">
+        <div class="bc-head">
+          <div class="bc-eyebrow">Legal Review</div>
+          <div class="bc-title">Real advocates. 6-hour SLA.</div>
+          <div class="bc-desc">AI drafts every notice. An empanelled advocate reviews, edits if needed, and signs before dispatch. No rubber-stamping.</div>
+        </div>
+        <div class="bc-ui">
+          <div class="adv-card">
+            <div class="adv-top">
+              <div class="adv-av">PS</div>
+              <div><div class="adv-name">Adv. Pallavi Sharma</div><div class="adv-role">MH/2018/1024 · Mumbai</div></div>
+              <div class="adv-time">3h 14m ago</div>
+            </div>
+            <div class="adv-checks">
+              <div class="adv-check"><span class="tick">✓</span>Borrower name &amp; address verified</div>
+              <div class="adv-check"><span class="tick">✓</span>Outstanding amount correct</div>
+              <div class="adv-check"><span class="tick">✓</span>NBFC reg. number present</div>
+              <div class="adv-check"><span class="tick">✓</span>Reply window stated (15 days)</div>
+              <div class="adv-check"><span class="pend">○</span>Account verified in LOS</div>
+            </div>
+            <div class="adv-btns">
+              <div class="adv-btn-r">✕ Reject</div>
+              <div class="adv-btn-g">✓ Sign &amp; Approve</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="sv">
-        <span class="sv-icon">&#128451;</span>
-        <h3>Evidence File</h3>
-        <p>Every notice, delivery scan, AD card, and response — auto-archived per borrower. One click exports a court-ready evidence bundle.</p>
-        <span class="sv-tag">&#10003; RBI Compliant</span>
+
+      <!-- Evidence file -->
+      <div class="bc w4">
+        <div class="bc-head">
+          <div class="bc-eyebrow">Evidence</div>
+          <div class="bc-title">Court-ready in one click.</div>
+          <div class="bc-desc">Every notice, scan, AD card, and response — auto-archived per borrower.</div>
+        </div>
+        <div class="bc-ui">
+          <div class="file-list">
+            <div class="file-item"><div class="file-icon">📄</div><div class="file-name">Loan_Recall_Notice.pdf</div><div class="file-ok">✓</div></div>
+            <div class="file-item"><div class="file-icon">🖼️</div><div class="file-name">AD_Card_EW8841201.jpg</div><div class="file-ok">✓</div></div>
+            <div class="file-item"><div class="file-icon">📦</div><div class="file-name">Delivery_Scan_12Mar.pdf</div><div class="file-ok">✓</div></div>
+            <div class="file-item"><div class="file-icon">📋</div><div class="file-name">Evidence_Bundle.zip</div><div class="file-size">2.4 MB</div></div>
+          </div>
+        </div>
       </div>
-      <div class="sv">
-        <span class="sv-icon">&#9878;&#65039;</span>
-        <h3>Arbitration Pipeline</h3>
-        <p>When notices don&rsquo;t move the debtor, escalate to ODR arbitration via Manch. 30&ndash;90 day resolution. Section 17 asset freeze available.</p>
-        <span class="sv-tag">&#10003; Faster Than Court</span>
+
+      <!-- Notice preview -->
+      <div class="bc w8">
+        <div class="bc-head">
+          <div class="bc-eyebrow">Notice Generation</div>
+          <div class="bc-title">AI-drafted. Legally precise.</div>
+          <div class="bc-desc">Section 13(2) SARFAESI · NI Act S.138 · Arbitration · Pre-Litigation. Every format, every loan type.</div>
+        </div>
+        <div class="bc-ui">
+          <div class="notice-mini">
+            <div class="nm-wm">DRAFT</div>
+            <div class="nm-head">LOAN RECALL NOTICE</div>
+            <div style="text-align:right;margin-bottom:6px">Date: <span class="nm-blank">13 March 2025</span></div>
+            <div style="margin-bottom:8px">To,<br><span class="nm-blank">Mohan Lal Verma</span><br><span class="nm-blank">B-44, Sector 62, Noida – 201 301</span></div>
+            <div><strong>Sub:</strong> Notice for repayment of ₹<span class="nm-blank">3,80,000</span>/- under Loan A/c <span class="nm-blank">FIN-MS-9903</span><br><br>Under instructions from <span class="nm-blank">Finserv Capital Ltd</span> (NBFC Reg. No. <span class="nm-blank">N-13.01874</span>), you are hereby called upon to pay the full outstanding sum within <span class="nm-blank">15</span> (fifteen) days...</div>
+            <div style="margin-top:10px;font-weight:700">Adv. Pallavi Sharma<br><span style="font-weight:400;color:#555">Bar Council No. MH/2018/1024</span></div>
+          </div>
+        </div>
       </div>
-      <div class="sv">
-        <span class="sv-icon">&#128203;</span>
-        <h3>SARFAESI &amp; S.138 Prep</h3>
-        <p>For secured lenders: pre-built SARFAESI demand notice series. For cheque bounce: Section 138 NI Act complaint filing documents — ready in minutes.</p>
-        <span class="sv-tag">&#10003; SARFAESI Ready</span>
+
+      <!-- Big stat 2 -->
+      <div class="bc w6">
+        <div class="big-stat">
+          <div class="big-num"><span class="ctr" data-to="72" data-sfx="%">0</span></div>
+          <div style="font-size:13px;color:var(--t2);margin-top:10px;">Avg debtor response within 15 days</div>
+        </div>
+        <div class="bc-head" style="padding-top:0">
+          <div class="bc-eyebrow">Results</div>
+          <div class="bc-title">Notices that actually move debtors.</div>
+          <div class="bc-desc">Advocate-signed + India Post means borrowers know it's legally serious. WhatsApp delivery means they see it immediately.</div>
+        </div>
       </div>
-      <div class="sv">
-        <span class="sv-icon">&#128279;</span>
-        <h3>API &amp; White-Label</h3>
-        <p>REST API with webhooks for collection software integration. White-label for recovery agencies and CA firms — your brand, our infrastructure.</p>
-        <span class="sv-tag">&#10003; API-First</span>
+
+      <!-- Arbitration -->
+      <div class="bc w6">
+        <div class="bc-head">
+          <div class="bc-eyebrow">Escalation</div>
+          <div class="bc-title">Notice didn't work? Arbitrate.</div>
+          <div class="bc-desc">When notices don't move the debtor, escalate to ODR arbitration in one click. 30–90 day resolution. Section 17 asset freeze available.</div>
+        </div>
+        <div class="bc-ui" style="display:flex;flex-direction:column;gap:8px;">
+          <div style="background:var(--card2);border:1px solid var(--bd);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;">
+            <div style="width:36px;height:36px;background:rgba(255,181,71,.10);border:1px solid rgba(255,181,71,.25);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">⚖️</div>
+            <div><div style="font-size:12px;font-weight:600;color:var(--t);margin-bottom:2px;">Arbitration filed</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);">FIN-MS-9903 · Manch ODR · 90d max</div></div>
+            <div style="margin-left:auto;padding:3px 9px;border-radius:4px;background:rgba(255,181,71,.10);border:1px solid rgba(255,181,71,.25);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;color:var(--amber);">Active</div>
+          </div>
+          <div style="background:var(--card2);border:1px solid var(--bd);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;">
+            <div style="width:36px;height:36px;background:var(--mint-d);border:1px solid var(--mint-b);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🏛️</div>
+            <div><div style="font-size:12px;font-weight:600;color:var(--t);margin-bottom:2px;">SARFAESI S.13(2) served</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);">GM-LAP-0041 · 60-day cure period</div></div>
+            <div style="margin-left:auto;padding:3px 9px;border-radius:4px;background:var(--mint-d);border:1px solid var(--mint-b);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;color:var(--mint);">Served</div>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
-</div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="calc-section" id="calculator">
+  <div class="wrap">
+    <div class="bento-header rv">
+      <div class="s-eyebrow">Recovery Calculator</div>
+      <div class="s-h">What could you recover<br>this month?</div>
+    </div>
+    <div class="calc-wrap rv d1">
+      <div class="calc-top">
+        <div class="calc-title">Recovery Pipeline Calculator</div>
+        <div class="live-pill"><div class="live-dot"></div>LIVE</div>
+      </div>
+      <div class="calc-sliders">
+        <div>
+          <div class="sl-top"><span class="sl-lbl">DPD Accounts / Month</span><span class="sl-val" id="vdpd">500</span></div>
+          <input type="range" id="sdpd" min="50" max="10000" value="500" step="50" oninput="calc()">
+          <div class="sl-ticks"><span>50</span><span>2,500</span><span>5,000</span><span>10,000</span></div>
+        </div>
+        <div>
+          <div class="sl-top"><span class="sl-lbl">Avg Outstanding / Account</span><span class="sl-val" id="vout">₹2.0L</span></div>
+          <input type="range" id="sout" min="20000" max="1000000" value="200000" step="10000" oninput="calc()">
+          <div class="sl-ticks"><span>₹20K</span><span>₹2.5L</span><span>₹5L</span><span>₹10L</span></div>
+        </div>
+      </div>
+      <div class="calc-stages">
+        <div class="cs"><div class="cs-icon">💬</div><div class="cs-name">Soft Reminder</div><div class="cs-fee">WhatsApp + SMS + Email · ₹16/account</div><div class="cs-bg"><div class="cs-bar" id="b1" style="width:30%;background:var(--blue)"></div></div><div class="cs-amt" id="r1" style="color:var(--blue)">₹54.0L</div><div class="cs-settle">30% settle here</div></div>
+        <div class="cs"><div class="cs-icon">✉️</div><div class="cs-name">Legal Notice</div><div class="cs-fee">India Post + Digital · ₹99/notice</div><div class="cs-bg"><div class="cs-bar" id="b2" style="width:55%;background:var(--mint)"></div></div><div class="cs-amt" id="r2" style="color:var(--mint)">₹69.3L</div><div class="cs-settle">55% cumulative</div></div>
+        <div class="cs"><div class="cs-icon">⚖️</div><div class="cs-name">Arbitration</div><div class="cs-fee">30–90 day resolution · ₹1,499/case</div><div class="cs-bg"><div class="cs-bar" id="b3" style="width:63%;background:var(--amber)"></div></div><div class="cs-amt" id="r3" style="color:var(--amber)">₹14.8L</div><div class="cs-settle">+8% more</div></div>
+      </div>
+      <div class="calc-total">
+        <div><div class="ct-lbl">Total recoverable this month</div><div class="ct-big" id="rtot">₹1.38Cr</div><div class="ct-sub" id="rsub">from 500 accounts · Vaasuli cost: ₹2.4L</div></div>
+        <button class="btn-calc" onclick="rpl(this)">Recover <span id="rcta">₹1.38Cr</span> →</button>
+      </div>
+      <div class="calc-fn">* Estimates use 72% response rate and 18% avg overdue of outstanding. Fees at your volume. Actual results vary.</div>
+    </div>
+  </div>
+</section>
 
 <!-- PRICING -->
-<div class="pricing" id="pricing">
-  <div class="p-inner">
-    <div class="rev">
-      <div class="sec-ey">// Pricing</div>
-      <h2>Per notice. No lock-in.</h2>
+<section class="price-section" id="pricing">
+  <div class="wrap">
+    <div class="bento-header rv">
+      <div class="s-eyebrow">Pricing</div>
+      <div class="s-h">Per notice. No lock-in.</div>
     </div>
-    <div class="p-grid rev">
+    <div class="price-grid rv d1">
       <div class="pc">
-        <div class="pc-plan">Self-Serve</div>
-        <div class="pc-price">&#8377;499</div>
-        <div class="pc-per">per notice &middot; up to 100/mo</div>
-        <div class="pc-desc">Start without a contract. For businesses sending occasional notices.</div>
-        <ul class="pc-ul">
-          <li>AI-drafted, advocate-signed</li>
-          <li>India Post Registered AD</li>
-          <li>WhatsApp + SMS delivery</li>
-          <li>Tracking dashboard + PDF proof</li>
+        <div class="pc-tier">Self-Serve</div>
+        <div class="pc-price">₹499</div>
+        <div class="pc-cad">per notice · up to 100/mo</div>
+        <div class="pc-blurb">Start without a contract. For businesses sending occasional notices.</div>
+        <ul class="pc-feats">
+          <li><span class="fd">—</span>AI-drafted, advocate-signed</li>
+          <li><span class="fd">—</span>India Post Registered AD</li>
+          <li><span class="fd">—</span>WhatsApp + SMS + Email</li>
+          <li><span class="fd no">—</span><span style="color:var(--t4)">DPD automation rules</span></li>
         </ul>
-        <a href="platform/" class="pc-btn">Get Started &rarr;</a>
+        <button class="btn-pc g" onclick="rpl(this)">Get Started →</button>
       </div>
       <div class="pc hot">
-        <div class="pc-plan">Business</div>
-        <div class="pc-price">&#8377;99</div>
-        <div class="pc-per">per notice &middot; 500+/mo</div>
-        <div class="pc-desc">For active NBFC collections teams. Automated DPD workflows included.</div>
-        <ul class="pc-ul">
-          <li>Everything in Self-Serve</li>
-          <li>Bulk CSV upload</li>
-          <li>Auto DPD series (30/60/90)</li>
-          <li>AD card management portal</li>
-          <li>Team access + priority SLA</li>
+        <div class="pc-tier">Business</div>
+        <div class="pc-price">₹99</div>
+        <div class="pc-cad">per notice · 500+/mo</div>
+        <div class="pc-blurb">For active NBFC collections teams. Full automation, evidence file, arbitration escalation.</div>
+        <ul class="pc-feats">
+          <li><span class="fd">—</span>Everything in Self-Serve</li>
+          <li><span class="fd">—</span>Bulk CSV upload &amp; auto-dispatch</li>
+          <li><span class="fd">—</span>DPD automation rules</li>
+          <li><span class="fd">—</span>Evidence file per borrower</li>
+          <li><span class="fd">—</span>Arbitration pipeline access</li>
         </ul>
-        <a href="#" class="pc-btn m" onclick="openPilot();return false">Talk to Sales &rarr;</a>
+        <button class="btn-pc s" onclick="rpl(this)">Start Free Pilot →</button>
       </div>
       <div class="pc">
-        <div class="pc-plan">Enterprise</div>
-        <div class="pc-price">&#8377;33</div>
-        <div class="pc-per">per notice &middot; 10,000+/mo</div>
-        <div class="pc-desc">API-first, white-label. For large lenders and collection agencies.</div>
-        <ul class="pc-ul">
-          <li>Everything in Business</li>
-          <li>REST API + webhooks</li>
-          <li>White-label option</li>
-          <li>Arbitration escalation (ODR)</li>
-          <li>SARFAESI &amp; S.138 doc prep</li>
+        <div class="pc-tier">Enterprise</div>
+        <div class="pc-price">₹33</div>
+        <div class="pc-cad">per notice · 10,000+/mo</div>
+        <div class="pc-blurb">For large NBFCs and banks. Custom SLA, dedicated advocate panel, API integration.</div>
+        <ul class="pc-feats">
+          <li><span class="fd">—</span>Everything in Business</li>
+          <li><span class="fd">—</span>Dedicated advocate panel</li>
+          <li><span class="fd">—</span>API + SFTP integration</li>
+          <li><span class="fd">—</span>Custom SLA agreement</li>
         </ul>
-        <a href="#" class="pc-btn" onclick="openPilot();return false">Contact Us &rarr;</a>
+        <button class="btn-pc g" onclick="rpl(this)">Contact Us →</button>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- BOTTOM CTA -->
-<div class="cta">
-  <h2 class="rev">Stop printing.<br><span class="em">Start recovering.</span></h2>
-  <p class="rev">First campaign live in 48 hours. Upload your CSV — we handle everything from dispatch to escalation.</p>
-  <div class="cta-r rev">
-    <a href="#" class="btn-mint" style="font-size:15px;padding:14px 28px" onclick="openPilot();return false">Start Recovery &rarr;</a>
-    <a href="#" class="btn-ghost" style="font-size:15px;padding:14px 22px" onclick="openPilot();return false">Book a Demo</a>
+<!-- CTA -->
+<section class="cta-section">
+  <div class="wrap">
+    <div class="cta-card rv">
+      <div class="cta-h">Stop printing.<br>Start recovering.</div>
+      <p class="cta-p">First campaign live in 48 hours. Upload your CSV — we handle everything from dispatch to escalation.</p>
+      <div class="cta-btns">
+        <button class="btn-hero" style="padding:16px 36px;font-size:16px" onclick="rpl(this)">Start Recovery →</button>
+        <button class="btn-hero-o" style="padding:16px 24px" onclick="rpl(this)">Book a Demo</button>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
+<!-- FOOTER -->
 <footer>
-  <div class="logo"><div class="lv" style="width:20px;height:20px;font-size:10px">V</div>vaasuli.com</div>
-  <div class="f-disc">Technology by ClearCase. Legal notices prepared by empanelled advocates. Not independent legal advice.</div>
-  <div class="f-links">
-    <a href="privacy-policy.html">Privacy</a>
-    <a href="#">Terms</a>
-    <a href="#">API</a>
-    <a href="#" onclick="openPilot();return false">Contact</a>
+  <div class="wrap foot-i">
+    <div class="foot-logo"><div class="lv" style="width:22px;height:22px;font-size:10px">V</div>vaasuli.com</div>
+    <div class="foot-note">Technology by ClearCase. Legal notices prepared by empanelled advocates. Not independent legal advice.</div>
+    <div class="foot-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">API</a><a href="#">Contact</a></div>
   </div>
 </footer>
 
-<!-- PILOT MODAL -->
-<div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
-  <div class="modal" id="modal">
-    <button class="m-close" onclick="closePilot()" aria-label="Close">&times;</button>
+<script>
+/* THEME */
+var dark=localStorage.getItem('vt')?localStorage.getItem('vt')==='dark':!window.matchMedia('(prefers-color-scheme:light)').matches;
+function applyTheme(d){dark=d;document.documentElement.classList.toggle('light',!d);var btn=document.getElementById('tbtn');if(btn)btn.textContent=d?'☀️':'🌙';localStorage.setItem('vt',d?'dark':'light');}
+function toggleTheme(){applyTheme(!dark);var b=document.getElementById('tbtn');b.style.transform='scale(1.3) rotate(30deg)';setTimeout(function(){b.style.transition='transform .3s';b.style.transform='';},80);}
+window.matchMedia('(prefers-color-scheme:light)').addEventListener('change',function(e){if(!localStorage.getItem('vt'))applyTheme(!e.matches);});
+applyTheme(dark);
 
-    <div class="pilot-offer">
-      <div class="po-badge">Free Pilot</div>
-      <div class="po-text">
-        <div class="po-hl">10 cases. Zero cost. No commitment.</div>
-        <div class="po-sub">We dispatch your first 10 recovery notices — advocate-signed, India Post Regd AD — completely free. See real results before you decide.</div>
-      </div>
-    </div>
+/* THEME */
+var dark=localStorage.getItem('vt')?localStorage.getItem('vt')==='dark':window.matchMedia('(prefers-color-scheme:dark)').matches;
+function applyTheme(d){
+  dark=d;
+  document.documentElement.classList.toggle('dark',d);
+  var b=document.getElementById('tbtn');
+  if(b)b.textContent=d?'☀️':'🌙';
+  localStorage.setItem('vt',d?'dark':'light');
+}
+function toggleTheme(){
+  applyTheme(!dark);
+  var b=document.getElementById('tbtn');
+  b.style.transform='scale(1.3) rotate(30deg)';
+  setTimeout(function(){b.style.transition='transform .3s';b.style.transform='';},80);
+}
+window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',function(e){
+  if(!localStorage.getItem('vt'))applyTheme(e.matches);
+});
+applyTheme(dark);
 
-    <div class="m-body" id="m-form-state">
-      <div class="m-title">Start your free pilot</div>
-      <div class="m-desc">Takes 2 minutes. We'll call you within 4 business hours to onboard.</div>
+/* CURSOR */
+var dot=document.getElementById('cur'),ring=document.getElementById('cur-r'),mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+(function animR(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animR);})();
+document.querySelectorAll('a,button,.bc,.df-row,.cs,.pc,.ch-row,.file-item').forEach(function(el){
+  el.addEventListener('mouseenter',function(){dot.classList.add('h');ring.classList.add('h');});
+  el.addEventListener('mouseleave',function(){dot.classList.remove('h');ring.classList.remove('h');});
+});
 
-      <div class="f-row-2">
-        <div>
-          <label for="f-name">Your Name</label>
-          <input class="f-input" id="f-name" name="name" type="text" placeholder="Amit Sharma">
-        </div>
-        <div>
-          <label for="f-phone">Mobile Number</label>
-          <input class="f-input" id="f-phone" name="mobile" type="tel" placeholder="+91 98765 43210">
-        </div>
-      </div>
+/* NAV + SCROLL */
+window.addEventListener('scroll',function(){
+  document.getElementById('nav').classList.toggle('sc',window.scrollY>50);
+  document.getElementById('spb').style.width=Math.min(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100,100)+'%';
+});
 
-      <div class="f-row">
-        <label for="f-company">Company / NBFC Name</label>
-        <input class="f-input" id="f-company" name="company" type="text" placeholder="e.g. Finserv Capital Ltd">
-      </div>
+/* REVEAL */
+var ro=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}});},{threshold:0.08});
+document.querySelectorAll('.rv').forEach(function(el){ro.observe(el);});
 
-      <div class="f-row-2">
-        <div>
-          <label for="f-role">Your Role</label>
-          <select class="f-input" id="f-role" name="role">
-            <option value="" disabled selected>Select role</option>
-            <option>Collections Head</option>
-            <option>VP Collections</option>
-            <option>CFO / Finance Head</option>
-            <option>CEO / Founder</option>
-            <option>Risk Manager</option>
-            <option>Operations Lead</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div>
-          <label for="f-loan">Loan Type</label>
-          <select class="f-input" id="f-loan" name="loan_type">
-            <option value="" disabled selected>Select type</option>
-            <option>Personal Loan</option>
-            <option>Two-Wheeler Loan</option>
-            <option>MSME / Business Loan</option>
-            <option>LAP / Home Loan</option>
-            <option>Microfinance (MFI)</option>
-            <option>Consumer Durable</option>
-            <option>Mixed Portfolio</option>
-          </select>
-        </div>
-      </div>
+/* COUNTER */
+var counted=false;
+new IntersectionObserver(function(es){
+  if(es[0].isIntersecting&&!counted){counted=true;
+    document.querySelectorAll('.ctr').forEach(function(el){
+      var to=+el.dataset.to,sfx=el.dataset.sfx||'',st=performance.now(),dur=1200;
+      function tick(n){var p=Math.min((n-st)/dur,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(e*to)+sfx;if(p<1)requestAnimationFrame(tick);}
+      requestAnimationFrame(tick);
+    });
+  }
+},{threshold:0.4}).observe(document.querySelector('.bento'));
 
-      <div class="f-row">
-        <label for="f-vol-s">Approx. DPD accounts per month</label>
-        <select class="f-input" id="f-vol-s" name="dpd_volume">
-          <option value="" disabled selected>Select volume</option>
-          <option>Under 100</option>
-          <option>100 – 500</option>
-          <option>500 – 2,000</option>
-          <option>2,000 – 10,000</option>
-          <option>10,000+</option>
-        </select>
-      </div>
+/* SLIDER */
+function fillSl(el){var p=(el.value-el.min)/(el.max-el.min)*100;el.style.background='linear-gradient(to right,var(--mint) '+p+'%,var(--card3) '+p+'%)';}
+['sdpd','sout'].forEach(function(id){var el=document.getElementById(id);el.addEventListener('input',function(){fillSl(this);});fillSl(el);});
 
-      <button class="m-submit" onclick="submitForm()">Claim Free Pilot &rarr;</button>
+/* CALC */
+function fmt(n){if(n>=10000000)return '₹'+(n/10000000).toFixed(2)+'Cr';if(n>=100000)return '₹'+(n/100000).toFixed(1)+'L';if(n>=1000)return '₹'+(n/1000).toFixed(0)+'K';return '₹'+n;}
+function fmtD(n){return n>=1000?(n/1000).toFixed(n%1000===0?0:1)+'K':String(n);}
+function fl(id,v){var el=document.getElementById(id);if(!el)return;el.textContent=v;el.classList.remove('fl');void el.offsetWidth;el.classList.add('fl');}
+function calc(){
+  var dpd=+document.getElementById('sdpd').value,out=+document.getElementById('sout').value;
+  var vd=document.getElementById('vdpd'),vo=document.getElementById('vout');
+  vd.textContent=fmtD(dpd);vo.textContent=out>=100000?'₹'+(out/100000).toFixed(1)+'L':'₹'+Math.round(out/1000)+'K';
+  var ptf=dpd*out,r1=Math.round(ptf*.30*.18),r2=Math.round(ptf*.25*.18),r3=Math.round(ptf*.08*.18);
+  var arbN=Math.max(1,Math.round(dpd*.05)),cost=(dpd*16)+(dpd*99)+(arbN*1499),total=r1+r2+r3;
+  fl('r1',fmt(r1));fl('r2',fmt(r2));fl('r3',fmt(r3));fl('rtot',fmt(total));fl('rcta',fmt(total));
+  document.getElementById('rsub').textContent='from '+dpd+' accounts · Vaasuli cost: '+fmt(cost);
+}
+calc();
 
-      <div class="or-div"><div class="or-line"></div><div class="or-txt">or connect instantly</div><div class="or-line"></div></div>
+/* RIPPLE */
+function rpl(btn){var r=document.createElement('span');r.className='rpl-el';var s=Math.max(btn.offsetWidth,btn.offsetHeight);r.style.cssText='width:'+s+'px;height:'+s+'px;left:'+(btn.offsetWidth/2-s/2)+'px;top:'+(btn.offsetHeight/2-s/2)+'px';btn.style.position='relative';btn.style.overflow='hidden';btn.appendChild(r);setTimeout(function(){r.remove();},600);}
 
-      <a class="m-wa" id="wa-btn" href="#" target="_blank" rel="noopener">
-        <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Chat on WhatsApp
-      </a>
+/* MAGNETIC — desktop only */
+if(!('ontouchstart' in window)){
+  document.querySelectorAll('.btn-hero,.btn-cta,.btn-calc,.btn-pc').forEach(function(btn){
+    btn.addEventListener('mousemove',function(e){var r=btn.getBoundingClientRect(),x=(e.clientX-r.left-r.width/2)*.2,y=(e.clientY-r.top-r.height/2)*.2;btn.style.transform='translate('+x+'px,'+y+'px)';});
+    btn.addEventListener('mouseleave',function(){btn.style.transform='';});
+  });
+}
 
-      <p class="m-fine">No spam. No pushy sales calls. We'll confirm pilot details over WhatsApp or phone — your choice. By submitting you agree to our <a href="privacy-policy.html" target="_blank">Privacy Policy</a>.</p>
-    </div>
+/* 3D TILT on bento cards — desktop only */
+if(!('ontouchstart' in window)){
+  document.querySelectorAll('.bc').forEach(function(c){
+    c.addEventListener('mousemove',function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform='translateY(-4px) rotateX('+(-y*4)+'deg) rotateY('+(x*4)+'deg)';c.style.transition='transform .08s';c.style.transformStyle='preserve-3d';});
+    c.addEventListener('mouseleave',function(){c.style.transform='';c.style.transition='transform .5s var(--ease)';});
+  });
+}
 
-    <div class="m-success" id="m-success-state">
-      <div class="ms-icon">&#10003;</div>
-      <div class="ms-hl">You're on the list.</div>
-      <div class="ms-sub">We'll call you within 4 business hours to set up your 10-case pilot. Meanwhile, you can also reach us directly on WhatsApp.</div>
-      <a class="ms-wa" id="wa-btn-success" href="#" target="_blank" rel="noopener">
-        <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Message us on WhatsApp
-      </a>
-    </div>
-  </div>
-</div>
+/* SMOOTH SCROLL */
+function scrollTo(id){document.querySelector(id).scrollIntoView({behavior:'smooth'});}
 
-<script src="script.js"></script>
+/* ── WORD CYCLE ── */
+var words = ['printing notices.','manual paperwork.','ops bottlenecks.','missed escalations.'];
+var wIdx = 0;
+var wcEl = document.getElementById('wc-container');
+if(wcEl){
+  function cycleWord(){
+    var all = wcEl.querySelectorAll('.wc-word');
+    var cur = wcEl.querySelector('.wc-word.active');
+    if(cur) cur.classList.add('out');
+    setTimeout(function(){
+      if(cur) cur.classList.remove('active','out');
+      wIdx = (wIdx+1) % words.length;
+      var next = all[wIdx];
+      if(next){ next.textContent = words[wIdx]; next.classList.add('active'); }
+    }, 500);
+  }
+  setInterval(cycleWord, 2800);
+}
+
+/* ── TOAST NOTIFICATIONS ── */
+var toasts = [
+  {icon:'✉️', title:'Notice dispatched', sub:'Rajesh Kumar Mehra · India Post + WhatsApp'},
+  {icon:'✅', title:'Advocate signed', sub:'Adv. Pallavi Sharma · FIN-TW-2204'},
+  {icon:'📥', title:'8 cases uploaded', sub:'Finserv Capital Ltd · Batch #14'},
+  {icon:'⚡', title:'Response received', sub:'Mohan Lal Verma replied within 6 days'},
+  {icon:'📋', title:'Evidence bundle ready', sub:'FIN-PL-4821 · Court-ready PDF'},
+];
+var tIdx = 0, toastEl = document.getElementById('toast');
+function showToast(){
+  var t = toasts[tIdx % toasts.length]; tIdx++;
+  document.getElementById('toast-icon').textContent = t.icon;
+  document.getElementById('toast-title').textContent = t.title;
+  document.getElementById('toast-sub').textContent = t.sub;
+  toastEl.classList.add('show');
+  setTimeout(function(){toastEl.classList.remove('show');}, 3200);
+}
+setTimeout(function(){
+  showToast();
+  setInterval(showToast, 5000);
+}, 3000);
+
+/* ── HERO CARD LIVE UPDATES ── */
+var statuses = [
+  {cls:'dis', txt:'Dispatched', color:'var(--mint)'},
+  {cls:'rev', txt:'In Review', color:'var(--amber)'},
+  {cls:'q',   txt:'Queued',    color:'var(--blue)'},
+];
+var heroRows = document.querySelectorAll('.df-row');
+var rowIndex = 2;
+function cycleHeroRow(){
+  if(!heroRows[rowIndex]) return;
+  var badge = heroRows[rowIndex].querySelector('.df-badge');
+  if(!badge) return;
+  var s = statuses[Math.floor(Math.random()*statuses.length)];
+  badge.className = 'df-badge ' + s.cls;
+  badge.textContent = s.txt;
+  heroRows[rowIndex].style.borderColor = 'var(--bd2)';
+  setTimeout(function(){ heroRows[rowIndex].style.borderColor = ''; }, 600);
+  rowIndex = rowIndex >= heroRows.length-1 ? 2 : rowIndex+1;
+}
+setInterval(cycleHeroRow, 2200);
+
+/* ── BENTO OBSERVER ── */
+var bro = new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');bro.unobserve(e.target);}});
+},{threshold:0.08});
+document.querySelectorAll('.bc').forEach(function(el){bro.observe(el);});
+
+</script>
 </body>
 </html>
