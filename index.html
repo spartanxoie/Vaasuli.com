@@ -49,8 +49,8 @@ html.dark .mb{opacity:0.3 !important;}
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t);-webkit-font-smoothing:antialiased;overflow-x:hidden;cursor:none;}
-@media(max-width:768px){body{cursor:auto;}}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+
 
 /* THEME */
 var dark=localStorage.getItem('vt')?localStorage.getItem('vt')==='dark':window.matchMedia('(prefers-color-scheme:dark)').matches;
@@ -72,12 +72,12 @@ window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',funct
 });
 applyTheme(dark);
 
-/* CURSOR */
-#cur{position:fixed;width:8px;height:8px;background:var(--mint);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;}
-#cur-r{position:fixed;width:32px;height:32px;border:1px solid rgba(0,255,163,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s var(--ease),height .25s var(--ease);}
-#cur.h{width:16px;height:16px;}
-#cur-r.h{width:52px;height:52px;border-color:rgba(0,255,163,.18);}
-@media(max-width:768px){#cur,#cur-r{display:none;}}
+
+
+
+
+
+@media(max-width:768px){#cur,}
 
 /* SCROLL BAR */
 .spb{position:fixed;top:0;left:0;height:2px;background:var(--mint);z-index:300;width:0%;}
@@ -372,7 +372,7 @@ footer{border-top:1px solid var(--bd);padding:28px 0;position:relative;z-index:1
 @keyframes drift{to{transform:translate(30px,20px) scale(1.05);}}
 
 /* ── MARQUEE ── */
-.marquee-wrap{position:relative;overflow:hidden;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:18px 0;}
+.marquee-wrap{position:relative;overflow:hidden;max-width:100vw;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:18px 0;}
 .marquee-wrap::before,.marquee-wrap::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;}
 .marquee-wrap::before{left:0;background:linear-gradient(to right,var(--bg),transparent);}
 .marquee-wrap::after{right:0;background:linear-gradient(to left,var(--bg),transparent);}
@@ -512,7 +512,62 @@ html.dark .grad-text{background:linear-gradient(135deg,#00e896 0%,#00ffa3 100%);
   .trust-label{display:none;}
 }
 
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;}
+  .marquee-track{animation:none;}
+}
+
+@media(max-width:960px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-right{width:100%;max-width:100%;}
+  .hero-card{max-width:100%;box-shadow:0 10px 40px rgba(0,0,0,.15);}
+  .df-name{font-size:12px;}
+  .df-meta{font-size:10px;}
+}
+@media(max-width:640px){
+  .hc-bar .hc-title{display:none;}
+  .df-chs{display:none;}
+  .hero{padding:90px 16px 40px;}
+}
+
+
+
+/* ── PILOT MODAL ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s;}
+.overlay.open{opacity:1;pointer-events:all;}
+.modal{background:var(--card);border:1px solid var(--bd2);border-radius:20px;width:100%;max-width:480px;overflow:hidden;transform:translateY(24px);transition:transform .35s var(--ease);position:relative;}
+.overlay.open .modal{transform:translateY(0);}
+.modal::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--mint),transparent);}
+.m-head{padding:24px 28px 0;}
+.m-hl{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;color:var(--t);margin-bottom:6px;}
+.m-sub{font-size:13px;color:var(--t3);margin-bottom:20px;line-height:1.5;}
+.m-body{padding:0 28px 28px;}
+.m-label{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:5px;}
+.m-inp{width:100%;background:var(--card2);border:1px solid var(--bd2);border-radius:8px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--t);outline:none;transition:border-color .15s;margin-bottom:14px;}
+.m-inp::placeholder{color:var(--t4);}
+.m-inp:focus{border-color:var(--mint-b);}
+.m-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.m-sel{width:100%;background:var(--card2);border:1px solid var(--bd2);border-radius:8px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--t);outline:none;margin-bottom:14px;cursor:pointer;-webkit-appearance:none;}
+.m-sel:focus{border-color:var(--mint-b);}
+.m-close{position:absolute;top:16px;right:20px;width:28px;height:28px;background:var(--card2);border:1px solid var(--bd2);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:var(--t3);transition:all .15s;}
+.m-close:hover{border-color:var(--bd3);color:var(--t);}
+.btn-submit{width:100%;padding:13px;background:var(--mint);border:none;border-radius:9px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15px;color:#06090f;cursor:pointer;transition:all .2s;margin-bottom:12px;}
+.btn-submit:hover{box-shadow:0 8px 24px rgba(0,232,150,.35);transform:translateY(-1px);}
+.btn-submit:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.m-wa{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:11px;background:transparent;border:1px solid var(--bd2);border-radius:9px;font-size:13px;color:var(--t2);cursor:pointer;text-decoration:none;transition:all .15s;}
+.m-wa:hover{border-color:#25d366;color:#25d366;}
+/* success state */
+.m-success{display:none;text-align:center;padding:40px 28px;}
+.m-success-icon{font-size:48px;margin-bottom:16px;}
+.m-success-hl{font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:var(--mint);margin-bottom:8px;}
+.m-success-sub{font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:24px;}
+/* error */
+[data-fs-error]{font-size:11px;color:var(--red);margin-top:-10px;margin-bottom:8px;display:block;font-family:'JetBrains Mono',monospace;}
+@media(max-width:480px){.m-row2{grid-template-columns:1fr;gap:0;}}
+
 </style>
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -520,16 +575,16 @@ html.dark .grad-text{background:linear-gradient(135deg,#00e896 0%,#00ffa3 100%);
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<div id="cur"></div>
+
 
 <!-- TOAST -->
-<div class="toast" id="toast">
+<div class="toast" id="land-toast">
   <div class="toast-dot"></div>
-  <div class="toast-icon" id="toast-icon">✉️</div>
-  <div><div class="toast-title" id="toast-title">Notice dispatched</div><div class="toast-sub" id="toast-sub">Rajesh Kumar Mehra · FIN-PL-4821</div></div>
+  <div class="toast-icon" id="land-toast-icon">✉️</div>
+  <div><div class="toast-title" id="land-toast-title">Notice dispatched</div><div class="toast-sub" id="land-toast-sub">Rajesh Kumar Mehra · FIN-PL-4821</div></div>
 </div>
 
-<div id="cur-r"></div>
+
 <div class="mesh"><div class="mb"></div><div class="mb"></div></div>
 <div class="spb" id="spb"></div>
 
@@ -544,8 +599,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="nr">
       <button class="btn-th" id="tbtn" onclick="toggleTheme()">🌙</button>
-      <button class="btn-si" onclick="rpl(this)">Sign In</button>
-      <button class="btn-cta" onclick="rpl(this)">Start Recovery →</button>
+      <button class="btn-si" onclick="window.location.href='./platform/'">Sign In</button>
+      <button class="btn-cta" onclick="window.location.href='./platform/'">>Start Recovery →</button>
     </div>
   </div>
 </nav>
@@ -562,8 +617,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </h1>
       <p class="hero-p">Bulk legal notice automation for NBFCs and fintechs. AI-drafted, advocate-signed, India Post tracked. From ₹33 per notice.</p>
       <div class="hero-btns">
-        <button class="btn-hero" onclick="rpl(this);scrollTo('#calculator')">See Recovery Pipeline ↓</button>
-        <button class="btn-hero-o" onclick="rpl(this)">Book a Demo</button>
+        <button class="btn-hero" onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})">See Recovery Pipeline ↓</button>
+        <button class="btn-hero-o" onclick="openPilot()">Book a Demo</button>
       </div>
       <div class="hero-tags">
         <div class="h-tag">India Post AD</div>
@@ -827,7 +882,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="calc-total">
         <div><div class="ct-lbl">Total recoverable this month</div><div class="ct-big" id="rtot">₹1.38Cr</div><div class="ct-sub" id="rsub">from 500 accounts · Vaasuli cost: ₹2.4L</div></div>
-        <button class="btn-calc" onclick="rpl(this)">Recover <span id="rcta">₹1.38Cr</span> →</button>
+        <button class="btn-calc" onclick="openPilot()">Recover <span id="rcta">₹1.38Cr</span> →</button>
       </div>
       <div class="calc-fn">* Estimates use 72% response rate and 18% avg overdue of outstanding. Fees at your volume. Actual results vary.</div>
     </div>
@@ -853,7 +908,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li><span class="fd">—</span>WhatsApp + SMS + Email</li>
           <li><span class="fd no">—</span><span style="color:var(--t4)">DPD automation rules</span></li>
         </ul>
-        <button class="btn-pc g" onclick="rpl(this)">Get Started →</button>
+        <button class="btn-pc g" onclick="window.location.href='./platform/'">Get Started →</button>
       </div>
       <div class="pc hot">
         <div class="pc-tier">Business</div>
@@ -867,7 +922,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li><span class="fd">—</span>Evidence file per borrower</li>
           <li><span class="fd">—</span>Arbitration pipeline access</li>
         </ul>
-        <button class="btn-pc s" onclick="rpl(this)">Start Free Pilot →</button>
+        <button class="btn-pc s" onclick="openPilot()">Start Free Pilot →</button>
       </div>
       <div class="pc">
         <div class="pc-tier">Enterprise</div>
@@ -880,7 +935,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li><span class="fd">—</span>API + SFTP integration</li>
           <li><span class="fd">—</span>Custom SLA agreement</li>
         </ul>
-        <button class="btn-pc g" onclick="rpl(this)">Contact Us →</button>
+        <button class="btn-pc g" onclick="window.location.href='mailto:hello@vaasuli.com?subject=Enterprise Enquiry'">Contact Us →</button>
       </div>
     </div>
   </div>
@@ -893,8 +948,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="cta-h">Stop printing.<br>Start recovering.</div>
       <p class="cta-p">First campaign live in 48 hours. Upload your CSV — we handle everything from dispatch to escalation.</p>
       <div class="cta-btns">
-        <button class="btn-hero" style="padding:16px 36px;font-size:16px" onclick="rpl(this)">Start Recovery →</button>
-        <button class="btn-hero-o" style="padding:16px 24px" onclick="rpl(this)">Book a Demo</button>
+        <button class="btn-hero" style="padding:16px 36px;font-size:16px" onclick="window.location.href='./platform/'">>Start Recovery →</button>
+        <button class="btn-hero-o" style="padding:16px 24px" onclick="openPilot()">Book a Demo</button>
       </div>
     </div>
   </div>
@@ -937,20 +992,14 @@ window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',funct
 });
 applyTheme(dark);
 
-/* CURSOR */
-var dot=document.getElementById('cur'),ring=document.getElementById('cur-r'),mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
-(function animR(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animR);})();
-document.querySelectorAll('a,button,.bc,.df-row,.cs,.pc,.ch-row,.file-item').forEach(function(el){
-  el.addEventListener('mouseenter',function(){dot.classList.add('h');ring.classList.add('h');});
-  el.addEventListener('mouseleave',function(){dot.classList.remove('h');ring.classList.remove('h');});
-});
+
 
 /* NAV + SCROLL */
 window.addEventListener('scroll',function(){
   document.getElementById('nav').classList.toggle('sc',window.scrollY>50);
-  document.getElementById('spb').style.width=Math.min(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100,100)+'%';
-});
+  var spb=document.getElementById('spb');
+  if(spb) spb.style.width=Math.min(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100,100)+'%';
+},{passive:true});
 
 /* REVEAL */
 var ro=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}});},{threshold:0.08});
@@ -990,21 +1039,9 @@ calc();
 /* RIPPLE */
 function rpl(btn){var r=document.createElement('span');r.className='rpl-el';var s=Math.max(btn.offsetWidth,btn.offsetHeight);r.style.cssText='width:'+s+'px;height:'+s+'px;left:'+(btn.offsetWidth/2-s/2)+'px;top:'+(btn.offsetHeight/2-s/2)+'px';btn.style.position='relative';btn.style.overflow='hidden';btn.appendChild(r);setTimeout(function(){r.remove();},600);}
 
-/* MAGNETIC — desktop only */
-if(!('ontouchstart' in window)){
-  document.querySelectorAll('.btn-hero,.btn-cta,.btn-calc,.btn-pc').forEach(function(btn){
-    btn.addEventListener('mousemove',function(e){var r=btn.getBoundingClientRect(),x=(e.clientX-r.left-r.width/2)*.2,y=(e.clientY-r.top-r.height/2)*.2;btn.style.transform='translate('+x+'px,'+y+'px)';});
-    btn.addEventListener('mouseleave',function(){btn.style.transform='';});
-  });
-}
 
-/* 3D TILT on bento cards — desktop only */
-if(!('ontouchstart' in window)){
-  document.querySelectorAll('.bc').forEach(function(c){
-    c.addEventListener('mousemove',function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform='translateY(-4px) rotateX('+(-y*4)+'deg) rotateY('+(x*4)+'deg)';c.style.transition='transform .08s';c.style.transformStyle='preserve-3d';});
-    c.addEventListener('mouseleave',function(){c.style.transform='';c.style.transition='transform .5s var(--ease)';});
-  });
-}
+
+
 
 /* SMOOTH SCROLL */
 function scrollTo(id){document.querySelector(id).scrollIntoView({behavior:'smooth'});}
@@ -1033,12 +1070,12 @@ var toasts = [
   {icon:'⚡', title:'Response received', sub:'Mohan Lal Verma replied within 6 days'},
   {icon:'📋', title:'Evidence bundle ready', sub:'FIN-PL-4821 · Court-ready PDF'},
 ];
-var tIdx = 0, toastEl = document.getElementById('toast');
+var tIdx = 0, toastEl = document.getElementById('land-toast');
 function showToast(){
   var t = toasts[tIdx % toasts.length]; tIdx++;
-  document.getElementById('toast-icon').textContent = t.icon;
-  document.getElementById('toast-title').textContent = t.title;
-  document.getElementById('toast-sub').textContent = t.sub;
+  document.getElementById('land-toast-icon').textContent = t.icon;
+  document.getElementById('land-toast-title').textContent = t.title;
+  document.getElementById('land-toast-sub').textContent = t.sub;
   toastEl.classList.add('show');
   setTimeout(function(){toastEl.classList.remove('show');}, 3200);
 }
@@ -1074,6 +1111,117 @@ var bro = new IntersectionObserver(function(es){
 },{threshold:0.08});
 document.querySelectorAll('.bc').forEach(function(el){bro.observe(el);});
 
+
+/* ── FORMSPREE ── */
+window.formspree = window.formspree || function(){(formspree.q=formspree.q||[]).push(arguments);};
+formspree('initForm',{
+  formElement: '#pilot-form',
+  formId: 'xkopygrd',
+  onSuccess: function(){
+    document.getElementById('m-form-state').style.display = 'none';
+    document.getElementById('m-success-state').style.display = 'block';
+  }
+});
+
+/* ── MODAL CONTROLS ── */
+function openPilot(){
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePilot(){
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function handleOverlayClick(e){
+  if(e.target===document.getElementById('overlay')) closePilot();
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closePilot();});
 </script>
+
+<!-- PILOT MODAL -->
+<div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="m-close" onclick="closePilot()">✕</div>
+    <!-- FORM STATE -->
+    <div id="m-form-state">
+      <div class="m-head">
+        <div class="m-hl">🎉 Claim your free pilot</div>
+        <div class="m-sub">10 notices at ₹0. Advocate-signed, India Post dispatched. No card needed.</div>
+      </div>
+      <div class="m-body">
+        <div data-fs-success style="display:none"></div>
+        <form id="pilot-form">
+          <label class="m-label">Your name</label>
+          <input class="m-inp" type="text" name="name" placeholder="Amit Sharma" required data-fs-field>
+          <span data-fs-error="name"></span>
+
+          <label class="m-label">Work email</label>
+          <input class="m-inp" type="email" name="email" placeholder="amit@nbfc.com" required data-fs-field>
+          <span data-fs-error="email"></span>
+
+          <div class="m-row2">
+            <div>
+              <label class="m-label">Mobile</label>
+              <input class="m-inp" type="tel" name="mobile" placeholder="+91 98765 43210" required data-fs-field style="margin-bottom:0">
+              <span data-fs-error="mobile"></span>
+            </div>
+            <div>
+              <label class="m-label">Company / NBFC</label>
+              <input class="m-inp" type="text" name="company" placeholder="Finserv Capital" required data-fs-field style="margin-bottom:0">
+              <span data-fs-error="company"></span>
+            </div>
+          </div>
+          <div style="height:14px"></div>
+
+          <div class="m-row2">
+            <div>
+              <label class="m-label">Loan type</label>
+              <select class="m-sel" name="loan_type" required data-fs-field style="margin-bottom:0">
+                <option value="">Select…</option>
+                <option>Personal Loan</option>
+                <option>Two-Wheeler</option>
+                <option>MSME / Business</option>
+                <option>LAP / Home Loan</option>
+                <option>Microfinance</option>
+                <option>Vehicle / CV</option>
+              </select>
+            </div>
+            <div>
+              <label class="m-label">DPD accounts / month</label>
+              <select class="m-sel" name="dpd_volume" required data-fs-field style="margin-bottom:0">
+                <option value="">Select…</option>
+                <option>Under 100</option>
+                <option>100–500</option>
+                <option>500–2,000</option>
+                <option>2,000–10,000</option>
+                <option>10,000+</option>
+              </select>
+            </div>
+          </div>
+          <div style="height:14px"></div>
+
+          <input type="hidden" name="_subject" value="Vaasuli Pilot Request">
+          <input type="text" name="_gotcha" style="display:none">
+
+          <button type="submit" class="btn-submit" data-fs-submit-btn>Claim Free Pilot →</button>
+          <a class="m-wa" id="wa-btn" href="https://wa.me/919967667715?text=Hi%2C%20I%20want%20to%20start%20a%20free%20Vaasuli%20pilot%20for%20my%20NBFC." target="_blank">
+            <span>💬</span> Or reach us on WhatsApp
+          </a>
+        </form>
+      </div>
+    </div>
+    <!-- SUCCESS STATE -->
+    <div class="m-success" id="m-success-state">
+      <div class="m-success-icon">✅</div>
+      <div class="m-success-hl">You're on the list!</div>
+      <div class="m-success-sub">We'll be in touch within 24 hours to set up your 10 free notices. In the meantime, say hi on WhatsApp.</div>
+      <a class="btn-submit" id="wa-btn-success" href="https://wa.me/919967667715?text=Hi%2C%20I%20just%20signed%20up%20for%20the%20Vaasuli%20free%20pilot." target="_blank" style="display:block;text-decoration:none;text-align:center;">
+        💬 WhatsApp us now →
+      </a>
+      <div style="margin-top:12px;font-size:12px;color:var(--t3)">Or email <a href="mailto:hello@vaasuli.com" style="color:var(--mint-text)">hello@vaasuli.com</a></div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
