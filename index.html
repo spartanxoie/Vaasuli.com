@@ -378,10 +378,10 @@ footer{border-top:1px solid var(--bd);padding:28px 0;position:relative;z-index:1
 @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
 /* ── WORD CYCLE ── */
-.wc{display:inline-block;position:relative;color:var(--mint-text);}
-.wc-word{position:absolute;left:0;top:0;opacity:0;transform:translateY(40px);transition:opacity .5s,transform .5s;white-space:nowrap;color:var(--mint);}
-.wc-word.active{position:relative;opacity:1;transform:translateY(0);}
-.wc-word.out{opacity:0;transform:translateY(-40px);}
+.wc{display:inline-block;position:relative;color:var(--mint);min-width:300px;}
+.wc-word{display:none;opacity:0;transform:translateY(20px);transition:opacity .4s,transform .4s;white-space:nowrap;color:var(--mint);}
+.wc-word.active{display:inline;opacity:1;transform:translateY(0);}
+.wc-word.out{display:none;opacity:0;}
 
 /* ── TOAST ── */
 .toast{position:fixed;bottom:28px;right:28px;z-index:500;background:var(--card);border:1px solid var(--bd2);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 20px 50px rgba(0,0,0,.15);transform:translateY(100px);opacity:0;transition:transform .5s var(--ease),opacity .5s;max-width:300px;pointer-events:none;}
@@ -545,7 +545,7 @@ html.dark .grad-text{background:linear-gradient(135deg,#00e896 0%,#00ffa3 100%);
       <h1 class="hero-h1">
         <span class="ln"><span class="li">Your collections</span></span>
         <span class="ln"><span class="li">team shouldn't be</span></span>
-        <span class="ln"><span class="li"><span class="grad-text" id="wc-container"><span class="wc-word active">printing notices.</span><span class="wc-word">manual paperwork.</span><span class="wc-word">ops bottlenecks.</span><span class="wc-word">missed escalations.</span></span></span></span>
+        <span class="ln" style="overflow:visible"><span class="li" style="overflow:visible"><span class="grad-text" id="wc-container" style="display:inline-block"><span class="wc-word active">printing notices.</span><span class="wc-word">behind on recoveries.</span><span class="wc-word">drowning in paperwork.</span><span class="wc-word">wasting time on this.</span></span></span></span>
       </h1>
       <p class="hero-p">Bulk legal notice automation for NBFCs and fintechs. AI-drafted, advocate-signed, India Post tracked. From ₹33 per notice.</p>
       <div class="hero-btns">
@@ -997,20 +997,17 @@ if(!('ontouchstart' in window)){
 function scrollTo(id){document.querySelector(id).scrollIntoView({behavior:'smooth'});}
 
 /* ── WORD CYCLE ── */
-var words = ['printing notices.','manual paperwork.','ops bottlenecks.','missed escalations.'];
+var words = ['printing notices.','behind on recoveries.','drowning in paperwork.','wasting time on this.'];
 var wIdx = 0;
 var wcEl = document.getElementById('wc-container');
 if(wcEl){
   function cycleWord(){
     var all = wcEl.querySelectorAll('.wc-word');
     var cur = wcEl.querySelector('.wc-word.active');
-    if(cur) cur.classList.add('out');
-    setTimeout(function(){
-      if(cur) cur.classList.remove('active','out');
-      wIdx = (wIdx+1) % words.length;
-      var next = all[wIdx];
-      if(next){ next.textContent = words[wIdx]; next.classList.add('active'); }
-    }, 500);
+    if(cur) cur.classList.remove('active');
+    wIdx = (wIdx+1) % all.length;
+    var next = all[wIdx];
+    if(next) next.classList.add('active');
   }
   setInterval(cycleWord, 2800);
 }
